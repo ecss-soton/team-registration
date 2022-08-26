@@ -6,3 +6,52 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// The discord or microsoft account
+model Account {
+  id                String  @id @default(cuid()) @db.VarChar(30)
+  userId            String  @db.VarChar(30)
+  type              String  @db.VarChar(5)
+  provider          String  @db.VarChar(10)
+  providerAccountId String  @unique @db.VarChar(20)
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+// A current active session on the website
+model Session {
+  id           String   @id @default(cuid()) @db.VarChar(30)
+  sessionToken String   @unique @db.Uuid
+  userId       String   @db.VarChar(30)
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Details about a specific user
+model User {
+  id String @id @default(cuid()) @db.VarChar(30)
+
+  name          String?   @db.VarChar(255)
+  email         String?   @unique @db.VarChar(255)
+  emailVerified DateTime?
+  image         String?   @db.VarChar(255)
+
+  firstName   String @db.VarChar(255)
+  lastName    String @db.VarChar(255)
+  displayName String @db.VarChar(255)
+  sotonId     String @unique @db.VarChar(50) // ec3g21
+  discordId  String? @unique @db.VarChar(20)
+  discordTag String? @unique @db.VarChar(37) // 32 chars + 5
+
+  accounts          Account[]
+  sessions          Session[]
+}
