@@ -30,7 +30,7 @@ export default NextAuth({
                     method: 'GET',
                     url: `https://reliable-sprinkles-18ff83.netlify.app/api/v2/user?sotonId=${profile.email.split('@')[0]}`,
                     headers: {
-                        Authorization: '3a1ac762-73aa-4805-a944-a011802a4a35'
+                        Authorization: String(process.env.SOTON_VERIFY_API_AUTH)
                     },
                     data: {
                         guildId: '1008673689665032233',
