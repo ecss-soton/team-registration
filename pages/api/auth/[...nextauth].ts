@@ -8,7 +8,7 @@ import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-    return await NextAuth({
+    return await NextAuth(req, res, {
         adapter: PrismaAdapter(prisma),
         pages: {
             signIn: '/',
