@@ -1,4 +1,12 @@
-import {MultiSelect, NativeSelect, Switch, Box, CloseButton, SelectItemProps, MultiSelectValueProps} from '@mantine/core';
+import {
+  MultiSelect,
+  NativeSelect,
+  Box,
+  CloseButton,
+  SelectItemProps,
+  MultiSelectValueProps,
+  TextInput, Checkbox
+} from '@mantine/core';
 
 import { forwardRef, FunctionComponent } from 'react';
 import {
@@ -98,7 +106,7 @@ export default function Home() {
         <>
 
             <NativeSelect
-                data={['1st year', '2nd year', '3rd year', 'postgraduate']}
+                data={['1st year', '2nd year', '3rd year', '4th year', 'postgraduate']}
                 placeholder="Pick one"
                 label="Which year are you in?"
                 description="This is anonymous"
@@ -111,11 +119,21 @@ export default function Home() {
                 itemComponent={Item}
                 searchable
                 nothingFound="Nothing found"
+                label="What programming languages do you know?"
             />
 
-            <Switch
-                label="I already have a team"
+            <TextInput
+              label="Do you have any dietary requirements?"
             />
+
+            <TextInput
+              label="Anything else we should know?"
+            />
+
+            <Checkbox
+              label="I agree that by participating in the event my picture may be taken."
+            />
+
         </>
     );
 }
