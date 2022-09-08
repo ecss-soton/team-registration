@@ -40,18 +40,39 @@ model Session {
 model User {
   id String @id @default(cuid()) @db.VarChar(30)
 
-  name          String?   @db.VarChar(255)
-  email         String?   @unique @db.VarChar(255)
-  emailVerified DateTime?
-  image         String?   @db.VarChar(255)
+  firstName   String  @db.VarChar(255)
+  lastName    String  @db.VarChar(255)
+  displayName String  @db.VarChar(255)
+  sotonId     String  @unique @db.VarChar(50) // ec3g21
+  discordId   String? @unique @db.VarChar(20)
+  discordTag  String? @unique @db.VarChar(37) // 32 chars + 5
 
-  firstName   String @db.VarChar(255)
-  lastName    String @db.VarChar(255)
-  displayName String @db.VarChar(255)
-  sotonId     String @unique @db.VarChar(50) // ec3g21
-  discordId  String? @unique @db.VarChar(20)
-  discordTag String? @unique @db.VarChar(37) // 32 chars + 5
+  accounts Account[]
+  sessions Session[]
+  tags     Tag[]
+  team   Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId String? @db.VarChar(30)
+  joinedTeamTime DateTime?
+}
 
-  accounts          Account[]
-  sessions          Session[]
+enum Tag {
+  rs
+  java
+  cpp
+  js
+  ts
+  kt
+  cs
+  rb
+  sql
+  py
+  c
+}
+
+
+model Team {
+  id String @id @default(cuid()) @db.VarChar(30)
+
+  members User[]
+  locked  Boolean  @default(false)
 }

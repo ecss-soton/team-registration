@@ -5,8 +5,10 @@ import {
   CloseButton,
   SelectItemProps,
   MultiSelectValueProps,
-  TextInput, Checkbox
+  TextInput, Checkbox, SelectItem
 } from '@mantine/core';
+
+import {Tag} from '@/types/types'
 
 import { forwardRef, FunctionComponent } from 'react';
 import {
@@ -19,7 +21,8 @@ import {
   TypescriptOriginal
 } from 'devicons-react';
 
-const langData = [
+
+const langData: (SelectItem & {value: Tag})[] = [
   { label: 'Rust', value: 'rs' },
   { label: 'Java', value: 'java' },
   { label: 'C++', value: 'cpp' },
@@ -33,7 +36,7 @@ const langData = [
   {label: 'C', value: 'c'}
 ];
 
-const icons: Record<string, FunctionComponent> = {
+const icons: Record<Tag, FunctionComponent> = {
     "rs": RustPlain,
     "java": JavaOriginal,
     "cpp": CplusplusOriginal,
@@ -53,7 +56,7 @@ function Value({
   onRemove,
   classNames,
   ...others
-}: MultiSelectValueProps & { value: string }) {
+}: MultiSelectValueProps & { value: Tag }) {
   const Icon = icons[value];
   return (
     <div {...others}>
@@ -87,7 +90,7 @@ function Value({
 // eslint-disable-next-line react/display-name
 const Item = forwardRef<HTMLDivElement, SelectItemProps>(({ label, value, ...others }, ref) => {
   // Cannot be undefined
-  const Flag = icons[value as string];
+  const Flag = icons[value as Tag];
   return (
     <div ref={ref} {...others}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>

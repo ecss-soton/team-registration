@@ -1,4 +1,3 @@
-import NextAuth, { DefaultSession, DefaultUser } from "next-auth"
 import {ISODateString} from "next-auth/core/types";
 
 declare module "next-auth" {
@@ -14,7 +13,8 @@ declare module "next-auth" {
         microsoft: {
             email: string | null
         }
-        expires: ISODateString;
+        expires: ISODateString
+        id: string;
     }
 
     /**
