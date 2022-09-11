@@ -50,6 +50,7 @@ model User {
   accounts Account[]
   sessions Session[]
   tags     Tag[]
+  formData Json?
   team   Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId String? @db.VarChar(30)
   joinedTeamTime DateTime?
