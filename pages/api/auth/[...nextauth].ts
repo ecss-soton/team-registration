@@ -42,14 +42,13 @@ export const authOptions: NextAuthOptions = {
 };
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-    //TODO check if this works
     (authOptions.providers[0] as OAuthConfig<AzureADProfile>).profile = async function profile(profile, tokens) {
 
         tokens.ext_expires_in = undefined;
 
         const sotonVerifyData = await axios({
             method: 'GET',
-            url: `https://reliable-sprinkles-18ff83.netlify.app/api/v2/user?sotonId=${profile.email.split('@')[0]}`,
+            url: `https://sotonverify.link/api/v2/user?sotonId=${profile.email.split('@')[0]}`,
             headers: {
                 Authorization: String(process.env.SOTON_VERIFY_API_AUTH)
             },
@@ -61,7 +60,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         const data = sotonVerifyData.data;
 
         if (data.error) {
-            res.redirect('https://society.ecs.soton.ac.uk/verify');
+            res.redirect('https://sotonverify.link');
         }
 
         return {

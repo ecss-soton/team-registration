@@ -53,6 +53,12 @@ model User {
   team   Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId String? @db.VarChar(30)
   joinedTeamTime DateTime?
+
+// BUG Next Auth being strange might have to add these columns if you get errors about something not existing
+    name          String?   @db.VarChar(255)
+    email         String?   @unique @db.VarChar(255)
+    emailVerified DateTime?
+    image         String?   @db.VarChar(255)
 }
 
 enum Tag {
