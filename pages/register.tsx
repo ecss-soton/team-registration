@@ -14,11 +14,11 @@ import {RegisterForm, Tag} from '@/types/types'
 import {forwardRef, FunctionComponent, useState} from 'react';
 import {
     COriginal,
-    CplusplusOriginal, CsharpOriginal,
+    CplusplusOriginal, CsharpOriginal, FlutterOriginal, GoOriginal,
     JavaOriginal,
     JavascriptOriginal,
     KotlinPlain, PythonOriginal, RubyPlain,
-    RustPlain, SqlitePlain,
+    RustPlain, SqlitePlain, SwiftPlain,
     TypescriptOriginal
 } from 'devicons-react';
 import {IncomingMessage, ServerResponse} from "http";
@@ -43,7 +43,10 @@ const langData: (SelectItem & { value: Tag })[] = [
     {label: 'Ruby', value: 'rb'},
     {label: 'SQL', value: 'sql'},
     {label: 'Python', value: 'py'},
-    {label: 'C', value: 'c'}
+    {label: 'C', value: 'c'},
+    {label: 'Flutter', value: 'dart'},
+    {label: 'Swift', value: 'swift'},
+    {label: 'Go', value: 'go'}
 ];
 
 const icons: Record<Tag, FunctionComponent> = {
@@ -57,7 +60,10 @@ const icons: Record<Tag, FunctionComponent> = {
     "rb": RubyPlain,
     "sql": SqlitePlain,
     "py": PythonOriginal,
-    "c": COriginal
+    "c": COriginal,
+    "go": GoOriginal,
+    "dart": FlutterOriginal,
+    "swift": SwiftPlain
 };
 
 const yearOfStudy: Record<string, RegisterForm['yearOfStudy']> = {

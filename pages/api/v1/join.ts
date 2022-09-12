@@ -50,7 +50,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         // TODO can this be modified by the user?
         sotonId: attemptedAuth.id,
       }, data: {
-        teamId: team.id, joinedTeam: new Date()
+        teamId: team.id, joinedTeamTime: new Date()
       }
     });
 
@@ -63,7 +63,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
       where: {
         sotonId: attemptedAuth.id,
       }, data: {
-        joinedTeam: new Date(), team: {
+        joinedTeamTime: new Date(), team: {
           create: {}
         }
       }

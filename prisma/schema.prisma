@@ -79,6 +79,9 @@ enum Tag {
   sql
   py
   c
+  go
+  dart
+  swift
 }
 
 model Team {
