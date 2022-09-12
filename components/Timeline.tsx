@@ -19,7 +19,12 @@ const stages = [
     {
         title: "Choose a team",
         content: (
-            <Text color="dimmed" size="sm">Make sure to be well rested for a hackathon in Zepler!</Text>
+            <>
+                <Text color="dimmed" size="sm">Create or join a team and meet new people!</Text>
+                <Link href="/teams" passHref>
+                    <Button component="a">View teams</Button>
+                </Link>
+            </>
         )
     },
     {
