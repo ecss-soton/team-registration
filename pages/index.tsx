@@ -52,7 +52,7 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
     return {
         props: {
             session,
-            user
+            user: JSON.parse(JSON.stringify(user))
         },
     }
 }
