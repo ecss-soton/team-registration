@@ -9,7 +9,7 @@ import { OAuthConfig } from 'next-auth/providers';
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     pages: {
-        signIn: '/',
+        signIn: '/signin',
         signOut: '/',
     },
     providers: [
