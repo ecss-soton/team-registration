@@ -49,7 +49,7 @@ const langData: (SelectItem & { value: Tag })[] = [
     {label: 'Go', value: 'go'}
 ];
 
-const icons: Record<Tag, FunctionComponent> = {
+export const icons: Record<Tag, FunctionComponent> = {
     "rs": RustPlain,
     "java": JavaOriginal,
     "cpp": CplusplusOriginal,
