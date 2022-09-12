@@ -9,7 +9,7 @@ import {
     Button
 } from '@mantine/core';
 
-import {Tag} from '@/types/types'
+import {RegisterForm, Tag} from '@/types/types'
 
 import {forwardRef, FunctionComponent, useState} from 'react';
 import {
@@ -29,6 +29,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import prisma from "../prisma/client";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 
 const langData: (SelectItem & { value: Tag })[] = [
@@ -58,6 +59,14 @@ const icons: Record<Tag, FunctionComponent> = {
     "py": PythonOriginal,
     "c": COriginal
 };
+
+const yearOfStudy: Record<string, RegisterForm['yearOfStudy']> = {
+    '1st year': 1,
+    '2nd year': 2,
+    '3rd year': 3,
+    '4th year': 4,
+    'postgraduate': 5,
+}
 
 function Value({
                    value,
@@ -121,8 +130,6 @@ export default function Register({session}: RegisterProps) {
 
     const router = useRouter();
 
-    const yearOfStudy = ['1st year', '2nd year', '3rd year', '4th year', 'postgraduate']
-
     const valueTooLongMessage = 'Please use less than 2000 characters, Please contact society@ecs.soton.ac.uk if you have any concerns'
 
     const form = useForm({
@@ -135,7 +142,7 @@ export default function Register({session}: RegisterProps) {
         },
 
         validate: {
-            yearOfStudy: (value) => (!yearOfStudy.includes(value) ? 'Please enter a valid year of study' : null),
+            yearOfStudy: (value) => (!Object.keys(yearOfStudy).includes(value) ? 'Please enter a valid year of study' : null),
             dietaryReq: (value) => (value.length > 2000 ? valueTooLongMessage : null),
             extra: (value) => (value.length > 2000 ? valueTooLongMessage : null),
         },
@@ -143,8 +150,17 @@ export default function Register({session}: RegisterProps) {
 
     const [formLoading, setFormLoading] = useState(false);
 
-    const submitForm = async (values: { yearOfStudy: string, knownLanguages: string[], dietaryReq: string, extra: string, noPhotos: boolean }) => {
+    const submitForm = async (values: { yearOfStudy: string, knownLanguages: Tag[], dietaryReq: string, extra: string, noPhotos: boolean }) => {
         setFormLoading(true)
+
+        const submissionValues: RegisterForm = {
+            yearOfStudy: yearOfStudy[values.yearOfStudy],
+            knownLanguages: values.knownLanguages,
+            dietaryReq: values.dietaryReq,
+            extra: values.extra,
+            photoConsent: !values.noPhotos,
+        }
+
         const res = await fetch("/api/v1/register", {
             method: "post",
             headers: {
@@ -153,11 +169,10 @@ export default function Register({session}: RegisterProps) {
             },
 
             //make sure to serialize your JSON body
-            body: JSON.stringify({
-                values
-            })
+            body: JSON.stringify(submissionValues)
         })
         const res2 = await res.json()
+        console.log(res2)
         if (res2.success) {
             setFormLoading(false);
             await router.push("/");
@@ -170,7 +185,7 @@ export default function Register({session}: RegisterProps) {
                 <form className='w-full sm:w-2/4 max-w-2xl mt-40 space-y-7'
                       onSubmit={form.onSubmit(submitForm)}>
                     <NativeSelect
-                        data={yearOfStudy}
+                        data={Object.keys(yearOfStudy)}
                         placeholder="Pick one"
                         label="Which year are you in?"
                         description="This is anonymous"
@@ -203,7 +218,13 @@ export default function Register({session}: RegisterProps) {
                         {...form.getInputProps('noPhotos', {type: 'checkbox'})}
                     />
 
-                    <Button loading={formLoading} type="submit">Submit</Button>
+
+                    <div className='space-x-1.5'>
+                        <Button loading={formLoading} type="submit">Submit</Button>
+                        <Link href="/" passHref >
+                            <Button variant="outline" component="a">Back</Button>
+                        </Link>
+                    </div>
                 </form>
             </div>
         </>

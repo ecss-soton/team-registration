@@ -3,6 +3,7 @@ import {auth} from "../../../middleware/auth";
 import {unstable_getServerSession} from "next-auth";
 import {authOptions} from "../auth/[...nextauth]";
 import prisma from "../../../prisma/client";
+import {RegisterForm} from "@/types/types";
 
 interface ResponseData {
     success: boolean
@@ -30,20 +31,36 @@ export default async function handler(
         });
     }
 
-    console.log(attemptedAuth)
+    const formData: RegisterForm = req.body;
 
+    if (!formData.yearOfStudy || !formData.knownLanguages) {
+        return res.status(400).json({
+            error: true, message: 'Missing properties',
+        });
+    }
 
-    // TODO make this way more secure
-    const user2 = await prisma.user.update({
-        data: {
-            formData: req.body
-        },
-        where: {
-            discordTag: attemptedAuth.discord.tag
-        }
-    })
+    try {
+        await prisma.user.update({
+            data: {
+                tags: formData.knownLanguages,
+                yearOfStudy: formData.yearOfStudy,
+                dietaryReq: formData.dietaryReq || undefined,
+                extra: formData.extra || undefined,
+                photoConsent: formData.photoConsent,
+            },
+            where: {
+                discordTag: attemptedAuth.discord.tag
+            }
+        })
 
-    res.status(200).json({
-        success: true
-    });
+        res.status(200).json({
+            success: true,
+        });
+    } catch (e) {
+        res.status(404).json({
+            error: true,
+            message: "This user does not exist"
+        });
+    }
+
 }

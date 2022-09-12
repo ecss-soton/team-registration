@@ -47,19 +47,24 @@ model User {
   discordId   String? @unique @db.VarChar(20)
   discordTag  String? @unique @db.VarChar(37) // 32 chars + 5
 
-  accounts Account[]
-  sessions Session[]
-  tags     Tag[]
-  formData Json?
-  team   Team?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId String? @db.VarChar(30)
+  tags         Tag[]
+  yearOfStudy  Int?
+  dietaryReq   String?
+  extra        String?
+  photoConsent Boolean?
+
+  team           Team?     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId         String?   @db.VarChar(30)
   joinedTeamTime DateTime?
 
-// BUG Next Auth being strange might have to add these columns if you get errors about something not existing
-    name          String?   @db.VarChar(255)
-    email         String?   @unique @db.VarChar(255)
-    emailVerified DateTime?
-    image         String?   @db.VarChar(255)
+  accounts Account[]
+  sessions Session[]
+
+  // BUG Next Auth being strange might have to add these columns if you get errors about something not existing
+  name          String?   @db.VarChar(255)
+  email         String?   @unique @db.VarChar(255)
+  emailVerified DateTime?
+  image         String?   @db.VarChar(255)
 }
 
 enum Tag {
@@ -76,10 +81,9 @@ enum Tag {
   c
 }
 
-
 model Team {
   id String @id @default(cuid()) @db.VarChar(30)
 
   members User[]
-  locked  Boolean  @default(false)
+  locked  Boolean @default(false)
 }

@@ -10,3 +10,11 @@ export interface Team {
   locked: boolean,
   members: Member[]
 }
+
+export interface RegisterForm {
+  yearOfStudy: 1 | 2 | 3 | 4 | 5,
+  knownLanguages: Tag[],
+  dietaryReq?: string,
+  extra?: string,
+  photoConsent: boolean,
+}
