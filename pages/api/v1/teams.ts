@@ -5,7 +5,7 @@ import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
 interface ResponseData {
-  yourTeam?: number,
+  yourTeam?: string,
   yourRank?: number,
   teams: Team[]
 }
@@ -30,8 +30,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
   const user = await prisma.user.findUnique({
     where: {
-      //TODO can this be modified by the user?
-      sotonId: attemptedAuth.id,
+      id: attemptedAuth.id,
     }
   });
 
@@ -39,7 +38,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     include: {
       members: {
         orderBy: {
-          joinedTeamTime: "asc"
+          joinedTeamTime: 'asc'
         }
       }
     }
@@ -55,19 +54,18 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     });
   }
 
-  let yourTeam = undefined;
-  let yourRank = undefined;
-  if (user.teamId) {
-    yourTeam = teams.findIndex((elem) => elem.id === user.teamId);
-    yourRank = teams[yourTeam].members.findIndex((elem) => elem.sotonId === attemptedAuth.id)
-  }
+  const yourTeam = user.teamId ?? undefined;
+  let yourRank = teams.find((t) => t.id === yourTeam)?.members.findIndex((elem) => elem.id === user.id);
 
   res.status(200).json({
     yourTeam, yourRank, teams: teams.map((team) => {
       return {
-        locked: team.locked, members: team.members.map((member) => {
+        locked: team.locked, id: team.id, members: team.members.map((member) => {
           return {
-            name: member.displayName ?? "", discordTag: member.discordTag ?? undefined, tags: member.tags
+            name: member.displayName ?? '',
+            discordTag: member.discordTag ?? undefined,
+            tags: member.tags,
+            yearOfStudy: member.yearOfStudy ?? undefined
           };
         })
       };

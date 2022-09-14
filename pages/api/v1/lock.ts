@@ -35,8 +35,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
   const user = await prisma.user.findUnique({
     where: {
-      //TODO can this be modified by the user?
-      sotonId: attemptedAuth.id,
+      id: attemptedAuth.id,
     }
   });
 

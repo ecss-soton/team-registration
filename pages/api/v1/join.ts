@@ -4,7 +4,7 @@ import {unstable_getServerSession} from 'next-auth';
 import {authOptions} from '../auth/[...nextauth]';
 
 // interface RequestData {
-//   team?: number
+//   team?: string
 // }
 
 interface ResponseError {
@@ -25,14 +25,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         });
     }
 
-    if (req.body.team || req.body.team === 0) {
+    if (req.body.team) {
         // user wants to join a specific team.
-        if (req.body.team < 0 || !Number.isInteger(req.body.team)) return res.status(405).json({
-            error: true, message: 'team parameter must be between 0 and number of teams.',
+        if (typeof req.body.team !== "string") return res.status(405).json({
+            error: true, message: 'team parameter must be a string id.',
         });
 
         const team = await prisma.team.findFirst({
-            skip: req.body.team, include: {
+            where: {
+                id: req.body.team
+            }, include: {
                 members: true
             }
         });
@@ -47,8 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         const user = await prisma.user.update({
             where: {
-                // TODO can this be modified by the user?
-                discordTag: attemptedAuth.discord.tag,
+                id: attemptedAuth.id,
             }, data: {
                 teamId: team.id, joinedTeamTime: new Date()
             }
@@ -61,7 +62,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     } else {
         const user = await prisma.user.update({
             where: {
-                discordTag: attemptedAuth.discord.tag,
+                id: attemptedAuth.id,
             },
             data: {
                 joinedTeamTime: new Date(),

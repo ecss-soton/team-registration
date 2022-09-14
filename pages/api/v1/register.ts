@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {auth} from "../../../middleware/auth";
 import {unstable_getServerSession} from "next-auth";
 import {authOptions} from "../auth/[...nextauth]";
 import prisma from "../../../prisma/client";
@@ -49,7 +48,7 @@ export default async function handler(
                 photoConsent: formData.photoConsent,
             },
             where: {
-                discordTag: attemptedAuth.discord.tag
+                id: attemptedAuth.id
             }
         })
 

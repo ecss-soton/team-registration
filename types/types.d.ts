@@ -1,11 +1,16 @@
-import {User} from "@prisma/client";
-
 export type Tag = "rs" | "java" | "cpp" | "js" | "ts" | "kt" | "cs" | "rb" | "sql" | "py" | "c" | "dart" | "go" | "swift"
 
 export interface Team {
-  id: string
   locked: boolean,
-  members: User[]
+  members: Member[]
+  id: string
+}
+
+export interface Member {
+  name: string,
+  discordTag?: string,
+  yearOfStudy?: number
+  tags: Tag[],
 }
 
 export interface RegisterForm {
