@@ -6,11 +6,6 @@ import { Team } from '@/types/types';
 import { icons } from '../pages/register';
 import { useState } from 'react';
 
-export interface BadgeCardProps extends Team {
-  teamName: string;
-  userIsAdmin: boolean;
-}
-
 export function TeamCard (team: Team & { userRank?: number }) {
   const [lockButtonLoading, setLockButtonLoading] = useState(false);
   const [locked, setLocked] = useState(team.locked);

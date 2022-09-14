@@ -56,7 +56,6 @@ model User {
   team           Team?     @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId         String?   @db.VarChar(30)
   joinedTeamTime DateTime?
-  teamAdmin      Boolean?
 
   accounts Account[]
   sessions Session[]
