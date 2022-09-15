@@ -5,10 +5,12 @@ import {
 import { Team } from '@/types/types';
 import { icons } from '../pages/register';
 import { useState } from 'react';
+import { useSWRConfig } from 'swr';
 
-export function TeamCard (team: Team & { userRank?: number }) {
+export function TeamCard (team: Team & { userRank?: number}) {
   const [lockButtonLoading, setLockButtonLoading] = useState(false);
-  const [locked, setLocked] = useState(team.locked);
+  const [joinButtonLoading, setJoinButtonLoading] = useState(false);
+  const {mutate} = useSWRConfig();
 
   const lockTeam = async () => {
     setLockButtonLoading(true);
@@ -18,12 +20,41 @@ export function TeamCard (team: Team & { userRank?: number }) {
         'Accept': 'application/json', 'Content-Type': 'application/json'
       },
 
-      body: JSON.stringify({ shouldLock: !locked })
+      body: JSON.stringify({ shouldLock: !team.locked })
     });
 
     if (res.ok) {
-      setLocked(!locked);
+      await mutate('/api/v1/teams', (oldData: any) => {
+        // Need to deep copy the data
+        let data: {
+          yourTeam?: string, yourRank?: number, teams: Team[]
+        } | undefined = JSON.parse(JSON.stringify(oldData));
+        if (data) {
+          let cachedTeam = data.teams.find((t) => t.id === team.id);
+          if (cachedTeam) {
+            cachedTeam.locked = !team.locked;
+          }
+        }
+        return data;
+      }, {populateCache: true, revalidate: false})
       setLockButtonLoading(false);
+    }
+  };
+
+  const joinTeam = async () => {
+    setJoinButtonLoading(true);
+
+    const res = await fetch('/api/v1/join', {
+      method: 'post', headers: {
+        'Accept': 'application/json', 'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({ team: team.id })
+    });
+
+    if (res.ok) {
+      await mutate('/api/v1/teams')
+      setJoinButtonLoading(false);
     }
   };
 
@@ -62,14 +93,14 @@ export function TeamCard (team: Team & { userRank?: number }) {
     </Card.Section>
 
     <Group mt="xs">
-      <Button radius="md" disabled={locked || team.userRank !== undefined}>
+      <Button radius="md" disabled={team.locked || team.userRank !== undefined} loading={joinButtonLoading} onClick={joinTeam}>
         Join team
       </Button>
       {/* TODO Get the z index correct so that the tooltip can escape the group card. */}
       <Tooltip label="You must be an admin to lock/unlock a team." disabled={team.userRank === 0}>
         <ActionIcon variant="default" radius="md" size={36} disabled={team.userRank !== 0} loading={lockButtonLoading}
                     onClick={lockTeam}>
-          {locked ? <IconLock size={18} stroke={1.5}/> : <IconLockOpen size={18} stroke={1.5}/>}
+          {team.locked ? <IconLock size={18} stroke={1.5}/> : <IconLockOpen size={18} stroke={1.5}/>}
         </ActionIcon>
       </Tooltip>
     </Group>

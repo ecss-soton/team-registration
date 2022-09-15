@@ -7,7 +7,7 @@ import fetcher from '../middleware/fetch';
 
 export default function Teams () {
 
-  const { data } = useSWR<{
+  const { data, mutate } = useSWR<{
     yourTeam?: string, yourRank?: number, teams: Team[]
   }>('/api/v1/teams', fetcher, { refreshInterval: 3000 });
 
@@ -26,6 +26,7 @@ export default function Teams () {
     });
 
     if (res.ok) {
+      await mutate();
       setButtonLoading(false);
     }
   };
