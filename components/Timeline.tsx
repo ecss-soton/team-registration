@@ -86,7 +86,7 @@ const stages = [
         title: "Team presentations",
         date: new Date("1 october 2022 20:45:00"),
         content: (
-            <Text>Show us what you've created!</Text>
+            <Text>Show us what you have created!</Text>
         )
     },
     {
