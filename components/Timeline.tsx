@@ -9,7 +9,7 @@ import type { User } from "@prisma/client"
 const stages = [
     {
         title: "Hackathon registration opens",
-        date: new Date("19 september 2022 12:00:00"),
+        date: new Date("27 september 2022 20:00:00"), // TODO
         content: (
             <Link href="/register" passHref>
                 <Button component="a">Register</Button>
@@ -28,47 +28,72 @@ const stages = [
         )
     },
     {
-        title: "Discuss ideas",
+        title: "Discuss ideas", // TODO take this out so people can see arrival details?
         content: (
-            <Link href="/register" passHref>
-                <Button component="a">Register</Button>
-            </Link>
+            <Text>Talk to your mates prior to the hackathon</Text>
         )
     },
     {
-        title: "Hackathon starts",
-        date: new Date("1 october 2022 10:00:00"),
+        title: "Arrive",
+        date: new Date("1 october 2022 09:45:00"),
         content: (
-            <Link href="/register" passHref>
-                <Button component="a">Register</Button>
-            </Link>
+            <Text>Turn up to this location and do cool things!</Text>
         )
     },
     {
-        title: "Mario kart",
-        date: new Date("1 october 2022 11:00:00"),
+        title: "Theme presentation and introduction talk",
+        date: new Date("1 october 2022 10:30:00"),
         content: (
-            <Link href="/register" passHref>
-                <Button component="a">Register</Button>
-            </Link>
+            <Text>Find out the theme for this hackathon</Text>
         )
     },
     {
-        title: "Lunch",
-        date: new Date("1 october 2022 13:00:00"),
+        title: "Team paper aeroplane competition",
+        date: new Date("1 october 2022 12:00:00"),
         content: (
-            <Link href="/register" passHref>
-                <Button component="a">Register</Button>
-            </Link>
+            <Text>Test your engineering ability and craft a paper plane. The furthest wins!</Text>
         )
     },
     {
-        title: "Prize giving",
+        title: "Wikiraces competition",
+        date: new Date("1 october 2022 15:00:00"),
+        content: (
+            <Text>What links Southampton and digital watches? No clue? Follow the wikipedia links to find out!</Text>
+        )
+    },
+    {
+        title: "Pizza arrives",
+        date: new Date("1 october 2022 18:00:00"),
+        content: (
+            <Text>All that hacking gets tiring, refuel with some free pizza!</Text>
+        )
+    },
+    {
+        title: "Mario Kart tournament",
+        date: new Date("1 october 2022 19:00:00"),
+        content: (
+            <Text>Join the Mario Kart tournament to see who can go round Rainbow road the fastest</Text>
+        )
+    },
+    {
+        title: "Project submission deadlines",
+        date: new Date("1 october 2022 20:30:00"),
+        content: (
+            <Text>Add your finishing touches to your project before your final submission</Text>
+        )
+    },
+    {
+        title: "Team presentations",
+        date: new Date("1 october 2022 20:45:00"),
+        content: (
+            <Text>Show us what you've created!</Text>
+        )
+    },
+    {
+        title: "Winners announced",
         date: new Date("1 october 2022 22:00:00"),
         content: (
-            <Link href="/register" passHref>
-                <Button component="a">Register</Button>
-            </Link>
+            <Text>Everyone gets a prize but the best projects get a big prize</Text>
         )
     }
 ]
