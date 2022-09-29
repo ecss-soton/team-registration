@@ -9,6 +9,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import {User} from "@prisma/client";
 import prisma from "../prisma/client";
+import { Button, Text, Image } from "@mantine/core";
+import Link from "next/link";
 
 export default function Home({ session, user }: { session: Session, user: User }) {
 
@@ -21,9 +23,38 @@ export default function Home({ session, user }: { session: Session, user: User }
 
             <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
 
-                <h1 className="font-bold text-6xl m-5">ECSS Hackathon registration</h1>
+                <div className='flex flex-row justify-center'>
+                    <img
+                        className='max-h-72'
+                        src="./picohack.png"
+                        alt="Random unsplash image"
+                    />
+                    {/*<h1 className="font-bold text-6xl m-5">ECSS PicoHack dashboard</h1>*/}
+                </div>
 
-                <MainTimeline user={user}/>
+
+                <div>
+
+
+
+                    <Text>
+                        Welcome to the first ECSS hackathon of this academic year! Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 1st before 10am.
+                    </Text>
+
+                    <Link href="https://discord.gg/hVE47ygszV" passHref>
+                        <Button target='_blank' component="a" className='m-5'>
+                            Join discord
+                        </Button>
+                    </Link>
+
+                </div>
+
+
+
+                <div className='mt-10'>
+                    <MainTimeline user={user}/>
+                </div>
+
 
             </main>
         </div>
