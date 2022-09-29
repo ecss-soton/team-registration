@@ -96,26 +96,22 @@ export const MainTimeline = ({ user }: { user: User }) => {
 
     let stage = 0;
 
-    if (user.yearOfStudy) {
-        stage = 1
-    }
-
     const now = Date.now();
 
+    for (const event of stages) {
+        if (event.date) {
+            if (now > event.date.getTime()) {
+                stage++;
+            }
+        }
+    }
 
     return (
         <Timeline active={stage} bulletSize={24} lineWidth={2}>
             {stages.map((v, i) => {
                 if (i <= stage - 1) { // Done that stage
                     return (
-                        <Timeline.Item key={v.title} bullet={<IconCheck size={14}/>} title={v.title}>
-                            {
-                                !v.date ? null :
-                                    <Tooltip label={new Date(v.date).toString()}>
-                                        <Text size="xs" color="dimmed" mt={4}>{moment(v.date).fromNow()}</Text>
-                                    </Tooltip>
-                            }
-                        </Timeline.Item>
+                        <Timeline.Item key={v.title} bullet={<IconCheck size={14}/>} title={v.title}/>
                     )
                 } else if (i <= stage) { // Doing this stage
                     return (
