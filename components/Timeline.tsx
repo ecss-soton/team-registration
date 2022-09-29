@@ -20,9 +20,9 @@ const stages = [
         title: "Choose a team",
         content: (
             <>
-                <Text color="dimmed" size="sm">Create or join a team and meet new people!</Text>
+                <Text>Create or join a team and meet new people!</Text>
                 <Link href="/teams" passHref>
-                    <Button component="a">View teams</Button>
+                    <Button className='mt-3' component="a">View teams</Button>
                 </Link>
             </>
         )
@@ -31,7 +31,7 @@ const stages = [
         title: "Arrive",
         date: new Date("1 october 2022 09:45:00"),
         content: (
-            <Text>Turn up to this location and do cool things!</Text>
+            <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> and check in with the helpers</Text>
         )
     },
     {
@@ -122,11 +122,9 @@ export const MainTimeline = ({ user }: { user: User }) => {
                         <Timeline.Item key={v.title} title={v.title}>
                             {
                                 !v.date ? null :
-                                    <Tooltip label={new Date(v.date).toString()}>
-                                        <Text size="xs" color="dimmed" mt={4}>{moment(v.date).format("dddd, MMMM Do, h:mm a")}</Text>
-                                    </Tooltip>
+                                    <Text size="xs" color="dimmed" mt={4}>{moment(v.date).format("dddd, MMMM Do, h:mm a")}</Text>
                             }
-                            <Text>
+                            <Text size="sm">
                                 {v.content}
                             </Text>
                         </Timeline.Item>
@@ -136,11 +134,9 @@ export const MainTimeline = ({ user }: { user: User }) => {
                         <Timeline.Item key={v.title} title={v.title}>
                             {
                                 !v.date ? null :
-                                    <Tooltip label={moment(v.date).fromNow()}>
-                                        <Text size="xs" color="dimmed" mt={4}>{moment(v.date).format("dddd, MMMM Do, h:mm a")}</Text>
-                                    </Tooltip>
+                                    <Text size="xs" color="dimmed" mt={4}>{moment(v.date).format("dddd, MMMM Do, h:mm a")}</Text>
                             }
-                            <Text>
+                            <Text size="sm">
                                 {v.content}
                             </Text>
                         </Timeline.Item>
