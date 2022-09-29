@@ -21,6 +21,11 @@ const stages = [
         content: (
             <>
                 <Text>Create or join a team and meet new people!</Text>
+
+            </>
+        ),
+        hidden: (
+            <>
                 <Link href="/teams" passHref>
                     <Button className='mt-3' component="a">View teams</Button>
                 </Link>
@@ -74,6 +79,13 @@ const stages = [
         date: new Date("1 october 2022 20:30:00"),
         content: (
             <Text>Add your finishing touches to your project before your final submission</Text>
+        ),
+        hidden: (
+            <>
+                <Link href="/submit" passHref>
+                    <Button className='mt-3' component="a">Submit your project!</Button>
+                </Link>
+            </>
         )
     },
     {
@@ -94,14 +106,20 @@ const stages = [
 
 export const MainTimeline = ({ user }: { user: User }) => {
 
-    let stage = 0;
+    let stage = -1;
 
     const now = Date.now();
 
-    for (const event of stages) {
-        if (event.date) {
-            if (now > event.date.getTime()) {
-                stage++;
+    if (user.yearOfStudy === null) {
+        stage = 0;
+    }
+    else {
+        stage++;
+        for (const event of stages) {
+            if (event.date) {
+                if (now > event.date.getTime()) {
+                    stage++;
+                }
             }
         }
     }
@@ -123,6 +141,7 @@ export const MainTimeline = ({ user }: { user: User }) => {
                             <Text size="sm">
                                 {v.content}
                             </Text>
+                            {v.hidden}
                         </Timeline.Item>
                     )
                 } else { // Not yet shown
