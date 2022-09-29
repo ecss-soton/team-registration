@@ -51,7 +51,7 @@ export default function Home({ session, user }: { session: Session, user: User }
 
 
 
-                <div className='mt-10'>
+                <div className='m-10'>
                     <MainTimeline user={user}/>
                 </div>
 
