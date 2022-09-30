@@ -1,7 +1,7 @@
 import {Timeline, Text, Button, Tooltip} from '@mantine/core';
 import { IconCheck } from '@tabler/icons';
 import Link from "next/link";
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import moment from "moment";
 import type { User } from "@prisma/client"
 
@@ -123,6 +123,13 @@ export const MainTimeline = ({ user }: { user: User }) => {
             }
         }
     }
+
+    const [date, setDate] = useState(new Date());
+
+    useEffect(() => {
+        const timerId = setInterval(() => setDate(new Date()), 1000);
+        return () => clearInterval(timerId);
+    }, []);
 
     return (
         <Timeline active={stage} bulletSize={24} lineWidth={2}>
