@@ -11,6 +11,7 @@ import {User} from "@prisma/client";
 import prisma from "../prisma/client";
 import { Button, Text, Image } from "@mantine/core";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Home({ session, user }: { session: Session, user: User }) {
 
@@ -65,7 +66,7 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
 
     const session = await unstable_getServerSession(context.req, context.res, authOptions)
 
-    if (!session?.discord.tag) {
+    if (!session?.microsoft.email) {
         return {
             redirect: {
                 destination: '/signin',
@@ -74,9 +75,40 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         }
     }
 
+    if (!session?.discord.tag) {
+
+        try {
+            const sotonVerifyData = await axios({
+                method: 'GET',
+                url: `https://sotonverify.link/api/v2/user?sotonId=${session.microsoft.email.split('@')[0]}`,
+                headers: {
+                    Authorization: String(process.env.SOTON_VERIFY_API_AUTH)
+                },
+                data: {
+                    guildId: '1008673689665032233',
+                }
+            })
+
+            await prisma.user.update({
+                data: {
+                    discordTag: sotonVerifyData.data.discordTag,
+                    discordId: sotonVerifyData.data.discordId,
+                },
+                where: {
+                    sotonId: session.microsoft.email.split('@')[0],
+                }
+            })
+
+        } catch {
+            console.log('get fucked')
+        }
+
+
+    }
+
     const user = await prisma.user.findUnique({
         where: {
-            discordTag: session.discord.tag,
+            sotonId: session.microsoft.email.split('@')[0],
         }
     });
 

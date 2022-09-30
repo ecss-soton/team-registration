@@ -8,8 +8,20 @@ import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
+import { Button } from "@mantine/core";
+import {signIn, useSession} from "next-auth/react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function SignIn() {
+// @ts-ignore
+export default function SignIn({ url }) {
+
+    const router = useRouter();
+
+    const {data: session} = useSession();
+
+    console.log(session)
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
 
@@ -18,6 +30,24 @@ export default function SignIn() {
                 <h1 className="font-bold text-6xl m-5">ECSS Hackathon registration</h1>
 
                 <LoginButton/>
+
+                {
+                    (session && !session.discord?.tag) &&
+                    <Link href="/" passHref>
+                        <Button className='m-5' component="a">
+                            Sign in without discord
+                        </Button>
+                    </Link>
+                }
+
+                {
+                    (session && !session.discord?.tag) &&
+                    <Link href={`https://sotonverify.link?callback=${url}`} passHref>
+                        <Button className='m-5' component="a">
+                            Sign in with discord
+                        </Button>
+                    </Link>
+                }
 
             </main>
         </div>
@@ -28,14 +58,14 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
 
     const session = await unstable_getServerSession(context.req, context.res, authOptions)
 
-    if (session && !session?.discord.tag) {
-        return {
-            redirect: {
-                destination: `https://sotonverify.link?callback=${process.env.NEXTAUTH_URL}`,
-                permanent: false,
-            },
-        }
-    }
+    // if (session && !session?.discord.tag) {
+    //     return {
+    //         redirect: {
+    //             destination: `https://sotonverify.link?callback=${process.env.NEXTAUTH_URL}`,
+    //             permanent: false,
+    //         },
+    //     }
+    // }
 
     if (session && session.discord.tag) {
         return {
@@ -47,6 +77,8 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
     }
 
     return {
-        props: {},
+        props: {
+            url: process.env.NEXTAUTH_URL
+        },
     }
 }

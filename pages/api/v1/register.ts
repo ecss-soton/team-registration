@@ -24,7 +24,7 @@ export default async function handler(
 
     const attemptedAuth = await unstable_getServerSession(req, res, authOptions);
 
-    if (!attemptedAuth?.discord.tag) {
+    if (!attemptedAuth?.microsoft.email) {
         return res.status(400).json({
             error: true, message: 'You must include the session token with the Authorization header',
         });

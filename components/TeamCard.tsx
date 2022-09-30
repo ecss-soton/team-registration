@@ -60,9 +60,9 @@ export function TeamCard (team: Team & { userRank?: number}) {
 
   let memberCount = -1;
   const rows = team.members.map(m => {
-    return (<tr key={m.discordTag} style={(memberCount += 1) === team.userRank ? { backgroundColor: '#e0e0e0' } : {}}>
+    return (<tr key={m.name} style={(memberCount += 1) === team.userRank ? { backgroundColor: '#e0e0e0' } : {}}>
       <td>{m.name}</td>
-      <td>{m.discordTag}</td>
+      <td>{m.discordTag ?? 'N/A'}</td>
       <td>
         {m.tags.map(t => {
           const Icon = icons[t];

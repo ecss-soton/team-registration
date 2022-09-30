@@ -50,6 +50,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         let sotonVerifyData;
 
         try {
+            console.log('Lol2')
             sotonVerifyData = await axios({
                 method: 'GET',
                 url: `https://sotonverify.link/api/v2/user?sotonId=${profile.email.split('@')[0]}`,
@@ -60,6 +61,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                     guildId: '1008673689665032233',
                 }
             })
+
+            console.log('Lol4')
 
             const data = sotonVerifyData.data;
 
@@ -73,10 +76,37 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                 discordTag: data.discordTag,
             }
         } catch {
-            res.redirect(`https://sotonverify.link?callback=${process.env.NEXTAUTH_URL}`);
+            console.log('Lol')
+
+            const data = await fetch(
+                `https://graph.microsoft.com/v1.0/me/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${tokens.access_token}`,
+                    },
+                }
+            )
+
+            const sotonData = await data.json();
+
+            return {
+                id: sotonData.mail.split('@')[0],
+                firstName: sotonData.givenName,
+                lastName: sotonData.surname,
+                displayName: sotonData.displayName,
+                sotonId: sotonData.mail.split('@')[0],
+
+                discordId: null,
+                discordTag: null,
+
+            }
+
+
+
+            // res.redirect(`https://sotonverify.link?callback=${process.env.NEXTAUTH_URL}`);
+
         }
 
-        return null
     }
     return await NextAuth(req, res, authOptions)
 }
