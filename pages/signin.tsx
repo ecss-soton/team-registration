@@ -31,7 +31,7 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
     if (session?.discord.tag) {
         return {
             redirect: {
-                destination: '/',
+                destination: 'https://sotonverify.link',
                 permanent: false,
             },
         }
