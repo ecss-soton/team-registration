@@ -28,10 +28,19 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
 
     const session = await unstable_getServerSession(context.req, context.res, authOptions)
 
-    if (session?.discord.tag) {
+    if (session && !session?.discord.tag) {
         return {
             redirect: {
                 destination: 'https://sotonverify.link',
+                permanent: false,
+            },
+        }
+    }
+
+    if (session && session.discord.tag) {
+        return {
+            redirect: {
+                destination: '/',
                 permanent: false,
             },
         }
