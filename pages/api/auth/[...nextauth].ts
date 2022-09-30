@@ -73,7 +73,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                 discordTag: data.discordTag,
             }
         } catch {
-            res.redirect('https://sotonverify.link');
+            res.redirect(`https://sotonverify.link?callback=${process.env.NEXTAUTH_URL}`);
         }
 
         return null
