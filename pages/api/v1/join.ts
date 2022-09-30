@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             error: true, message: 'team parameter must be between 0 and number of teams.',
         });
 
-        if (team.members.length > 4 || team.locked) return res.status(405).json({
+        if (team.members.length >= 4 || team.locked) return res.status(405).json({
             error: true, message: 'team is already filled or locked.',
         });
 

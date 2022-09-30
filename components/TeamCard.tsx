@@ -93,7 +93,7 @@ export function TeamCard (team: Team & { userRank?: number}) {
     </Card.Section>
 
     <Group mt="xs">
-      <Button radius="md" disabled={team.locked || team.userRank !== undefined} loading={joinButtonLoading} onClick={joinTeam}>
+      <Button radius="md" disabled={team.locked || team.userRank !== undefined || team.members.length >= 4} loading={joinButtonLoading} onClick={joinTeam}>
         Join team
       </Button>
       {/* TODO Get the z index correct so that the tooltip can escape the group card. */}
