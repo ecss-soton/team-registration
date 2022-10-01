@@ -73,3 +73,5 @@ export default function Teams() {
         </>
     );
 }
+
+Teams.auth = true;
