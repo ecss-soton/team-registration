@@ -33,6 +33,18 @@ export default function Teams() {
         }
     };
 
+    let yourTeamFirstIndex = null;
+    if (data && data.teams.length != 0) {
+        yourTeamFirstIndex = data.teams.findIndex(t => t.id === data.yourTeam);
+
+        const yourTeam = data.teams.splice(yourTeamFirstIndex, 1)
+
+        if (yourTeamFirstIndex !== -1) {
+            data.teams.unshift(yourTeam[0])
+        }
+    }
+
+
     return (
         <>
             <div className="flex flex-wrap flex-row">
