@@ -37,10 +37,13 @@ export default function Teams() {
         <>
             <div className="flex flex-wrap flex-row">
                 <Link href="/" passHref>
-                    <Button className='m-5' component="a">
+                    <Button variant='outline' className='m-5' component="a">
                         Back
                     </Button>
                 </Link>
+                <Button  className="m-5" loading={buttonLoading} onClick={createNewTeam}>
+                    Create new team
+                </Button>
                 <Checkbox className='m-5' checked={showJoinable} label="Only show teams you can join" onChange={(event) => setShowJoinable(event.currentTarget.checked)} />
             </div>
             <div className="flex flex-wrap max-w-xl">
@@ -53,11 +56,7 @@ export default function Teams() {
                     }
                     return (<TeamCard key={v.id} {...v}/>);
                 })) : <div/>}
-                <Card className="m-5" withBorder radius="md" p="md">
-                    <Button loading={buttonLoading} onClick={createNewTeam}>
-                        Create new team
-                    </Button>
-                </Card>
+
             </div>
         </>
     );
