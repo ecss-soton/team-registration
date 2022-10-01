@@ -39,10 +39,15 @@ import Link from "next/link";
 
 interface SubmitProps {
     session: Session
+    submission: {
+        name: string,
+        githubLink: string,
+        submissionTime: string,
+    }
 }
 
 
-export default function Submit({session}: SubmitProps) {
+export default function Submit({session, submission }: SubmitProps) {
 
     const router = useRouter();
 
@@ -108,6 +113,10 @@ export default function Submit({session}: SubmitProps) {
                         <h3 className='text-4xl'>Project submission</h3>
                         <Text size="sm" className='mt-3'>Only one person from your team needs to submit</Text>
                     </div>
+                    {
+                        submission?.submissionTime &&
+                        <Text color="green">You have already submitted if you submit again your previous submission will be overwritten</Text>
+                    }
                     <TextInput
                         label="Team name"
                         placeholder="The best team"
@@ -136,6 +145,41 @@ export default function Submit({session}: SubmitProps) {
             </div>
         </>
     );
+}
+
+
+
+export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
+
+    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+    if (!session?.microsoft.email) {
+        return {
+            redirect: {
+                destination: '/signin',
+                permanent: false,
+            },
+        }
+    }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            sotonId: session.microsoft.email.split('@')[0],
+        },
+        include: {
+            team: {}
+        }
+    });
+
+    return {
+        props: {
+            submission: {
+                name: user?.team?.name || null,
+                githubLink: user?.team?.githubLink || null,
+                submissionTime: user?.team?.submissionTime?.toISOString() || null,
+            }
+        },
+    }
 }
 
 Submit.auth = true;
