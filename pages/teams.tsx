@@ -1,5 +1,5 @@
 import {TeamCard} from '@/components/TeamCard';
-import {Button, Card} from '@mantine/core';
+import {Button, Card, Checkbox} from '@mantine/core';
 import {useState} from 'react';
 import {Team} from '@/types/types';
 import useSWR from 'swr';
@@ -13,6 +13,7 @@ export default function Teams() {
     }>('/api/v1/teams', fetcher, {refreshInterval: 3000});
 
     const [buttonLoading, setButtonLoading] = useState(false);
+    const [showJoinable, setShowJoinable] = useState(false);
 
     const createNewTeam = async () => {
         setButtonLoading(true);
@@ -34,15 +35,21 @@ export default function Teams() {
 
     return (
         <>
-            <Link href="/" passHref>
-                <Button className='m-5' component="a">
-                    Back
-                </Button>
-            </Link>
+            <div className="flex flex-wrap flex-row">
+                <Link href="/" passHref>
+                    <Button className='m-5' component="a">
+                        Back
+                    </Button>
+                </Link>
+                <Checkbox className='m-5' checked={showJoinable} label="Only show teams you can join" onChange={(event) => setShowJoinable(event.currentTarget.checked)} />
+            </div>
             <div className="flex flex-wrap max-w-xl">
                 {data ? (data.teams.length == 0 ? null : data.teams.map(v => {
                     if (v.id === data.yourTeam) {
                         return (<TeamCard key={v.id} userRank={data.yourRank} {...v} />);
+                    }
+                    if (showJoinable && (v.locked || v.members.length >= 4)) {
+                        return null;
                     }
                     return (<TeamCard key={v.id} {...v}/>);
                 })) : <div/>}
