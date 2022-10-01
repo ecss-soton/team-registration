@@ -12,6 +12,8 @@ import prisma from "../prisma/client";
 import { Button, Text, Image } from "@mantine/core";
 import Link from "next/link";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 
 export default function Home({ session, user }: { session: Session, user: User }) {
 
@@ -42,15 +44,23 @@ export default function Home({ session, user }: { session: Session, user: User }
                         Welcome to the first ECSS hackathon of this academic year! Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 1st before 10am.
                     </Text>
 
-                    <Link href="https://discord.gg/hVE47ygszV" passHref>
-                        <Button target='_blank' component="a" className='m-5'>
-                            Join discord
-                        </Button>
-                    </Link>
+                    <div className='flex flex-row flex-wrap justify-center'>
+                        <Link href="https://discord.gg/hVE47ygszV" passHref>
+                            <Button
+                                styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
+                                leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
+                                target='_blank'
+                                component="a"
+                                className='m-3'>
+                                Join discord
+                            </Button>
+                        </Link>
 
-                    <Link href="/teams" passHref>
-                        <Button className='m-5' component="a">View teams</Button>
-                    </Link>
+                        <Link href="/teams" passHref>
+                            <Button className='m-3' component="a">View teams</Button>
+                        </Link>
+                    </div>
+
 
                 </div>
 
