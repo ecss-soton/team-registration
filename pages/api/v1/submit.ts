@@ -46,7 +46,12 @@ export default async function handler(
             }
         })
 
-        if (!user?.teamId) throw new Error("No user")
+        if (!user || user.teamId == null) {
+            return res.status(404).json({
+                error: true,
+                message: "This user does not exist or is not in a team"
+            });
+        }
 
         await prisma.team.update({
             data: {

@@ -61,6 +61,7 @@ export default function Submit({session}: SubmitProps) {
     });
 
     const [formLoading, setFormLoading] = useState(false);
+    const [formError, setFormError] = useState(false);
 
     const submitForm = async (values: SubmissionForm) => {
 
@@ -89,7 +90,11 @@ export default function Submit({session}: SubmitProps) {
         console.log(res2)
         if (res2.success) {
             setFormLoading(false);
+            setFormError(false);
             await router.push("/");
+        } else {
+            setFormLoading(false);
+            setFormError(true);
         }
     }
 
@@ -98,9 +103,11 @@ export default function Submit({session}: SubmitProps) {
             <div className='flex justify-center p-3'>
 
 
-                <form className='w-full sm:w-2/4 max-w-2xl mt-40 space-y-7'
-                      onSubmit={form.onSubmit(submitForm)}>
-                    <Text color="red">Only one person from your team needs to submit</Text>
+                <form className='w-full sm:w-2/4 max-w-2xl mt-10 space-y-7' onSubmit={form.onSubmit(submitForm)}>
+                    <div>
+                        <h3 className='text-4xl'>Project submission</h3>
+                        <Text size="sm" className='mt-3'>Only one person from your team needs to submit</Text>
+                    </div>
                     <TextInput
                         label="Team name"
                         placeholder="The best team"
@@ -116,6 +123,10 @@ export default function Submit({session}: SubmitProps) {
 
 
                     <div className='space-x-1.5'>
+                        {
+                            formError &&
+                            <Text size="sm" className='m-3' color="red"><i>Make sure you are in a team before submission</i></Text>
+                        }
                         <Button loading={formLoading} type="submit">Submit</Button>
                         <Link href="/" passHref >
                             <Button variant="outline" component="a">Back</Button>
