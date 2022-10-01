@@ -49,7 +49,7 @@ export default function Home({ session, user }: { session: Session, user: User }
                     </Link>
 
                     <Link href="/teams" passHref>
-                        <Button className='mt-3' component="a">View teams</Button>
+                        <Button className='m-5' component="a">View teams</Button>
                     </Link>
 
                 </div>
