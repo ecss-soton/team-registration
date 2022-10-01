@@ -3,6 +3,7 @@ import {unstable_getServerSession} from "next-auth";
 import {authOptions} from "../auth/[...nextauth]";
 import prisma from "../../../prisma/client";
 import {RegisterForm, SubmissionForm} from "@/types/types";
+import validator from 'validator';
 
 interface ResponseData {
     success: boolean
@@ -32,9 +33,9 @@ export default async function handler(
 
     const formData: SubmissionForm = req.body;
 
-    if (!formData.name || !formData.githubLink) {
+    if (!formData.name || !formData.githubLink || !validator.isURL(formData.githubLink)) {
         return res.status(400).json({
-            error: true, message: 'Missing properties',
+            error: true, message: 'Missing or invalid properties',
         });
     }
 

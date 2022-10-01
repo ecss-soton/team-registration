@@ -31,7 +31,7 @@ import prisma from "../prisma/client";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
 import Link from "next/link";
-
+import validator from 'validator';
 
 
 
@@ -61,7 +61,11 @@ export default function Submit({session, submission }: SubmitProps) {
 
         validate: {
             name: (value) => (value.length > 200 ? valueTooLongMessage : null),
-            githubLink: (value) => (value.length > 200 ? valueTooLongMessage : null),
+            githubLink: (value) => {
+                if (value.length > 200) return valueTooLongMessage
+                if (!validator.isURL(value)) return 'Please enter a valid url'
+                return null
+            },
         },
     });
 
