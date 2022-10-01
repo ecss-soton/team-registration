@@ -34,7 +34,7 @@ export default function Teams() {
     };
 
     if (data && data.teams.length != 0) {
-        data.teams.sort(t => t.id === data.yourTeam ? 0: 1)
+        data.teams.sort(t => t.id === data.yourTeam ? -1 : 1)
     }
 
 
