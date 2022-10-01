@@ -83,7 +83,7 @@ const stages = [
         hidden: (
             <>
                 <Link href="/submit" passHref>
-                    <Button className='mt-3' component="a">Submit your project!</Button>
+                    <Button className='mt-3' component="a">Submit your project</Button>
                 </Link>
             </>
         )

@@ -59,6 +59,10 @@ export default function Home({ session, user }: { session: Session, user: User }
                         <Link href="/teams" passHref>
                             <Button className='m-3' component="a">View teams</Button>
                         </Link>
+
+                        <Link href="/submit" passHref>
+                            <Button variant="outline" className='m-3' component="a">Submit your project</Button>
+                        </Link>
                     </div>
 
 
