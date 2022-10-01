@@ -46,7 +46,7 @@ export default async function handler(
             }
         })
 
-        if (!user) throw new Error("No user")
+        if (!user?.teamId) throw new Error("No user")
 
         await prisma.team.update({
             data: {
