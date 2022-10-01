@@ -20,3 +20,8 @@ export interface RegisterForm {
   extra?: string,
   photoConsent: boolean,
 }
+
+export interface SubmissionForm {
+  name: string
+  githubLink: string
+}

@@ -89,4 +89,7 @@ model Team {
 
   members User[]
   locked  Boolean @default(false)
+
+  name String?
+  githubLink String?
 }
