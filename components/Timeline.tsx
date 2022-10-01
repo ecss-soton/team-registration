@@ -76,7 +76,7 @@ const stages = [
     },
     {
         title: "Project submission deadlines",
-        date: new Date("1 october 2022 20:30:00"),
+        date: new Date("1 october 2022 20:15:00"),
         content: (
             <Text>Add your finishing touches to your project before your final submission</Text>
         ),
