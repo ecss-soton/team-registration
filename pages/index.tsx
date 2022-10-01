@@ -48,6 +48,10 @@ export default function Home({ session, user }: { session: Session, user: User }
                         </Button>
                     </Link>
 
+                    <Link href="/teams" passHref>
+                        <Button className='mt-3' component="a">View teams</Button>
+                    </Link>
+
                 </div>
 
 
