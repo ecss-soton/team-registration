@@ -92,4 +92,5 @@ model Team {
 
   name String?
   githubLink String?
+  submissionTime DateTime?
 }

@@ -52,6 +52,7 @@ export default async function handler(
             data: {
                 name: formData.name,
                 githubLink: formData.githubLink,
+                submissionTime: new Date(),
             },
             where: {
                 id: user.teamId
