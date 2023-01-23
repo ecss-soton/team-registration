@@ -54,6 +54,8 @@ model User {
   extra        String?
   photoConsent Boolean?
 
+  checkedIn   Boolean @default(false)
+
   team           Team?     @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId         String?   @db.VarChar(30)
   joinedTeamTime DateTime?
@@ -86,7 +88,7 @@ enum Tag {
 }
 
 model Team {
-  id String @id @default(cuid()) @db.VarChar(30)
+  id String @id @db.VarChar(16)
 
   members User[]
   locked  Boolean @default(false)
