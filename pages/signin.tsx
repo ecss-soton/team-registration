@@ -8,7 +8,7 @@ import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
-import { Button } from "@mantine/core";
+import {Button, Text} from "@mantine/core";
 import {signIn, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -24,10 +24,22 @@ export default function SignIn({ url }) {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-
             <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
 
-                <h1 className="font-bold text-6xl m-5">ECSS Hackathon registration</h1>
+                <div className='flex flex-row justify-center'>
+                    <img
+                        className='max-h-72'
+                        src="./AH_black_text-svg.png"
+                        alt="Random unsplash image"
+                    />
+                    {/*<h1 className="font-bold text-6xl m-5">ECSS PicoHack dashboard</h1>*/}
+                </div>
+
+                <h1 className="font-bold text-6xl mt-10">ECSS Hackathon registration</h1>
+
+                <Text className='my-5'>
+                    Login with your university account to register, join a team and see all the details!
+                </Text>
 
                 <LoginButton/>
 

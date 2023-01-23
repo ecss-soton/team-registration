@@ -24,7 +24,7 @@ export default function Home({ session, user }: { session: Session, user: User }
                 <div className='flex flex-row justify-center'>
                     <img
                         className='max-h-72'
-                        src="./picohack.png"
+                        src="./AH_black_text-svg.png"
                         alt="Random unsplash image"
                     />
                     {/*<h1 className="font-bold text-6xl m-5">ECSS PicoHack dashboard</h1>*/}
@@ -32,15 +32,13 @@ export default function Home({ session, user }: { session: Session, user: User }
 
 
                 <div>
-
-
-
                     <Text>
-                        Welcome to the first ECSS hackathon of this academic year! Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 1st before 10am.
+                        Welcome to the second ECSS hackathon of this academic year!
+                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 11th February before 10am.
                     </Text>
 
                     <div className='flex flex-row flex-wrap justify-center'>
-                        <Link href="https://discord.gg/hVE47ygszV" passHref>
+                        <Link href="https://discord.gg/WZQzcsFKZq" passHref>
                             <Button
                                 styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
                                 leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
