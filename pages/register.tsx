@@ -157,6 +157,14 @@ export default function Register({session}: RegisterProps) {
     const [formLoading, setFormLoading] = useState(false);
 
     const submitForm = async (values: { yearOfStudy: string, knownLanguages: Tag[], dietaryReq: string, extra: string, agreePhotos: boolean }) => {
+
+        if (!values.agreePhotos) {
+            form.setErrors({
+                agreePhotos: 'You must agree to proceed'
+            });
+            return;
+        }
+
         setFormLoading(true)
 
         const submissionValues: RegisterForm = {
@@ -219,18 +227,19 @@ export default function Register({session}: RegisterProps) {
                         {...form.getInputProps('extra')}
                     />
 
+                    <div>
+                        <p className='text-sm mb-3'>
+                            We plan to have photography at and throughout this event. If you dont wish to have your photo taken,
+                            please find a committee member (preferably one of the ones taking pictures) and let them know
+                        </p>
 
-                    <p className='text-sm'>
-                        We plan to have photography at and throughout this event. If you dont wish to have your photo taken,
-                        please find a committee member (preferably one of the ones taking pictures) and let them know
-                    </p>
+                        <Checkbox
+                            label="Tick this box to say you understand / agree to this"
+                            {...form.getInputProps('agreePhotos', {type: 'checkbox'})}
+                        />
 
-
-                    <Checkbox
-                        label="Tick this box to say you understand / agree to this"
-                        {...form.getInputProps('agreePhotos', {type: 'checkbox'})}
-                    />
-
+                        {form.errors.agreePhotos && <Text size={15} className='text-xs' color='red'>{form.errors.agreePhotos}</Text>}
+                    </div>
 
                     <div className='space-x-1.5'>
                         <Button loading={formLoading} type="submit">Submit</Button>
