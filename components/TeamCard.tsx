@@ -1,6 +1,6 @@
-import {IconLock, IconLockOpen} from '@tabler/icons';
+import {IconLock, IconLockOpen, IconShare} from '@tabler/icons';
 import {
-    Card, Text, Group, Button, ActionIcon, Tooltip, Table
+    Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton
 } from '@mantine/core';
 import {Team} from '@/types/types';
 import {icons} from '../pages/register';
@@ -8,7 +8,7 @@ import {useState} from 'react';
 import {useSWRConfig} from 'swr';
 import {log} from "util";
 
-export function TeamCard(team: Team & { userRank?: number }) {
+export function TeamCard(team: Team & { userRank?: number, url: string }) {
     const [lockButtonLoading, setLockButtonLoading] = useState(false);
     const [joinButtonLoading, setJoinButtonLoading] = useState(false);
     const [leaveButtonLoading, setLeaveButtonLoading] = useState(false);
@@ -128,9 +128,20 @@ export function TeamCard(team: Team & { userRank?: number }) {
                 }
                 {
                     (team.userRank === 0) &&
-                    <ActionIcon variant="default" radius="md" size={36} loading={lockButtonLoading} onClick={lockTeam}>
-                        {team.locked ? <IconLock size={18} stroke={1.5}/> : <IconLockOpen size={18} stroke={1.5}/>}
-                    </ActionIcon>
+                    <>
+                        <ActionIcon variant="default" radius="md" size={36} loading={lockButtonLoading} onClick={lockTeam}>
+                            {team.locked ? <IconLock size={18} stroke={1.5}/> : <IconLockOpen size={18} stroke={1.5}/>}
+                        </ActionIcon>
+                        <CopyButton value={`${team.url}/teams?join=${team.id}`}>
+                            {({ copied, copy }) => (
+                                <Tooltip label="Copied!" withArrow opened={copied}>
+                                    <ActionIcon variant={copied ? 'filled' : 'default'} radius="md" size={36} onClick={copy} color={copied ? 'teal' : 'dark'}>
+                                        <IconShare size={18} stroke={1.5}/>
+                                    </ActionIcon>
+                                </Tooltip>
+                            )}
+                        </CopyButton>
+                    </>
                 }
             </Group>
         </Card>

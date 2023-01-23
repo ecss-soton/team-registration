@@ -2,6 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
 import {unstable_getServerSession} from 'next-auth';
 import {authOptions} from '../auth/[...nextauth]';
+import { nanoid } from 'nanoid'
 
 // interface RequestData {
 //   team?: string
@@ -43,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             error: true, message: 'team parameter must be between 0 and number of teams.',
         });
 
-        if (team.members.length >= 4 || team.locked) return res.status(405).json({
+        if (team.members.length >= 4 || (!req.body.fromCode && team.locked)) return res.status(405).json({
             error: true, message: 'team is already filled or locked.',
         });
 
@@ -67,7 +68,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             data: {
                 joinedTeamTime: new Date(),
                 team: {
-                    create: {}
+                    create: {
+                        id: nanoid(8)
+                    }
                 }
             }
         });
