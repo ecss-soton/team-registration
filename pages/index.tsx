@@ -19,11 +19,6 @@ export default function Home({ session, user }: { session: Session, user: User }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <Head>
-                <title>ECSS Hackathon registration</title>
-                <link rel="icon" href="/favicon.ico"/>
-            </Head>
-
             <main className="flex flex-col items-center justify-center w-full flex-1 px-2 text-center">
 
                 <div className='flex flex-row justify-center'>

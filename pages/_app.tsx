@@ -3,6 +3,7 @@ import {AppProps} from "next/app";
 import {SessionProvider, useSession} from "next-auth/react";
 import {createEmotionCache, MantineProvider} from "@mantine/core";
 import {NextComponentType, NextPageContext} from "next";
+import Head from "next/head";
 
 const myCache = createEmotionCache({key: 'mantine', prepend: false});
 
@@ -12,6 +13,10 @@ export default function MyApp({
     }: AppProps & { Component: NextComponentType<NextPageContext, any, {}> & { auth: boolean } }) {
     return (
         <SessionProvider session={session}>
+            <Head>
+                <title>ECSS Hackathon registration</title>
+                <link rel="icon" href="/favicon.ico"/>
+            </Head>
             <MantineProvider
                 withGlobalStyles
                 withNormalizeCSS
