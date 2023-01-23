@@ -71,6 +71,13 @@ const stages = [
             <Text>Find out the theme for this hackathon</Text>
         )
     },
+    {
+        title: "Lunch",
+        date: new Date("11 february 2023 12:00:00"),
+        content: () => (
+            <Text>Midway refuel!</Text>
+        )
+    },
     // {
     //     title: "Team paper aeroplane competition",
     //     date: new Date("11 february 2023 12:00:00"),
@@ -96,7 +103,14 @@ const stages = [
         title: "Breakfast",
         date: new Date("12 february 2023 09:00:00"),
         content: () => (
-            <Text>All that hacking gets tiring, refuel with some free pizza!</Text>
+            <Text>All that hacking gets tiring, refuel with some free cookies!</Text>
+        )
+    },
+    {
+        title: "Lunch",
+        date: new Date("12 february 2023 11:00:00"),
+        content: () => (
+            <Text>Your second lunch</Text>
         )
     },
     // {
@@ -131,7 +145,7 @@ const stages = [
         title: "Winners announced",
         date: new Date("12 february 2023 14:45:00"),
         content: () => (
-            <Text>Everyone gets a prize but the best projects get a big prize</Text>
+            <Text>Prizes will be given out the members of the top 4 teams</Text>
         )
     }
 ]

@@ -74,6 +74,8 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
         '14:05-14:12',
         '14:12-14:19',
         '14:19-14:26',
+
+        'any'
     ].filter(i => !takenSlots.includes(i))
 
     const form = useForm({

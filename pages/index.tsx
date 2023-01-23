@@ -34,7 +34,7 @@ export default function Home({ session, user }: { session: Session, user: User }
                 <div>
                     <Text>
                         Welcome to the second ECSS hackathon of this academic year!
-                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 11th February before 10am.
+                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 11th February at 10am.
                     </Text>
 
                     <div className='flex flex-row flex-wrap justify-center'>
