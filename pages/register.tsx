@@ -6,7 +6,7 @@ import {
     SelectItemProps,
     MultiSelectValueProps,
     TextInput, Checkbox, SelectItem,
-    Button
+    Button, Text
 } from '@mantine/core';
 
 import {RegisterForm, Tag} from '@/types/types'
@@ -144,7 +144,7 @@ export default function Register({session}: RegisterProps) {
             knownLanguages: [],
             dietaryReq: '',
             extra: '',
-            noPhotos: false,
+            agreePhotos: false,
         },
 
         validate: {
@@ -156,7 +156,7 @@ export default function Register({session}: RegisterProps) {
 
     const [formLoading, setFormLoading] = useState(false);
 
-    const submitForm = async (values: { yearOfStudy: string, knownLanguages: Tag[], dietaryReq: string, extra: string, noPhotos: boolean }) => {
+    const submitForm = async (values: { yearOfStudy: string, knownLanguages: Tag[], dietaryReq: string, extra: string, agreePhotos: boolean }) => {
         setFormLoading(true)
 
         const submissionValues: RegisterForm = {
@@ -164,7 +164,7 @@ export default function Register({session}: RegisterProps) {
             knownLanguages: values.knownLanguages,
             dietaryReq: values.dietaryReq,
             extra: values.extra,
-            photoConsent: !values.noPhotos,
+            photoConsent: values.agreePhotos,
         }
 
         const res = await fetch("/api/v1/register", {
@@ -219,9 +219,16 @@ export default function Register({session}: RegisterProps) {
                         {...form.getInputProps('extra')}
                     />
 
+
+                    <p className='text-sm'>
+                        We plan to have photography at and throughout this event. If you dont wish to have your photo taken,
+                        please find a committee member (preferably one of the ones taking pictures) and let them know
+                    </p>
+
+
                     <Checkbox
-                        label="I don't want my picture taken at this event"
-                        {...form.getInputProps('noPhotos', {type: 'checkbox'})}
+                        label="Tick this box to say you understand / agree to this"
+                        {...form.getInputProps('agreePhotos', {type: 'checkbox'})}
                     />
 
 
