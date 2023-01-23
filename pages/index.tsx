@@ -53,9 +53,9 @@ export default function Home({ session, user }: { session: Session, user: User }
                             <Button className='m-3' component="a">View teams</Button>
                         </Link>
 
-                        <Link href="/submit" passHref>
+                        {new Date() > new Date("12 february 2023 11:00:00") && <Link href="/submit" passHref>
                             <Button variant="outline" className='m-3' component="a">Submit your project</Button>
-                        </Link>
+                        </Link>}
                     </div>
 
 
