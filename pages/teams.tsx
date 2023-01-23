@@ -1,5 +1,5 @@
 import {TeamCard} from '@/components/TeamCard';
-import {Button, Card, Checkbox,TextInput, Notification} from '@mantine/core';
+import {Button, Card, Checkbox,TextInput, Notification, Modal} from '@mantine/core';
 import {EventHandler, KeyboardEvent, KeyboardEventHandler, useRef, useState} from 'react';
 import {SubmissionForm, Team} from '@/types/types';
 import useSWR from 'swr';
@@ -49,22 +49,21 @@ export default function Teams({ url }: { url: string }) {
 
     const [joinedFromCode, setjoinedFromCode] = useState(false);
 
-    if (join && join != data?.yourTeam) {
-        (async () => {
-            const res = await fetch('/api/v1/join', {
-                method: 'post', headers: {
-                    'Accept': 'application/json', 'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({team: join, fromCode:true})
-            });
+    const joinTeam = async () => {
 
-            if (res.ok) {
-                await mutate()
-                setjoinedFromCode(true)
-                setTimeout(() => setjoinedFromCode(false), 5_000)
-            }
-        })()
-    }
+        const res = await fetch('/api/v1/join', {
+            method: 'post', headers: {
+                'Accept': 'application/json', 'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({team: join, fromCode:true})
+        });
+
+        if (res.ok) {
+            await mutate()
+            setjoinedFromCode(false)
+        }
+    };
 
     if (data && data.teams.length != 0) {
         data.teams.sort(t => t.id === data.yourTeam ? -1 : 1)
@@ -139,10 +138,28 @@ export default function Teams({ url }: { url: string }) {
             <div className='flex flex-col items-center justify-center w-full flex-1 px-20 text-center'>
                 <h1 className="font-bold text-2xl m-2">View teams</h1>
                 <div className="flex flex-wrap flex-col">
-
-                    {joinedFromCode && <Notification disallowClose color="green" title="Successfully joined team!">
-                        You joined a team with code {join}
-                    </Notification>}
+                    <Modal
+                        opened={joinedFromCode || !!join}
+                        onClose={() => {
+                            setjoinedFromCode(false)
+                            router.push("/teams")
+                        }}
+                        withCloseButton={false}
+                        title="Join this team?"
+                    >
+                        <div>
+                            <Link href="/teams" passHref>
+                                <Button color="green" variant='filled' className='' component="a" onClick={joinTeam}>
+                                    Accept
+                                </Button>
+                            </Link>
+                            <Link href="/teams" passHref>
+                                <Button variant="outline" color="red" className='mx-5' component="a" onClick={() => setjoinedFromCode(false)}>
+                                    Reject
+                                </Button>
+                            </Link>
+                        </div>
+                    </Modal>
                     <div className='flex flex-wrap flex-row items-end'>
                         {/*<form className='w-full sm:w-2/4 max-w-2xl mt-10 space-y-7' onSubmit={form.onSubmit(submitForm)}>*/}
                             <TextInput
