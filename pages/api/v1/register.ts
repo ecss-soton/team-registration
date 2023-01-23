@@ -46,6 +46,7 @@ export default async function handler(
                 dietaryReq: formData.dietaryReq || undefined,
                 extra: formData.extra || undefined,
                 photoConsent: formData.photoConsent,
+                registered: true,
             },
             where: {
                 id: attemptedAuth.id
