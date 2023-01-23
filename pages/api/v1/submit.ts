@@ -33,7 +33,7 @@ export default async function handler(
 
     const formData: SubmissionForm = req.body;
 
-    if (!formData.name || !formData.githubLink || !validator.isURL(formData.githubLink)) {
+    if (!formData.name || !formData.githubLink || !validator.isURL(formData.githubLink) || !formData.timeslot) {
         return res.status(400).json({
             error: true, message: 'Missing or invalid properties',
         });
@@ -59,6 +59,7 @@ export default async function handler(
                 name: formData.name,
                 githubLink: formData.githubLink,
                 submissionTime: new Date(),
+                timeslot: formData.timeslot,
             },
             where: {
                 id: user.teamId

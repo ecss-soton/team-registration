@@ -24,4 +24,5 @@ export interface RegisterForm {
 export interface SubmissionForm {
   name: string
   githubLink: string
+  timeslot: string
 }

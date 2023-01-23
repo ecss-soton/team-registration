@@ -7,7 +7,8 @@ import {
     MultiSelectValueProps,
     TextInput, Checkbox, SelectItem,
     Button,
-    Text
+    Text,
+    Select
 } from '@mantine/core';
 
 import {RegisterForm, SubmissionForm, Tag} from '@/types/types'
@@ -43,20 +44,43 @@ interface SubmitProps {
         name: string,
         githubLink: string,
         submissionTime: string,
-    }
+        timeslot: string
+    },
+    takenSlots: string[]
 }
 
 
-export default function Submit({session, submission }: SubmitProps) {
+export default function Submit({ session, submission, takenSlots }: SubmitProps) {
 
     const router = useRouter();
 
     const valueTooLongMessage = 'Please use less than 200 characters'
 
+    const allTimeSlots = [
+        '12:10-12:17',
+        '12:17-12:24',
+        '12:24-12:31',
+        '12:31-12:38',
+        '12:38-12:45',
+        '12:52-12:59',
+        '12:59-13:06',
+        '13:06-13:13',
+
+        '13:30-13:37',
+        '13:37-13:44',
+        '13:44-13:51',
+        '13:51-13:58',
+        '13:58-14:05',
+        '14:05-14:12',
+        '14:12-14:19',
+        '14:19-14:26',
+    ].filter(i => !takenSlots.includes(i))
+
     const form = useForm({
         initialValues: {
             name: '',
             githubLink: '',
+            timeslot: '',
         },
 
         validate: {
@@ -66,6 +90,11 @@ export default function Submit({session, submission }: SubmitProps) {
                 if (!validator.isURL(value)) return 'Please enter a valid url'
                 return null
             },
+            timeslot: (value) => {
+                console.log(value)
+                if (value === '') return 'You must choose a timeslot'
+                return null
+            }
         },
     });
 
@@ -73,13 +102,18 @@ export default function Submit({session, submission }: SubmitProps) {
     const [formError, setFormError] = useState(false);
 
     const submitForm = async (values: SubmissionForm) => {
-
-        if (!values.name || !values.githubLink) {
+        console.log(values)
+        if (!values.name || !values.githubLink || !values.timeslot) {
 
             const nameErrorMsg = 'You must include a team name';
             const githubErrorMsg = 'You must include a link to your repository';
+            const timeslotErrorMsg = 'You must choose a timeslot';
 
-            form.setErrors({ name: !values.name ? nameErrorMsg : null, githubLink: !values.githubLink ? githubErrorMsg : null });
+            form.setErrors({
+                name: !values.name ? nameErrorMsg : null,
+                githubLink: !values.githubLink ? githubErrorMsg : null,
+                timeslotErrorMsg: !values.timeslot ? timeslotErrorMsg : null,
+            });
             return;
         }
 
@@ -134,11 +168,17 @@ export default function Submit({session, submission }: SubmitProps) {
                         {...form.getInputProps('githubLink')}
                     />
 
+                    <Select
+                        label="What timeslot would you like to present your idea in"
+                        placeholder="Pick one"
+                        data={allTimeSlots}
+                        {...form.getInputProps('timeslot')}
+                    />
 
                     <div className='space-x-1.5'>
                         {
                             formError &&
-                            <Text size="sm" className='m-3' color="red"><i>Make sure you are in a team before submission</i></Text>
+                            <Text size="sm" className='m-3' color="red"><i>Make sure you are in a team before submission or try a different timeslot</i></Text>
                         }
                         <Button loading={formLoading} type="submit">Submit</Button>
                         <Link href="/" passHref >
@@ -175,13 +215,16 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         }
     });
 
+    const teams = await prisma.team.findMany()
+
     return {
         props: {
             submission: {
                 name: user?.team?.name || null,
                 githubLink: user?.team?.githubLink || null,
                 submissionTime: user?.team?.submissionTime?.toISOString() || null,
-            }
+            },
+            takenSlots: teams.map(t => t.timeslot)
         },
     }
 }
