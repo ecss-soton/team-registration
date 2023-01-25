@@ -8,10 +8,11 @@ import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
-import {Button, Text} from "@mantine/core";
+import {ActionIcon, Button, Text, useMantineColorScheme} from "@mantine/core";
 import {signIn, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import {IconMoonStars, IconSun} from "@tabler/icons";
 
 // @ts-ignore
 export default function SignIn({ url }) {
@@ -22,17 +23,36 @@ export default function SignIn({ url }) {
 
     console.log(session)
 
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
+
+            <div className='absolute top-2 right-2'>
+                <ActionIcon
+                    variant="outline"
+                    color={dark ? 'yellow' : 'blue'}
+                    onClick={() => toggleColorScheme()}
+                    title="Toggle color scheme"
+                >
+                    {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+                </ActionIcon>
+            </div>
+
             <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
 
                 <div className='flex flex-row justify-center'>
-                    <img
+                    {dark ? <img
+                        className='max-h-72'
+                        src="./AH_text_white-svg.png"
+                        alt="Aleios ECSS hackathon logo"
+                    /> : <img
                         className='max-h-72'
                         src="./AH_black_text-svg.png"
-                        alt="Random unsplash image"
-                    />
-                    {/*<h1 className="font-bold text-6xl m-5">ECSS PicoHack dashboard</h1>*/}
+                        alt="Aleios ECSS hackathon logo"
+                    />}
+
                 </div>
 
                 <h1 className="font-bold text-6xl mt-10">ECSS Hackathon registration</h1>
