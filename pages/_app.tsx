@@ -1,42 +1,55 @@
 import "@/styles/globals.css";
 import {AppProps} from "next/app";
 import {SessionProvider, useSession} from "next-auth/react";
-import {createEmotionCache, MantineProvider} from "@mantine/core";
+import {createEmotionCache, MantineProvider, ColorSchemeProvider, ColorScheme} from "@mantine/core";
 import {NextComponentType, NextPageContext} from "next";
 import Head from "next/head";
+import {useState} from "react";
+import {useLocalStorage} from "@mantine/hooks";
 
 const myCache = createEmotionCache({key: 'mantine', prepend: false});
 
 export default function MyApp({
-        Component,
-        pageProps: {session, ...pageProps}
-    }: AppProps & { Component: NextComponentType<NextPageContext, any, {}> & { auth: boolean } }) {
+                                  Component,
+                                  pageProps: {session, ...pageProps}
+                              }: AppProps & { Component: NextComponentType<NextPageContext, any, {}> & { auth: boolean } }) {
+
+    const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+        key: 'mantine-color-scheme',
+        defaultValue: 'dark',
+        getInitialValueInEffect: true,
+    });
+    const toggleColorScheme = (value?: ColorScheme) =>
+        setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
     return (
         <SessionProvider session={session}>
             <Head>
                 <title>ECSS Hackathon registration</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <MantineProvider
-                withGlobalStyles
-                withNormalizeCSS
-                emotionCache={myCache}
-                theme={{
-                    colorScheme: "light",
-                    colors: {
-                        brand: ['#dbf9ff', '#afe8ff', '#80d8ff', '#51c8fe', '#2cb8fc', '#1c9fe3', '#0d7bb2', '#005880', '#00354f', '#00131f'],
-                    },
-                    primaryColor: 'brand',
-                }}
-            >
-                {Component.auth ? (
-                    <Auth>
+            <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+                <MantineProvider
+                    withGlobalStyles
+                    withNormalizeCSS
+                    emotionCache={myCache}
+                    theme={{
+                        colorScheme: colorScheme,
+                        colors: {
+                            brand: ['#dbf9ff', '#afe8ff', '#80d8ff', '#51c8fe', '#2cb8fc', '#1c9fe3', '#0d7bb2', '#005880', '#00354f', '#00131f'],
+                        },
+                        primaryColor: 'brand',
+                    }}
+                >
+                    {Component.auth ? (
+                        <Auth>
+                            <Component {...pageProps} />
+                        </Auth>
+                    ) : (
                         <Component {...pageProps} />
-                    </Auth>
-                ) : (
-                    <Component {...pageProps} />
-                )}
-            </MantineProvider>
+                    )}
+                </MantineProvider>
+            </ColorSchemeProvider>
         </SessionProvider>
     );
 }

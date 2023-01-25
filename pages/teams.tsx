@@ -25,6 +25,7 @@ export default function Teams({ url }: { url: string }) {
 
     const [buttonLoading, setButtonLoading] = useState(false);
     const [showJoinable, setShowJoinable] = useState(false);
+    const [createTeamError, setCreateTeamError] = useState(false);
 
     const createNewTeam = async () => {
         setButtonLoading(true);
@@ -41,6 +42,9 @@ export default function Teams({ url }: { url: string }) {
         if (res.ok) {
             await mutate();
             setButtonLoading(false);
+        } else {
+            setCreateTeamError(true);
+            setTimeout(() => setCreateTeamError(false), 5_000);
         }
     };
 
@@ -68,60 +72,6 @@ export default function Teams({ url }: { url: string }) {
     if (data && data.teams.length != 0) {
         data.teams.sort(t => t.id === data.yourTeam ? -1 : 1)
     }
-
-    // const valueTooLongMessage = 'Please use less than 16 characters'
-    //
-    // const form = useForm({
-    //     initialValues: {
-    //         teamCode: '',
-    //     },
-    //
-    //     validate: {
-    //         teamCode: (value) => (value.length > 16 ? valueTooLongMessage : null),
-    //     },
-    // });
-    //
-    // const [formLoading, setFormLoading] = useState(false);
-    // const [formError, setFormError] = useState(false);
-    //
-    // const submitForm = async (values: SubmissionForm) => {
-    //
-    //     if (!values.teamCode) {
-    //
-    //         const nameErrorMsg = 'You must include a team name';
-    //         const githubErrorMsg = 'You must include a link to your repository';
-    //         const timeslotErrorMsg = 'You must choose a timeslot';
-    //
-    //         form.setErrors({
-    //             name: !values.name ? nameErrorMsg : null,
-    //             githubLink: !values.githubLink ? githubErrorMsg : null,
-    //             timeslotErrorMsg: !values.timeslot ? timeslotErrorMsg : null,
-    //         });
-    //         return;
-    //     }
-    //
-    //     setFormLoading(true)
-    //
-    //     const res = await fetch("/api/v1/submit", {
-    //         method: "post",
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //
-    //         //make sure to serialize your JSON body
-    //         body: JSON.stringify(values)
-    //     })
-    //     const res2 = await res.json()
-    //     console.log(res2)
-    //     if (res2.success) {
-    //         setFormLoading(false);
-    //         setFormError(false);
-    //     } else {
-    //         setFormLoading(false);
-    //         setFormError(true);
-    //     }
-    // }
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -161,16 +111,7 @@ export default function Teams({ url }: { url: string }) {
                         </div>
                     </Modal>
                     <div className='flex flex-wrap flex-row items-end'>
-                        {/*<form className='w-full sm:w-2/4 max-w-2xl mt-10 space-y-7' onSubmit={form.onSubmit(submitForm)}>*/}
-                            <TextInput
-                                ref={ref}
-                                placeholder="3vtVSqA7"
-                                className="mx-5"
-                                label="Join a team with a code"
-                                onKeyPress={handleInputCode}
-                            />
-                        {/*</form>*/}
-                        <Button  className="mx-5" loading={buttonLoading} onClick={createNewTeam}>
+                        <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} loading={buttonLoading} onClick={createNewTeam}>
                             Create new team
                         </Button>
                         <Link href="/" passHref>
@@ -183,7 +124,7 @@ export default function Teams({ url }: { url: string }) {
 
                     <Checkbox className='m-5' checked={showJoinable} label="Only show teams you can join" onChange={(event) => setShowJoinable(event.currentTarget.checked)} />
                 </div>
-                <div className="flex flex-wrap max-w-xl">
+                <div className="flex flex-wrap">
                     {data ? (data.teams.length == 0 ? null : data.teams.map(v => {
                         if (v.id === data.yourTeam) {
                             return (<TeamCard key={v.id} userRank={data.yourRank} url={url} {...v} />);

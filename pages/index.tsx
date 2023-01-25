@@ -7,27 +7,48 @@ import {authOptions} from "./api/auth/[...nextauth]";
 import { IncomingMessage, ServerResponse } from "http";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
-import {User} from "@prisma/client";
+import {User,Team} from "@prisma/client";
 import prisma from "../prisma/client";
-import { Button, Text, Image } from "@mantine/core";
+import {Button, Text, Image, Tabs, useMantineColorScheme, ActionIcon} from "@mantine/core";
 import Link from "next/link";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
+import {IconUsers, IconTimeline, IconSun, IconMoonStars} from "@tabler/icons";
+import {TeamCard} from "@/components/TeamCard";
 
-export default function Home({ session, user }: { session: Session, user: User }) {
+export default function Home({ session, user, url, team }: { session: Session, user: User, url: string, team: Team }) {
+
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div>
+            <div className='absolute top-2 right-2'>
+                <ActionIcon
+                    variant="outline"
+                    color={dark ? 'yellow' : 'blue'}
+                    onClick={() => toggleColorScheme()}
+                    title="Toggle color scheme"
+                >
+                    {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+                </ActionIcon>
+            </div>
+
+
             <main className="flex flex-col items-center justify-center w-full flex-1 px-2 text-center">
 
                 <div className='flex flex-row justify-center'>
-                    <img
+                    {dark ? <img
+                        className='max-h-72'
+                        src="./AH_text_white-svg.png"
+                        alt="Aleios ECSS hackathon logo"
+                    /> : <img
                         className='max-h-72'
                         src="./AH_black_text-svg.png"
-                        alt="Random unsplash image"
-                    />
-                    {/*<h1 className="font-bold text-6xl m-5">ECSS PicoHack dashboard</h1>*/}
+                        alt="Aleios ECSS hackathon logo"
+                    />}
+
                 </div>
 
 
@@ -62,10 +83,27 @@ export default function Home({ session, user }: { session: Session, user: User }
                 </div>
 
 
+                <Tabs defaultValue="timeline" className='w-full'>
+                    <Tabs.List position="center">
+                        <Tabs.Tab value="timeline" icon={<IconTimeline size={14} />}>Timeline</Tabs.Tab>
+                        <Tabs.Tab value="team" icon={<IconUsers size={14} />}>Your Team</Tabs.Tab>
+                    </Tabs.List>
 
-                <div className='m-10'>
-                    <MainTimeline user={user}/>
-                </div>
+                    <Tabs.Panel value="timeline" pt="xs">
+                        <div className='m-10 flex justify-center'>
+                            <MainTimeline user={user}/>
+                        </div>
+                    </Tabs.Panel>
+
+                    <Tabs.Panel value="team" pt="xs">
+                        {!team && <p>You don't have a team yet</p>}
+                        {(team && !team.timeslot) && <p>Book a slot</p>}
+                        {(team && team.timeslot) && <p>Your slot is at {team.timeslot}</p>}
+                    </Tabs.Panel>
+                </Tabs>
+
+
+
 
 
             </main>
@@ -120,13 +158,20 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
     const user = await prisma.user.findUnique({
         where: {
             sotonId: session.microsoft.email.split('@')[0],
+        },
+        include: {
+            team: true
         }
     });
+
+
 
     return {
         props: {
             session,
-            user: JSON.parse(JSON.stringify(user))
+            user: JSON.parse(JSON.stringify(user)),
+            url: process.env.NEXTAUTH_URL,
+            team: JSON.parse(JSON.stringify(user?.team)) || false,
         },
     }
 }
