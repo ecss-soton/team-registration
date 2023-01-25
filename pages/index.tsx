@@ -96,7 +96,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
                     </Tabs.Panel>
 
                     <Tabs.Panel value="team" pt="xs">
-                        {!team && <p>You don't have a team yet</p>}
+                        {!team && <p>You do not have a team yet</p>}
                         {(team && !team.timeslot) && <p>Book a slot</p>}
                         {(team && team.timeslot) && <p>Your slot is at {team.timeslot}</p>}
                     </Tabs.Panel>
