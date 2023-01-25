@@ -152,7 +152,7 @@ const stages = [
 
 export const MainTimeline = ({ user }: { user: User }) => {
 
-    let stage = 0;
+    let stage = -1;
     if (user.registered) stage++;
     if (user.teamId) stage++;
 
