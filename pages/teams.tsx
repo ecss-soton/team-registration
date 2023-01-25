@@ -69,18 +69,8 @@ export default function Teams({ url }: { url: string }) {
         }
     };
 
-    if (data && data.teams.length != 0) {
+    if (data?.teams && data.teams.length != 0) {
         data.teams.sort(t => t.id === data.yourTeam ? -1 : 1)
-    }
-
-    const ref = useRef<HTMLInputElement>(null);
-
-    // ref.current.
-    const handleInputCode = (e: KeyboardEvent) => {
-        console.log(e)
-        if (e.key === 'Enter') {
-            console.log('YES')
-        }
     }
 
     return (
@@ -111,7 +101,7 @@ export default function Teams({ url }: { url: string }) {
                         </div>
                     </Modal>
                     <div className='flex flex-wrap flex-row items-end'>
-                        <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} loading={buttonLoading} onClick={createNewTeam}>
+                        <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} disabled={!data?.teams} loading={buttonLoading} onClick={createNewTeam}>
                             Create new team
                         </Button>
                         <Link href="/" passHref>
@@ -125,7 +115,7 @@ export default function Teams({ url }: { url: string }) {
                     <Checkbox className='m-5' checked={showJoinable} label="Only show teams you can join" onChange={(event) => setShowJoinable(event.currentTarget.checked)} />
                 </div>
                 <div className="flex flex-wrap">
-                    {data ? (data.teams.length == 0 ? null : data.teams.map(v => {
+                    {data?.teams ? (data.teams.length == 0 ? null : data.teams.map(v => {
                         if (v.id === data.yourTeam) {
                             return (<TeamCard key={v.id} userRank={data.yourRank} url={url} {...v} />);
                         }

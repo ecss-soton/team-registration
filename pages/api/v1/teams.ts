@@ -34,6 +34,12 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     }
   });
 
+  if (!user || !user.registered) {
+    return res.status(404).json({
+      error: true, message: 'This user does not exist or is not registered.',
+    });
+  }
+
   let teams = await prisma.team.findMany({
     include: {
       members: {
@@ -46,12 +52,6 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
   if (!teams) {
     teams = [];
-  }
-
-  if (!user) {
-    return res.status(404).json({
-      error: true, message: 'This user does not exist.',
-    });
   }
 
   const yourTeam = user.teamId ?? undefined;
