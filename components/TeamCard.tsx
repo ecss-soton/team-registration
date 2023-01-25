@@ -1,6 +1,6 @@
 import {IconLock, IconLockOpen, IconShare} from '@tabler/icons';
 import {
-    Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton
+    Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme
 } from '@mantine/core';
 import {Team} from '@/types/types';
 import {icons} from '../pages/register';
@@ -9,6 +9,9 @@ import {useSWRConfig} from 'swr';
 import {log} from "util";
 
 export function TeamCard(team: Team & { userRank?: number, url: string }) {
+
+    const { colorScheme } = useMantineColorScheme();
+
     const [lockButtonLoading, setLockButtonLoading] = useState(false);
     const [joinButtonLoading, setJoinButtonLoading] = useState(false);
     const [leaveButtonLoading, setLeaveButtonLoading] = useState(false);
@@ -78,9 +81,11 @@ export function TeamCard(team: Team & { userRank?: number, url: string }) {
         }
     }
 
+    const yourBgColour = colorScheme === 'dark' ? '#1e1e23' : '#e0e0e0'
+
     let memberCount = -1;
     const rows = team.members.map(m => {
-        return (<tr key={m.name} style={(memberCount += 1) === team.userRank ? {backgroundColor: '#e0e0e0'} : {}}>
+        return (<tr key={m.name} style={(memberCount += 1) === team.userRank ? {backgroundColor: yourBgColour } : {}}>
             <td>{m.name}</td>
             <td>{m.discordTag ?? 'N/A'}</td>
             <td>
