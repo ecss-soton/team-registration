@@ -58,6 +58,7 @@ export default function SignIn({ url }) {
                 <h1 className="font-bold text-6xl mt-10">ECSS Hackathon registration</h1>
 
                 <Text className='my-5'>
+                    Get 24 hours to code a thing around a theme.
                     Login with your university account to register, join a team and see all the details!
                 </Text>
 
