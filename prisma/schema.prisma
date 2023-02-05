@@ -91,7 +91,7 @@ model Team {
   id String @id @db.VarChar(16)
 
   members User[]
-  locked  Boolean @default(false)
+  locked  Boolean @default(true)
 
   name String?
   githubLink String?
