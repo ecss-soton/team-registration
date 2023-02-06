@@ -14,7 +14,7 @@ import {RegisterForm, Tag} from '@/types/types'
 import {forwardRef, FunctionComponent, useState} from 'react';
 import {
     COriginal,
-    CplusplusOriginal, CsharpOriginal, FlutterOriginal, GoOriginal,
+    CplusplusOriginal, CsharpOriginal, FlutterOriginal, GoOriginal, HaskellOriginal,
     JavaOriginal,
     JavascriptOriginal,
     KotlinPlain, PythonOriginal, RubyPlain,
@@ -46,7 +46,8 @@ const langData: (SelectItem & { value: Tag })[] = [
     {label: 'C', value: 'c'},
     {label: 'Flutter', value: 'dart'},
     {label: 'Swift', value: 'swift'},
-    {label: 'Go', value: 'go'}
+    {label: 'Go', value: 'go'},
+    {label: 'Haskell', value: 'hs'}
 ];
 
 export const icons: Record<Tag, FunctionComponent> = {
@@ -63,7 +64,8 @@ export const icons: Record<Tag, FunctionComponent> = {
     "c": COriginal,
     "go": GoOriginal,
     "dart": FlutterOriginal,
-    "swift": SwiftPlain
+    "swift": SwiftPlain,
+    "hs": HaskellOriginal
 };
 
 const yearOfStudy: Record<string, RegisterForm['yearOfStudy']> = {

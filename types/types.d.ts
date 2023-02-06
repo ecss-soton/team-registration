@@ -1,4 +1,4 @@
-export type Tag = "rs" | "java" | "cpp" | "js" | "ts" | "kt" | "cs" | "rb" | "sql" | "py" | "c" | "dart" | "go" | "swift"
+export type Tag = "rs" | "java" | "cpp" | "js" | "ts" | "kt" | "cs" | "rb" | "sql" | "py" | "c" | "dart" | "go" | "swift" | "hs"
 
 export interface Team {
   locked: boolean,

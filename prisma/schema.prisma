@@ -85,6 +85,7 @@ enum Tag {
   go
   dart
   swift
+  hs
 }
 
 model Team {
