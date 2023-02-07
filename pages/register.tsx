@@ -204,8 +204,6 @@ export default function Register({session}: RegisterProps) {
                         data={Object.keys(yearOfStudy)}
                         placeholder="Pick one"
                         label="Which year are you in?"
-                        description="This is anonymous"
-                        // withAsterisk
                         {...form.getInputProps('yearOfStudy')}
                     />
 
