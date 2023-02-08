@@ -107,7 +107,7 @@ const stages = [
         )
     },
     {
-        title: "Lunch",
+        title: "Lunch 2",
         date: new Date("12 february 2023 11:00:00"),
         content: () => (
             <Text>Your second lunch</Text>
@@ -184,7 +184,12 @@ export const MainTimeline = ({ user }: { user: User }) => {
                     )
                 } else if (i <= stage) { // Doing this stage
                     return (
-                        <Timeline.Item key={v.title} title={v.title}>
+                        <Timeline.Item styles={(theme) => ({
+                            itemBullet: {
+                                backgroundColor: '#8000ff',
+                                borderColour: '#8000ff',
+                            }
+                        })} key={v.title} title={v.title}>
                             {
                                 !v.date ? null :
                                     <Text size="xs" color="dimmed" mt={4}>{moment(v.date).format("dddd, MMMM Do, h:mm a")}</Text>
