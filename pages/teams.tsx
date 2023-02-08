@@ -152,9 +152,6 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         where: {
             sotonId: session.microsoft.email.split('@')[0],
         },
-        include: {
-            team: true
-        },
     });
 
 
