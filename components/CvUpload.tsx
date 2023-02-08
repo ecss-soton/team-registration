@@ -25,9 +25,15 @@ export function CvUpload({ fileName }: { fileName: string}) {
     const [currentCvFileName, setCurrentCvFileName] = useState(fileName || 'None');
     const resetRef = useRef<() => void>(null);
 
-    const clearFile = () => {
+    const clearFile = async () => {
+
+        await fetch("/api/v1/uploadcv", {
+            method: "delete",
+        })
+
         setFile(null);
         setFileSizeError(false)
+        setCurrentCvFileName('None')
         resetRef.current?.();
     };
 
@@ -68,7 +74,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
                     <FileButton onChange={setFile} accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                         {(props) => <Button variant="outline" {...props}>Upload CV</Button>}
                     </FileButton>
-                    <Button disabled={!file} color="red" onClick={clearFile}>Reset</Button>
+                    <Button color="red" onClick={clearFile}>Reset</Button>
                     <Button disabled={!file} onClick={uploadFile}>Submit</Button>
                 </Group>
                 {(fileSizeError || (file && tooBig(file))) && <Text size="sm" color="red" align="center" mt="sm">

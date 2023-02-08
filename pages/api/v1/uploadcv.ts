@@ -25,8 +25,11 @@ interface ResponseError {
 }
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse<ResponseData | ResponseError>) {
-    if (req.method !== 'POST') return res.status(405).json({
-        error: true, message: 'Only HTTP verb GET is permitted',
+
+
+
+    if (req.method !== 'POST' && req.method !== 'DELETE') return res.status(405).json({
+        error: true, message: 'Only HTTP verb POST and DELETE are permitted',
     });
 
     const attemptedAuth = await unstable_getServerSession(req, res, authOptions);
@@ -49,6 +52,23 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         });
     }
 
+
+    if (req.method === 'DELETE') {
+        await prisma.user.update({
+            data: {
+                cv: null,
+                cvFileName: null
+            },
+            where: {
+                id: attemptedAuth.id,
+            }
+        });
+
+        return res.status(200).json({
+            success: true,
+            fileName: ''
+        });
+    }
 
 
     const data: { fields: {}, files: { cv: { size: number, filepath: string, originalFilename: string }}} = await new Promise((resolve, reject) => {
