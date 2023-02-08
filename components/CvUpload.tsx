@@ -1,7 +1,14 @@
 import { useState, useRef } from 'react';
-import { FileButton, Button, Group, Text } from '@mantine/core';
+import {FileButton, Button, Group, Text, Divider} from '@mantine/core';
+import {IncomingMessage, ServerResponse} from "http";
+import {NextApiRequestCookies} from "next/dist/server/api-utils";
+import {NextApiRequest, NextApiResponse} from "next";
+import {unstable_getServerSession} from "next-auth";
+import {authOptions} from "../pages/api/auth/[...nextauth]";
+import axios from "axios";
+import prisma from "../prisma/client";
 
-export function CvUpload() {
+export function CvUpload({ fileName }: { fileName: string}) {
 
     const KB_IN_BYTES = 1_024
     const MB_IN_BYTES = 1_048_576
@@ -15,6 +22,7 @@ export function CvUpload() {
     const [file, setFile] = useState<File | null>(null);
     const [fileSizeError, setFileSizeError] = useState(false);
     const [generalFileError, setGeneralFileError] = useState(false);
+    const [currentCvFileName, setCurrentCvFileName] = useState(fileName || 'None');
     const resetRef = useRef<() => void>(null);
 
     const clearFile = () => {
@@ -43,6 +51,7 @@ export function CvUpload() {
         }
 
         setFile(null);
+        setCurrentCvFileName(res2.fileName)
         resetRef.current?.();
     }
 
@@ -53,25 +62,30 @@ export function CvUpload() {
     }
 
     return (
-        <div className='p-10'>
-            <Group position="center">
-                <FileButton onChange={setFile} accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                    {(props) => <Button variant="outline" {...props}>Upload CV</Button>}
-                </FileButton>
-                <Button disabled={!file} color="red" onClick={clearFile}>Reset</Button>
-                <Button disabled={!file} onClick={uploadFile}>Submit</Button>
-            </Group>
-            {(file && tooBig(file)) && <Text size="sm" color="red" align="center" mt="sm">
-                File is bigger than {printFileSize(MAX_FILE_SIZE)}
-            </Text>}
-            {generalFileError && <Text size="sm" color="red" align="center" mt="sm">
-                Whoops! Something went wrong on the upload, please contact the web officer
-            </Text>}
-            {file && (
-                <Text size="sm" align="center" mt="sm">
-                    {file.name} ({printFileSize(file.size)} Bytes)
-                </Text>
-            )}
-        </div>
+        <>
+            <div className='p-10'>
+                <Group position="center">
+                    <FileButton onChange={setFile} accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        {(props) => <Button variant="outline" {...props}>Upload CV</Button>}
+                    </FileButton>
+                    <Button disabled={!file} color="red" onClick={clearFile}>Reset</Button>
+                    <Button disabled={!file} onClick={uploadFile}>Submit</Button>
+                </Group>
+                {(fileSizeError || (file && tooBig(file))) && <Text size="sm" color="red" align="center" mt="sm">
+                    File is bigger than {printFileSize(MAX_FILE_SIZE)}
+                </Text>}
+                {generalFileError && <Text size="sm" color="red" align="center" mt="sm">
+                    Whoops! Something went wrong on the upload, please contact the web officer
+                </Text>}
+                {file && (
+                    <Text size="sm" align="center" mt="sm">
+                        {file.name} ({printFileSize(file.size)} Bytes)
+                    </Text>
+                )}
+            </div>
+            <div className='pt-2 flex flex-col'>
+                <Text>Current CV: {currentCvFileName}</Text>
+            </div>
+        </>
     );
 }
