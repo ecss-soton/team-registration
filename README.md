@@ -3,7 +3,6 @@
 A service to create and join teams to compete in a hackathon or other competition
 
 TODO
-- Stop people from joining teams if they are not registered
 - Add a QR scanner feature for Admins (With CSV participant download)
 - Add more info to teams page
 - Display an error message if you try and join a team that doens't exist

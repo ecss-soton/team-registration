@@ -19,6 +19,9 @@ import {TeamCard} from "@/components/TeamCard";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
 import {useRef} from "react";
+import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle} from "@tabler/icons";
+import {TeamCard} from "@/components/TeamCard";
+import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, url, team }: { session: Session, user: User, url: string, team: Team }) {
 
@@ -47,7 +50,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
             </div>
 
 
-            <main className="flex flex-col items-center justify-center w-full flex-1 px-2 text-center">
+            <main className="flex flex-col items-center justify-center w-screen flex-1 px-2 text-center">
 
                 <div className='flex flex-row justify-center'>
                     {dark ? <img
@@ -94,10 +97,11 @@ export default function Home({ session, user, url, team }: { session: Session, u
                 </div>
 
 
-                <Tabs defaultValue={tab || "timeline"} className='w-full'>
+                <Tabs defaultValue={tab || "timeline"} className='w-screen'>
                     <Tabs.List position="center">
                         <Tabs.Tab value="timeline" icon={<IconTimeline size={14} />}>Timeline</Tabs.Tab>
                         <Tabs.Tab value="team" icon={<IconUsers size={14} />}>Your Team</Tabs.Tab>
+                        <Tabs.Tab value="profile" icon={<IconUserCircle size={14} />}>Profile</Tabs.Tab>
                         <Tabs.Tab
                             value="cv"
                             icon={<IconCertificate size={14} />}
@@ -115,6 +119,10 @@ export default function Home({ session, user, url, team }: { session: Session, u
                         {!team && <p>You do not have a team yet</p>}
                         {(team && !team.timeslot) && <p>Book a slot</p>}
                         {(team && team.timeslot) && <p>Your slot is at {team.timeslot}</p>}
+                    </Tabs.Panel>
+                    
+                    <Tabs.Panel value="profile" pt="xs">
+                        <Profile user={user}/>
                     </Tabs.Panel>
 
                     <Tabs.Panel value="cv" pt="xs">
@@ -181,9 +189,12 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         },
         include: {
             team: true
-        }
+        },
     });
 
+    if (user) {
+        user.cv = null
+    }
 
 
     return {
