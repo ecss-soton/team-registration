@@ -173,8 +173,6 @@ export const MainTimeline = ({ user }: { user: User }) => {
         return () => clearInterval(timerId);
     }, []);
 
-    console.log(user)
-
     return (
         <Timeline active={stage} bulletSize={24} lineWidth={2}>
             {stages.map((v, i) => {
