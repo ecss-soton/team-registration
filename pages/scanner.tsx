@@ -7,38 +7,81 @@ import fetcher from '../middleware/fetch';
 import Link from "next/link";
 import QRCode from "react-qr-code";
 import {useSession} from "next-auth/react";
+import {QrReader} from "react-qr-reader";
 
 export default function Qr() {
+    interface ICheckedIn {
+        success: boolean
+        dietaryReq: string
+        extra: string
+        displayName: string
+    }
 
-    const [data, setData] = useState('unknown user');
+    const [data, setData] = useState<ICheckedIn>({ success: false, dietaryReq: 'N/A', extra: 'N/A', displayName: 'N/A' });
     const [showScanner, setShowScanner] = useState(false);
+
+
+    const checkIn = async (id: string) => {
+        const res = await fetch("/api/v1/checkin", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        })
+
+        const res2 = await res.json()
+        console.log(res2)
+        if (res2.success) {
+            setData(res2);
+        } else {
+            setData({ success: false, dietaryReq: 'N/A', extra: 'N/A', displayName: res2.message || "Uh Oh! An error occurred" });
+        }
+    }
 
     return (
         <>
-            <div>
-                <Link href="/" passHref>
-                    <Button variant='outline' component="a">
-                        Back
+            <div className='flex flex-col content-center h-screen'>
+                <div className='flex justify-center m-5 gap-4'>
+                    <Link href="/" passHref>
+                        <Button variant='outline' component="a">
+                            Back
+                        </Button>
+                    </Link>
+                    <Button variant='filled' component="a" onClick={() => setShowScanner(!showScanner)}>
+                        Toggle scanner
                     </Button>
-                </Link>
-                {/*<Button variant='filled' component="a" onClick={() => setShowScanner(true)}>*/}
-                {/*    Scan*/}
-                {/*</Button>*/}
-                {/*{data}*/}
-                {/*{showScanner && <QrReader // https://www.npmjs.com/package/react-qr-reader*/}
-                {/*    onResult={(result, error) => {*/}
-                {/*        if (!!result) {*/}
-                {/*            setData(result.getText());*/}
-                {/*            setShowScanner(false)*/}
-                {/*        }*/}
+                </div>
+                <div className='flex justify-center p-10 w-1/3'>
+                    {
+                        data.success ?
+                            <div>
+                                <div>Name: {data.displayName}</div>
+                                <div>Dietary: {data.dietaryReq}</div>
+                                <div>Extra: {data.extra}</div>
+                            </div> :
+                            <div>Error: {data.displayName}</div>
+                    }
+                </div>
+                {
+                    showScanner &&
+                    <div className='w-1/3 m-10'>
+                        <QrReader // https://www.npmjs.com/package/react-qr-reader
+                            onResult={(result, error) => {
+                                if (!!result) {
+                                    setShowScanner(false)
+                                    checkIn(result.getText())
+                                }
+                                if (!!error) {
+                                    console.info(error);
+                                }
+                            }}
+                            constraints={{ facingMode: 'environment' }}
+                        />
+                    </div>
 
-                {/*        if (!!error) {*/}
-                {/*            console.info(error);*/}
-                {/*        }*/}
-                {/*    }}*/}
-                {/*    className='w-4/5'*/}
-                {/*    constraints={{ facingMode: 'environment' }}*/}
-                {/*/>}*/}
+                }
             </div>
 
 
