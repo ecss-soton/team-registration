@@ -34,9 +34,9 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     }
   });
 
-  if (!user || !user.registered) {
+  if (!user) {
     return res.status(404).json({
-      error: true, message: 'This user does not exist or is not registered.',
+      error: true, message: 'This user does not exist.',
     });
   }
 

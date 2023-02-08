@@ -14,8 +14,10 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {unstable_getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
+import {User} from "@prisma/client";
+import axios from "axios";
 
-export default function Teams({ url }: { url: string }) {
+export default function Teams({ url, user }: { url: string, user: User }) {
 
 
 
@@ -101,7 +103,7 @@ export default function Teams({ url }: { url: string }) {
                         </div>
                     </Modal>
                     <div className='flex flex-wrap flex-row items-end'>
-                        <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} disabled={!data?.teams} loading={buttonLoading} onClick={createNewTeam}>
+                        <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} disabled={!data?.teams || !user.registered} loading={buttonLoading} onClick={createNewTeam}>
                             Create new team
                         </Button>
                         <Link href="/" passHref>
@@ -114,15 +116,18 @@ export default function Teams({ url }: { url: string }) {
 
                     <Checkbox className='m-5' checked={showJoinable} label="Only show teams you can join" onChange={(event) => setShowJoinable(event.currentTarget.checked)} />
                 </div>
+                {
+                    !user.registered ? <h3 style={{color:"red"}}>You can only join a team if you have registered.</h3>: <div/>
+                }
                 <div className="flex flex-wrap">
                     {data?.teams ? (data.teams.length == 0 ? null : data.teams.map(v => {
                         if (v.id === data.yourTeam) {
-                            return (<TeamCard key={v.id} userRank={data.yourRank} url={url} {...v} />);
+                            return (<TeamCard key={v.id} userRank={data.yourRank} url={url} registered={user.registered} {...v} />);
                         }
                         if (showJoinable && (v.locked || v.members.length >= 4)) {
                             return null;
                         }
-                        return (<TeamCard key={v.id} url={url} {...v}/>);
+                        return (<TeamCard key={v.id} url={url} registered={user.registered} {...v}/>);
                     })) : <div/>}
 
                 </div>
@@ -132,9 +137,31 @@ export default function Teams({ url }: { url: string }) {
 }
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
+    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+    if (!session?.microsoft.email) {
+        return {
+            redirect: {
+                destination: '/signin',
+                permanent: false,
+            },
+        }
+    }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            sotonId: session.microsoft.email.split('@')[0],
+        },
+        include: {
+            team: true
+        },
+    });
+
+
     return {
         props: {
-            url: process.env.NEXTAUTH_URL
+            url: process.env.NEXTAUTH_URL,
+            user: JSON.parse(JSON.stringify(user)),
         },
     }
 }
