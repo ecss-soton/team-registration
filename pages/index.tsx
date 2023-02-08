@@ -87,6 +87,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
                     <Tabs.List position="center">
                         <Tabs.Tab value="timeline" icon={<IconTimeline size={14} />}>Timeline</Tabs.Tab>
                         <Tabs.Tab value="team" icon={<IconUsers size={14} />}>Your Team</Tabs.Tab>
+                        <Tabs.Tab value="profile" icon={<IconUserCircle size={14} />}>Profile</Tabs.Tab>
                     </Tabs.List>
 
                     <Tabs.Panel value="timeline" pt="xs">
@@ -99,6 +100,11 @@ export default function Home({ session, user, url, team }: { session: Session, u
                         {!team && <p>You do not have a team yet</p>}
                         {(team && !team.timeslot) && <p>Book a slot</p>}
                         {(team && team.timeslot) && <p>Your slot is at {team.timeslot}</p>}
+                    </Tabs.Panel>
+
+                    <Tabs.Panel value="profile" pt="xs">
+                        {/*Change your languages known*/}
+                        <Profile user={user}/>
                     </Tabs.Panel>
                 </Tabs>
 
