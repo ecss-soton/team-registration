@@ -17,7 +17,6 @@ import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle, IconCertificate} from "@tabler/icons";
 import {TeamCard} from "@/components/TeamCard";
 import {CvUpload} from "@/components/CvUpload";
-import {Profile} from "@/components/Profile";
 import {useRouter} from "next/router";
 import {useRef} from "react";
 
@@ -102,7 +101,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
                         <Tabs.Tab
                             value="cv"
                             icon={<IconCertificate size={14} />}
-                            rightSection={<Badge>NEW</Badge>}
+                            rightSection={!user.cvFileName && <Badge>NEW</Badge>}
                         >CV Upload</Tabs.Tab>
                     </Tabs.List>
 
@@ -119,7 +118,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
                     </Tabs.Panel>
 
                     <Tabs.Panel value="cv" pt="xs">
-                        <CvUpload/>
+                        <CvUpload fileName={user.cvFileName || ''}/>
                     </Tabs.Panel>
                 </Tabs>
 
