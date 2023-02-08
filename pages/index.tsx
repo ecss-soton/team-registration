@@ -14,8 +14,9 @@ import Link from "next/link";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
-import {IconUsers, IconTimeline, IconSun, IconMoonStars} from "@tabler/icons";
+import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle} from "@tabler/icons";
 import {TeamCard} from "@/components/TeamCard";
+import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, url, team }: { session: Session, user: User, url: string, team: Team }) {
 
@@ -36,7 +37,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
             </div>
 
 
-            <main className="flex flex-col items-center justify-center w-full flex-1 px-2 text-center">
+            <main className="flex flex-col items-center justify-center w-screen flex-1 px-2 text-center">
 
                 <div className='flex flex-row justify-center'>
                     {dark ? <img
@@ -83,7 +84,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
                 </div>
 
 
-                <Tabs defaultValue="timeline" className='w-full'>
+                <Tabs defaultValue="timeline" className='w-screen'>
                     <Tabs.List position="center">
                         <Tabs.Tab value="timeline" icon={<IconTimeline size={14} />}>Timeline</Tabs.Tab>
                         <Tabs.Tab value="team" icon={<IconUsers size={14} />}>Your Team</Tabs.Tab>
@@ -103,7 +104,6 @@ export default function Home({ session, user, url, team }: { session: Session, u
                     </Tabs.Panel>
 
                     <Tabs.Panel value="profile" pt="xs">
-                        {/*Change your languages known*/}
                         <Profile user={user}/>
                     </Tabs.Panel>
                 </Tabs>
@@ -167,9 +167,12 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         },
         include: {
             team: true
-        }
+        },
     });
 
+    if (user) {
+        user.cv = null
+    }
 
 
     return {
