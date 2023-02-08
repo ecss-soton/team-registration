@@ -19,8 +19,6 @@ import {TeamCard} from "@/components/TeamCard";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
 import {useRef} from "react";
-import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle} from "@tabler/icons";
-import {TeamCard} from "@/components/TeamCard";
 import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, url, team }: { session: Session, user: User, url: string, team: Team }) {
@@ -120,7 +118,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
                         {(team && !team.timeslot) && <p>Book a slot</p>}
                         {(team && team.timeslot) && <p>Your slot is at {team.timeslot}</p>}
                     </Tabs.Panel>
-                    
+
                     <Tabs.Panel value="profile" pt="xs">
                         <Profile user={user}/>
                     </Tabs.Panel>
