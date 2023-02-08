@@ -60,6 +60,9 @@ model User {
   teamId         String?   @db.VarChar(30)
   joinedTeamTime DateTime?
 
+  cv Bytes?
+  cvFileName String?
+
   accounts Account[]
   sessions Session[]
 
