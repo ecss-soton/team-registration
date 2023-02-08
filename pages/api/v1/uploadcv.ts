@@ -16,6 +16,7 @@ export const config = {
 
 interface ResponseData {
     success: boolean
+    fileName: string;
 }
 
 interface ResponseError {
@@ -91,6 +92,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     });
 
     res.status(200).json({
-        success: true
+        success: true,
+        fileName: data.files.cv.originalFilename
     });
 }
