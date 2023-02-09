@@ -7,7 +7,7 @@ import fetcher from '../middleware/fetch';
 import Link from "next/link";
 import QRCode from "react-qr-code";
 import {useSession} from "next-auth/react";
-import {QrReader} from "react-qr-reader";
+import QrCodeReader from "react-qrcode-reader";
 
 export default function Qr() {
     interface ICheckedIn {
@@ -18,10 +18,11 @@ export default function Qr() {
     }
 
     const [data, setData] = useState<ICheckedIn>({ success: false, dietaryReq: 'N/A', extra: 'N/A', displayName: 'N/A' });
-    const [showScanner, setShowScanner] = useState(false);
+    const [showScanner, setShowScanner] = useState(true);
 
 
     const checkIn = async (id: string) => {
+        setShowScanner(false)
         const res = await fetch("/api/v1/checkin", {
             method: "post",
             headers: {
@@ -67,18 +68,7 @@ export default function Qr() {
                 {
                     showScanner &&
                     <div className='w-1/3 m-10'>
-                        <QrReader // https://www.npmjs.com/package/react-qr-reader
-                            onResult={(result, error) => {
-                                if (!!result) {
-                                    setShowScanner(false)
-                                    checkIn(result.getText())
-                                }
-                                if (!!error) {
-                                    console.info(error);
-                                }
-                            }}
-                            constraints={{ facingMode: 'environment' }}
-                        />
+                        <QrCodeReader delay={100} width={500} height={500} action={checkIn} />
                     </div>
 
                 }
