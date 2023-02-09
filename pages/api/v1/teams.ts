@@ -62,6 +62,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
       return {
         locked: team.locked, id: team.id, members: team.members.map((member) => {
           return {
+            id: member.id,
             name: member.displayName ?? '',
             discordTag: member.discordTag ?? undefined,
             tags: member.tags,

@@ -7,6 +7,7 @@ export interface Team {
 }
 
 export interface Member {
+  id: string
   name: string,
   discordTag?: string,
   yearOfStudy?: number
