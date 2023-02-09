@@ -54,7 +54,7 @@ export default function Qr() {
                         Toggle scanner
                     </Button>
                 </div>
-                <div className='flex justify-center p-10 w-1/3'>
+                <div className='flex justify-center p-10'>
                     {
                         data.success ?
                             <div>
