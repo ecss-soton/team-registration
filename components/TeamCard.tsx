@@ -8,7 +8,7 @@ import {useState} from 'react';
 import {useSWRConfig} from 'swr';
 import {log} from "util";
 
-export function TeamCard(team: Team & { userRank?: number, url: string }) {
+export function TeamCard(team: Team & { userRank?: number, url: string, registered: boolean }) {
 
     const { colorScheme } = useMantineColorScheme();
 
@@ -121,7 +121,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string }) {
             </Card.Section>
 
             <Group mt="xs">
-                <Button radius="md" disabled={team.locked || team.userRank !== undefined || team.members.length >= 4}
+                <Button radius="md" disabled={team.locked || team.userRank !== undefined || team.members.length >= 4 || !team.registered}
                         loading={joinButtonLoading} onClick={joinTeam}>
                     Join team
                 </Button>

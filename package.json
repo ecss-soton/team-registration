@@ -22,7 +22,8 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:migrate": "npx prisma migrate deploy",
-    "prisma:dbpush": "npx prisma db push"
+    "prisma:dbpush": "npx prisma db push",
+    "downloadcvs": "ts-node ./prisma/downloadCVs.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",

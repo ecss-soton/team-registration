@@ -26,6 +26,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         });
     }
 
+    const user = await prisma.user.findUnique({
+        where: {
+            id: attemptedAuth.id,
+        }
+    });
+
+    if (!user || !user.registered) {
+        return res.status(404).json({
+            error: true, message: 'This user does not exist or is not registered.',
+        });
+    }
+
     if (req.body.team) {
         // user wants to join a specific team.
         if (typeof req.body.team !== "string") return res.status(405).json({
