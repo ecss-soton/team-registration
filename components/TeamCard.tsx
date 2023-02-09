@@ -1,4 +1,4 @@
-import {IconLock, IconLockOpen, IconShare} from '@tabler/icons';
+import {IconLock, IconLockOpen, IconShare, IconX} from '@tabler/icons';
 import {
     Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme
 } from '@mantine/core';
@@ -81,12 +81,44 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
         }
     }
 
+    const kickMember = (id: string) => {
+
+
+        return async () => {
+
+            const res = await fetch('/api/v1/kick', {
+                method: 'post', headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({ kickId: id })
+            });
+
+            if (res.ok) {
+                await mutate('/api/v1/teams')
+            }
+        }
+
+    }
+
     const yourBgColour = colorScheme === 'dark' ? '#1e1e23' : '#e0e0e0'
 
     let memberCount = -1;
     const rows = team.members.map(m => {
         return (<tr key={m.name} style={(memberCount += 1) === team.userRank ? {backgroundColor: yourBgColour } : {}}>
-            <td>{m.name}</td>
+            <td className='inline-flex'>
+                <div className={(team.userRank === 0) ? '' : 'hidden'}>
+                    {
+                        (memberCount += 1) !== team.userRank &&
+                        <ActionIcon onClick={kickMember(m.id)}>
+                            <IconX size={18}/>
+                        </ActionIcon>
+                    }
+                </div>
+                <div>
+                    {m.name}
+                </div>
+            </td>
             <td>{m.discordTag ?? 'N/A'}</td>
             <td>
                 <div className='flex flex-row w-16 flex-wrap'>
