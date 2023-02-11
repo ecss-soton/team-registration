@@ -1,5 +1,5 @@
 import {TeamCard} from '@/components/TeamCard';
-import {Button, Card, Checkbox} from '@mantine/core';
+import {Button, Card, Checkbox, TextInput} from '@mantine/core';
 import React, {useState} from 'react';
 import {Team} from '@/types/types';
 import useSWR from 'swr';
@@ -19,6 +19,7 @@ export default function Qr() {
 
     const [data, setData] = useState<ICheckedIn>({ success: false, dietaryReq: 'N/A', extra: 'N/A', displayName: 'N/A' });
     const [showScanner, setShowScanner] = useState(true);
+    const [manualID, setManualID] = useState('');
 
 
     const checkIn = async (id: string) => {
@@ -52,6 +53,10 @@ export default function Qr() {
                     </Link>
                     <Button variant='filled' component="a" onClick={() => setShowScanner(!showScanner)}>
                         Toggle scanner
+                    </Button>
+                    <TextInput hidden={showScanner} value={manualID} onChange={(event) => setManualID(event.currentTarget.value)}/>
+                    <Button hidden= {showScanner} variant='filled' component="a" onClick={() => checkIn(manualID)}>
+                        Submit Id
                     </Button>
                 </div>
                 <div className='flex justify-center p-10'>
