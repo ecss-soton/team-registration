@@ -143,7 +143,7 @@ const stages = [
     },
     {
         title: "Winners announced",
-        date: new Date("12 february 2023 14:45:00"),
+        date: new Date("12 february 2023 15:00:00"),
         content: () => (
             <Text>Prizes will be given out the members of the top 4 teams</Text>
         )
