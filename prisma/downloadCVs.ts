@@ -2,6 +2,9 @@ import prisma from "./client";
 import {writeFileSync,mkdirSync} from 'fs'
 
 (async () => {
+
+    mkdirSync('./cvs')
+
     const users = await prisma.user.findMany({
         select: {
             cvFileName: true,
@@ -28,8 +31,6 @@ import {writeFileSync,mkdirSync} from 'fs'
         if (!data?.cv) continue;
 
         console.log(`Downloaded CV for ${user.sotonId} - ${user.cvFileName}`)
-
-        mkdirSync('./cvs')
 
         writeFileSync(`./cvs/${user.sotonId}-${user.cvFileName}`, data.cv)
     }
