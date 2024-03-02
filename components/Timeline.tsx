@@ -9,7 +9,7 @@ import { AddToCalendarButton } from 'add-to-calendar-button-react';
 const stages = [
     {
         title: "Hackathon registration opens",
-        date: new Date("24 january 2023 20:00:00"), // TODO
+        date: new Date("4 march 2024 20:00:00"), // TODO
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
                 {!registered && <Link href="/register" passHref>
@@ -54,7 +54,7 @@ const stages = [
     },
     {
         title: "Arrive",
-        date: new Date("11 february 2023 10:00:00"),
+        date: new Date("16 march 2024 10:30:00"),
         content: ({ registered }: User) => (
             <div>
                 <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> and check in with the helpers</Text>
@@ -66,21 +66,21 @@ const stages = [
     },
     {
         title: "Theme presentation and introduction talk",
-        date: new Date("11 february 2023 10:30:00"),
+        date: new Date("16 march 2024 11:00:00"),
         content: () => (
             <Text>Find out the theme for this hackathon</Text>
         )
     },
     {
         title: "Lunch",
-        date: new Date("11 february 2023 12:00:00"),
+        date: new Date("16 march 2024 2023 14:00:00"),
         content: () => (
             <Text>Midway refuel!</Text>
         )
     },
     // {
     //     title: "Team paper aeroplane competition",
-    //     date: new Date("11 february 2023 12:00:00"),
+    //     date: new Date("16 march 2024 12:00:00"),
     //     content: (
     //         <Text>Test your engineering ability and craft a paper plane. The furthest wins!</Text>
     //     )
@@ -93,22 +93,36 @@ const stages = [
     //     )
     // },
     {
-        title: "Pizza arrives",
-        date: new Date("11 february 2023 18:00:00"),
+        title: "S'hack Zone Opens",
+        date: new Date("16 march 2024 18:00:00"),
         content: () => (
-            <Text>All that hacking gets tiring, refuel with some free pizza!</Text>
+            <Text>All that hacking gets tiring, so take a bean bag and chill out!</Text>
+        )
+    },
+    {
+        title: "Dinner",
+        date: new Date("16 march 2024 19:00:00"),
+        content: () => (
+            <Text>Enjoy some well-earned pizza!</Text>
+        )
+    },
+    {
+        title: "Challenges and Tournaments",
+        date: new Date("16 march 2024 20:00:00"),
+        content: () => (
+            <Text>Compete in some fun challenges to earn prizes!</Text>
         )
     },
     {
         title: "Breakfast",
-        date: new Date("12 february 2023 09:00:00"),
+        date: new Date("17 march 2024 09:00:00"),
         content: () => (
             <Text>All that hacking gets tiring, refuel with some free cookies!</Text>
         )
     },
     {
         title: "Lunch 2",
-        date: new Date("12 february 2023 11:00:00"),
+        date: new Date("17 march 2024 11:30:00"),
         content: () => (
             <Text>Your second lunch</Text>
         )
@@ -122,7 +136,7 @@ const stages = [
     // },
     {
         title: "Project submission deadlines",
-        date: new Date("12 february 2023 12:30:00"),
+        date: new Date("17 march 2024 12:00:00"),
         content: () => (
             <Text>Add your finishing touches to your project before your final submission</Text>
         ),
@@ -136,14 +150,14 @@ const stages = [
     },
     {
         title: "Team presentations",
-        date: new Date("12 february 2023 12:45:00"),
+        date: new Date("17 march 2024 12:45:00"),
         content: () => (
             <Text>Show us what you have created!</Text>
         )
     },
     {
         title: "Winners announced",
-        date: new Date("12 february 2023 15:00:00"),
+        date: new Date("17 march 2024 15:00:00"),
         content: () => (
             <Text>Prizes will be given out the members of the top 4 teams</Text>
         )
