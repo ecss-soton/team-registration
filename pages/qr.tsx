@@ -16,11 +16,9 @@ export default function Qr() {
         <>
             <div className='flex flex-col content-center bg-white h-screen'>
                 <div className='flex justify-center m-10'>
-                    <Link href="/" passHref>
-                        <Button variant='filled' component="a">
-                            Back
-                        </Button>
-                    </Link>
+                    <Button variant='filled' component="a" href="/">
+                        Back
+                    </Button>
                 </div>
                 <div className="flex justify-center mt-2">
                     {session && <QRCode

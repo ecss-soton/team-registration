@@ -45,12 +45,12 @@ export default function SignIn({ url }) {
                 <div className='flex flex-row justify-center'>
                     {dark ? <img
                         className='max-h-72'
-                        src="./AH_white_text.png"
-                        alt="Aleios ECSS hackathon logo"
+                        src="./fusion_dark.svg"
+                        alt="Fusion ECSS hackathon logo"
                     /> : <img
                         className='max-h-72'
-                        src="./AH_black_text.png"
-                        alt="Aleios ECSS hackathon logo"
+                        src="./fusion_light.svg"
+                        alt="Fusion ECSS hackathon logo"
                     />}
 
                 </div>
@@ -66,20 +66,16 @@ export default function SignIn({ url }) {
 
                 {
                     (session && !session.discord?.tag) &&
-                    <Link href="/" passHref>
-                        <Button className='m-5' component="a">
+                        <Button className='m-5' component="a" href={"/"}>
                             Sign in without discord
                         </Button>
-                    </Link>
                 }
 
                 {
                     (session && !session.discord?.tag) &&
-                    <Link href={`https://sotonverify.link?callback=${url}`} passHref>
-                        <Button className='m-5' component="a">
-                            Sign in with discord
-                        </Button>
-                    </Link>
+                    <Button className='m-5' component="a" href={`https://sotonverify.link?callback=${url}`}>
+                        Sign in with discord
+                    </Button>
                 }
 
             </main>

@@ -46,11 +46,9 @@ export default function Qr() {
         <>
             <div className='flex flex-col content-center h-screen'>
                 <div className='flex justify-center m-5 gap-4'>
-                    <Link href="/" passHref>
-                        <Button variant='outline' component="a">
-                            Back
-                        </Button>
-                    </Link>
+                    <Button variant='outline' component="a" href={"/"}>
+                        Back
+                    </Button>
                     <Button variant='filled' component="a" onClick={() => setShowScanner(!showScanner)}>
                         Toggle scanner
                     </Button>

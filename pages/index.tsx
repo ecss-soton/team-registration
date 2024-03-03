@@ -53,12 +53,12 @@ export default function Home({ session, user, url, team }: { session: Session, u
                 <div className='flex flex-row justify-center'>
                     {dark ? <img
                         className='max-h-72'
-                        src="./AH_white_text.png"
-                        alt="Aleios ECSS hackathon logo"
+                        src="./fusion_dark.svg"
+                        alt="Fusion ECSS hackathon logo"
                     /> : <img
                         className='max-h-72'
-                        src="./AH_black_text.png"
-                        alt="Aleios ECSS hackathon logo"
+                        src="./fusion_light.svg"
+                        alt="Fusion ECSS hackathon logo"
                     />}
 
                 </div>
@@ -66,29 +66,26 @@ export default function Home({ session, user, url, team }: { session: Session, u
 
                 <div>
                     <Text>
-                        Welcome to the second ECSS hackathon of this academic year!
-                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> on Saturday 11th February at 10am.
+                        Welcome to the first ECSS hackathon of this academic year!
+                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> on Saturday 16th March at 10:30am.
                     </Text>
 
                     <div className='flex flex-row flex-wrap justify-center'>
-                        <Link href="https://discord.gg/WZQzcsFKZq" passHref>
-                            <Button
-                                styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
-                                leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
-                                target='_blank'
-                                component="a"
-                                className='m-3'>
-                                Join discord
-                            </Button>
-                        </Link>
+                        <Button
+                            styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
+                            leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
+                            target='_blank'
+                            href={'https://discord.gg/HkEPvEGs'}
+                            component="a"
+                            className='m-3'>
+                            Join discord
+                        </Button>
 
-                        <Link href="/teams" passHref>
-                            <Button className='m-3' component="a">View teams</Button>
-                        </Link>
+                        <Button className='m-3' component="a" href={"/teams"}>View teams</Button>
 
-                        {new Date() > new Date("12 february 2023 11:00:00") && <Link href="/submit" passHref>
-                            <Button variant="outline" className='m-3' component="a">Submit your project</Button>
-                        </Link>}
+                        {new Date() > new Date("16 march 2024 11:00:00") &&
+                            <Button variant="outline" className='m-3' component="a" href={"/submit"}>Submit your project</Button>
+                        }
                     </div>
 
 
