@@ -53,12 +53,12 @@ export default function Home({ session, user, url, team }: { session: Session, u
                 <div className='flex flex-row justify-center'>
                     {dark ? <img
                         className='max-h-72'
-                        src="./AH_white_text.png"
-                        alt="Aleios ECSS hackathon logo"
+                        src="./fusion_dark.svg"
+                        alt="Fusion ECSS hackathon logo"
                     /> : <img
                         className='max-h-72'
-                        src="./AH_black_text.png"
-                        alt="Aleios ECSS hackathon logo"
+                        src="./fusion_light.svg"
+                        alt="Fusion ECSS hackathon logo"
                     />}
 
                 </div>
