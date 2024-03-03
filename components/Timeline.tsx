@@ -1,5 +1,5 @@
 import {Timeline, Text, Button, Tooltip} from '@mantine/core';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import Link from "next/link";
 import {useEffect, useState} from 'react';
 import moment from "moment";

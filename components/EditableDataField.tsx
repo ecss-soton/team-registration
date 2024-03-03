@@ -1,4 +1,4 @@
-import {IconLock, IconLockOpen, IconShare, IconEdit} from '@tabler/icons';
+import {IconLock, IconLockOpen, IconShare, IconEdit} from '@tabler/icons-react';
 import {
     Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme, Input
 } from '@mantine/core';
@@ -22,6 +22,7 @@ export function EditableDataField(props: EditableDataFieldProps) {
     const { colorScheme } = useMantineColorScheme();
 
     const [editing, setEditing] = useState(false)
+
 
     return (
         <div className='flex justify-center flex-col'>

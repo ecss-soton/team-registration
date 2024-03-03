@@ -18,7 +18,7 @@ import {
     JavaOriginal,
     JavascriptOriginal,
     KotlinPlain, PythonOriginal, RubyPlain,
-    RustPlain, SqlitePlain, SwiftPlain,
+    RPlain, SqlitePlain, SwiftPlain,
     TypescriptOriginal
 } from 'devicons-react';
 import {IncomingMessage, ServerResponse} from "http";
@@ -51,7 +51,7 @@ const langData: (SelectItem & { value: Tag })[] = [
 ];
 
 export const icons: Record<Tag, FunctionComponent> = {
-    "rs": RustPlain,
+    "rs": RPlain,
     "java": JavaOriginal,
     "cpp": CplusplusOriginal,
     "js": JavascriptOriginal,
@@ -202,7 +202,7 @@ export default function Register({session}: RegisterProps) {
                       onSubmit={form.onSubmit(submitForm)}>
                     <NativeSelect
                         data={Object.keys(yearOfStudy)}
-                        placeholder="Pick one"
+                        // placeholder="Pick one"
                         label="Which year are you in?"
                         {...form.getInputProps('yearOfStudy')}
                     />

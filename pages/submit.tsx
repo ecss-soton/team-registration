@@ -20,7 +20,7 @@ import {
     JavaOriginal,
     JavascriptOriginal,
     KotlinPlain, PythonOriginal, RubyPlain,
-    RustPlain, SqlitePlain, SwiftPlain,
+    RPlain, SqlitePlain, SwiftPlain,
     TypescriptOriginal
 } from 'devicons-react';
 import {IncomingMessage, ServerResponse} from "http";

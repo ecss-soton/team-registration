@@ -1,4 +1,4 @@
-import {IconLock, IconLockOpen, IconShare} from '@tabler/icons';
+import {IconLock, IconLockOpen, IconShare} from '@tabler/icons-react';
 import {
     Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme
 } from '@mantine/core';
