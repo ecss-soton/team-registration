@@ -71,24 +71,21 @@ export default function Home({ session, user, url, team }: { session: Session, u
                     </Text>
 
                     <div className='flex flex-row flex-wrap justify-center'>
-                        <Link href="https://discord.gg/HkEPvEGs" passHref>
-                            <Button
-                                styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
-                                leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
-                                target='_blank'
-                                component="a"
-                                className='m-3'>
-                                Join discord
-                            </Button>
-                        </Link>
+                        <Button
+                            styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
+                            leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
+                            target='_blank'
+                            href={'https://discord.gg/HkEPvEGs'}
+                            component="a"
+                            className='m-3'>
+                            Join discord
+                        </Button>
 
-                        <Link href="/teams" passHref>
-                            <Button className='m-3' component="a">View teams</Button>
-                        </Link>
+                        <Button className='m-3' component="a" href={"/teams"}>View teams</Button>
 
-                        {new Date() > new Date("16 march 2024 11:00:00") && <Link href="/submit" passHref>
-                            <Button variant="outline" className='m-3' component="a">Submit your project</Button>
-                        </Link>}
+                        {new Date() > new Date("16 march 2024 11:00:00") &&
+                            <Button variant="outline" className='m-3' component="a" href={"/submit"}>Submit your project</Button>
+                        }
                     </div>
 
 

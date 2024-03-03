@@ -90,27 +90,21 @@ export default function Teams({ url, user }: { url: string, user: User }) {
                         title="Join this team?"
                     >
                         <div>
-                            <Link href="/teams" passHref>
-                                <Button color="green" variant='filled' className='' component="a" onClick={joinTeam}>
-                                    Accept
-                                </Button>
-                            </Link>
-                            <Link href="/teams" passHref>
-                                <Button variant="outline" color="red" className='mx-5' component="a" onClick={() => setjoinedFromCode(false)}>
-                                    Reject
-                                </Button>
-                            </Link>
+                            <Button color="green" variant='filled' className='' component="a" href="/teams" onClick={joinTeam}>
+                                Accept
+                            </Button>
+                            <Button variant="outline" color="red" className='mx-5' component="a" href={"/teams"} onClick={() => setjoinedFromCode(false)}>
+                                Reject
+                            </Button>
                         </div>
                     </Modal>
                     <div className='flex flex-wrap flex-row items-end'>
                         <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} disabled={!data?.teams || !user.registered} loading={buttonLoading} onClick={createNewTeam}>
                             Create new team
                         </Button>
-                        <Link href="/" passHref>
-                            <Button variant='outline' className='mx-5' component="a">
+                            <Button variant='outline' className='mx-5' component="a" href={"/"}>
                                 Back
                             </Button>
-                        </Link>
                     </div>
 
 

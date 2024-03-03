@@ -12,9 +12,9 @@ const stages = [
         date: new Date("4 march 2024 20:00:00"), // TODO
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
-                {!registered && <Link href="/register" passHref>
-                    <Button component="a">Register</Button>
-                </Link>}
+                {!registered &&
+                    <Button component="a" href={"/register"}>Register</Button>
+                }
                 {/*<div className='w-1/2'>*/}
                 {/*    <AddToCalendarButton // https://add-to-calendar-button.com/en/configuration#style-parameters*/}
                 {/*        trigger="click"*/}
@@ -46,9 +46,9 @@ const stages = [
         ),
         hidden: ({ teamId }: User) => (
             <>
-                {!teamId && <Link href="/teams" passHref>
-                    <Button className='mt-3' component="a">Join a team</Button>
-                </Link>}
+                {!teamId &&
+                    <Button className='mt-3' component="a" href={"/teams"}>Join a team</Button>
+                }
             </>
         )
     },
@@ -57,10 +57,10 @@ const stages = [
         date: new Date("16 march 2024 10:30:00"),
         content: ({ registered }: User) => (
             <div>
-                <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/16.html">Building 16</Text> and check in with the helpers</Text>
-                {registered && <Link href="/qr" passHref>
-                    <Button className='mt-3' component="a">View sign in QR code</Button>
-                </Link>}
+                <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> and check in with the helpers</Text>
+                {registered &&
+                    <Button className='mt-3' component="a" href={"/qr"}>View sign in QR code</Button>
+                }
             </div>
         )
     },
@@ -73,7 +73,7 @@ const stages = [
     },
     {
         title: "Lunch",
-        date: new Date("16 march 2024 2023 14:00:00"),
+        date: new Date("16 march 2024 14:00:00"),
         content: () => (
             <Text>Midway refuel!</Text>
         )
@@ -142,9 +142,7 @@ const stages = [
         ),
         hidden: () => (
             <>
-                <Link href="/submit" passHref>
-                    <Button className='mt-3' component="a">Submit your project</Button>
-                </Link>
+                <Button className='mt-3' component="a" href={"/submit"}>Submit your project</Button>
             </>
         )
     },
