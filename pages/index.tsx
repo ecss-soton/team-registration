@@ -14,7 +14,7 @@ import Link from "next/link";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
-import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle, IconCertificate} from "@tabler/icons";
+import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle, IconCertificate} from "@tabler/icons-react";
 import {TeamCard} from "@/components/TeamCard";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";

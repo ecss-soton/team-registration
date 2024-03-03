@@ -12,7 +12,7 @@ import {ActionIcon, Button, Text, useMantineColorScheme} from "@mantine/core";
 import {signIn, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import {IconMoonStars, IconSun} from "@tabler/icons";
+import {IconMoonStars, IconSun} from "@tabler/icons-react";
 
 // @ts-ignore
 export default function SignIn({ url }) {
