@@ -80,7 +80,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         })
     })
 
-    console.log(data)
+    console.log("cv data", data)
 
     if (!data?.files?.cv) {
         return res.status(400).json({
@@ -99,7 +99,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
     const contents = await fs.readFile(data?.files?.cv.filepath)
 
-    console.log(contents)
+    console.log("cv contents", contents)
 
     await prisma.user.update({
         data: {

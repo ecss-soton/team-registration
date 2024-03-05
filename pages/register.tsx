@@ -188,7 +188,7 @@ export default function Register({session}: RegisterProps) {
             body: JSON.stringify(submissionValues)
         })
         const res2 = await res.json()
-        console.log(res2)
+        console.log("register res2", res2)
         if (res2.success) {
             setFormLoading(false);
             await router.push("/");

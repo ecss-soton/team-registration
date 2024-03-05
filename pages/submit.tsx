@@ -87,7 +87,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
                 return null
             },
             timeslot: (value) => {
-                console.log(value)
+                console.log("submit value", value)
                 if (value === '') return 'You must choose a timeslot'
                 return null
             }
@@ -98,7 +98,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
     const [formError, setFormError] = useState(false);
 
     const submitForm = async (values: SubmissionForm) => {
-        console.log(values)
+        console.log("submit values", values)
         if (!values.name || !values.githubLink || !values.timeslot) {
 
             const nameErrorMsg = 'You must include a team name';
@@ -126,7 +126,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
             body: JSON.stringify(values)
         })
         const res2 = await res.json()
-        console.log(res2)
+        console.log("submit res2", res2)
         if (res2.success) {
             setFormLoading(false);
             setFormError(false);

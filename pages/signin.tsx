@@ -21,7 +21,7 @@ export default function SignIn({ url }) {
 
     const {data: session} = useSession();
 
-    console.log(session)
+    console.log("session", session)
 
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const dark = colorScheme === 'dark';
