@@ -63,6 +63,7 @@ DATABASE_URL="In the form `postgresql://USER:PASSWORD@HOST:PORT/DATABASE`"
 
 NEXTAUTH_SECRET="Random bytes for auth crypto"
 NEXTAUTH_URL="Absolute URL of the server"
+PORT=3000
 
 # University of Southampton Azure AD Tenant ID - Change only if you want to auth with a different tenant ( ie univerisity account etc )
 AZURE_AD_TENANT_ID="4a5378f9-29f4-4d3e-be89-669d03ada9d8"
@@ -74,7 +75,7 @@ SOTON_VERIFY_API_AUTH="API key for soton verify"
 
 ### Docker image
 
-TODO Add docker image link with dockerfile
+Find our docker image on [Docker hub](https://hub.docker.com/r/ecss/web_teamreg)
 
 ## Running Tests
 
