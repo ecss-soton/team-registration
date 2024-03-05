@@ -23,7 +23,7 @@ export default function MyApp({
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
     return (
-        <SessionProvider session={session} basePath="/fusion-hack">
+        <SessionProvider session={session} basePath="/hackathon">
             <Head>
                 <title>ECSS Hackathon registration</title>
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>

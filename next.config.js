@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
-  basePath: '/fusion-hack',
+  basePath: '/hackathon',
 }
 
 module.exports = nextConfig
