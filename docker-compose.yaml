@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+
+  web_teamreg:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: web_teamreg
+    ports:
+      - "3001:3001"
+    volumes:
+        - web_teamreg_data:/app/cvs
+    restart: unless-stopped
+    depends_on:
+      - db_postgres
+    env_file:
+      - .env
+
+  db_postgres:
+    image: postgres
+    container_name: db_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ecss
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: ecss-fusion-hackathon
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - 15432:80
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db_postgres
+
+volumes:
+  pgadmin_data:
+  postgres_data:
+  web_teamreg_data:
