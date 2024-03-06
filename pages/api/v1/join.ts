@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
-import {unstable_getServerSession} from 'next-auth';
+import {getServerSession} from 'next-auth';
 import {authOptions} from '../auth/[...nextauth]';
 import { nanoid } from 'nanoid'
 
@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         error: true, message: 'Only HTTP verb POST is permitted',
     });
 
-    const attemptedAuth = await unstable_getServerSession(req, res, authOptions);
+    const attemptedAuth = await getServerSession(req, res, authOptions);
 
     if (!attemptedAuth?.microsoft.email) {
         return res.status(400).json({
