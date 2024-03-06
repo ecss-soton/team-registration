@@ -137,7 +137,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
                         <ActionIcon variant="default" radius="md" size={36} loading={lockButtonLoading} onClick={lockTeam}>
                             {team.locked ? <IconLock size={18} stroke={1.5}/> : <IconLockOpen size={18} stroke={1.5}/>}
                         </ActionIcon>
-                        <CopyButton value={`${team.url}teams?join=${team.id}`}>
+                        <CopyButton value={`${team.url}/teams?join=${team.id}`}>
                             {({ copied, copy }) => (
                                 <Tooltip label="Copied!" withArrow opened={copied}>
                                     <ActionIcon variant={copied ? 'filled' : 'default'} radius="md" size={36} onClick={copy} color={copied ? 'teal' : 'dark'}>
