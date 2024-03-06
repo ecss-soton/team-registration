@@ -53,25 +53,14 @@ Or start with auto refresh in development mode
 
 ### Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to copy the `.env.development` to `.env` and fill in the secrets
 
-A list of these can also be seen in [.env.example](./.env.example)
+The required environment variables are:
 
-```bash
-NODE_ENV="development"
-DATABASE_URL="In the form `postgresql://USER:PASSWORD@HOST:PORT/DATABASE`"
-
-NEXTAUTH_SECRET="Random bytes for auth crypto"
-NEXTAUTH_URL="Absolute URL of the server"
-PORT=3000
-
-# University of Southampton Azure AD Tenant ID - Change only if you want to auth with a different tenant ( ie univerisity account etc )
-AZURE_AD_TENANT_ID="4a5378f9-29f4-4d3e-be89-669d03ada9d8"
-AZURE_AD_CLIENT_SECRET="Your Azure AD OAuth application secret"
-AZURE_AD_CLIENT_ID="Your Azure AD OAuth application client id"
-
-SOTON_VERIFY_API_AUTH="API key for soton verify"
-```
+- `AZURE_AD_CLIENT_SECRET` Create a new app registration in Azure AD and use the client secret
+- `AZURE_AD_CLIENT_ID` Create a new app registration in Azure AD and use the client id
+- `SOTON_VERIFY_API_AUTH` The API key for the sotonverify API either get a live key (contact ECSS web officer) or run your own instance of [sotonverify](https://github.com/ecss-soton/verify)
+- `DATABASE_URL` Connection URI for the PostgreSQL database
 
 ### Docker image
 
