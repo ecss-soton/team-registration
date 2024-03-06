@@ -11,7 +11,7 @@ import validator from "validator";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
-import {unstable_getServerSession} from "next-auth";
+import {getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
 import {User} from "@prisma/client";
@@ -23,7 +23,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
 
     const {data, mutate} = useSWR<{
         yourTeam?: string, yourRank?: number, teams: Team[]
-    }>('/api/v1/teams', fetcher, {refreshInterval: 3000});
+    }>('/hackathon/api/v1/teams', fetcher, {refreshInterval: 3000});
 
     const [buttonLoading, setButtonLoading] = useState(false);
     const [showJoinable, setShowJoinable] = useState(false);
@@ -32,7 +32,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
     const createNewTeam = async () => {
         setButtonLoading(true);
 
-        const res = await fetch('/api/v1/join', {
+        const res = await fetch('/hackathon/api/v1/join', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
@@ -57,7 +57,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
 
     const joinTeam = async () => {
 
-        const res = await fetch('/api/v1/join', {
+        const res = await fetch('/hackathon/api/v1/join', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
@@ -131,7 +131,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
 }
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
-    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if (!session?.microsoft.email) {
         return {
@@ -151,7 +151,7 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
 
     return {
         props: {
-            url: process.env.NEXTAUTH_URL,
+            url: process.env.BASE_URL,
             user: JSON.parse(JSON.stringify(user)),
         },
     }

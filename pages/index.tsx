@@ -2,7 +2,7 @@ import Head from "next/head";
 import {useSession} from "next-auth/react";
 import {LoginButton} from "@/components/LoginButton";
 import {MainTimeline} from "@/components/Timeline"
-import {Session, unstable_getServerSession} from "next-auth";
+import {Session, getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import { IncomingMessage, ServerResponse } from "http";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -21,7 +21,7 @@ import {useRouter} from "next/router";
 import {useRef} from "react";
 import {Profile} from "@/components/Profile";
 
-export default function Home({ session, user, url, team }: { session: Session, user: User, url: string, team: Team }) {
+export default function Home({ session, user, team }: { session: Session, user: User, team: Team }) {
 
     const router = useRouter()
     let { tab } = router.query
@@ -136,7 +136,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
 
-    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if (!session?.microsoft.email) {
         return {
@@ -196,7 +196,6 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         props: {
             session,
             user: JSON.parse(JSON.stringify(user)),
-            url: process.env.NEXTAUTH_URL,
             team: JSON.parse(JSON.stringify(user?.team)) || false,
         },
     }

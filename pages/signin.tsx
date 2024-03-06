@@ -1,4 +1,4 @@
-import {Session, unstable_getServerSession} from "next-auth";
+import {Session, getServerSession} from "next-auth";
 import {User} from "@prisma/client";
 import Head from "next/head";
 import {MainTimeline} from "@/components/Timeline";
@@ -85,7 +85,7 @@ export default function SignIn({ url }) {
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
 
-    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     // if (session && !session?.discord.tag) {
     //     return {
@@ -107,7 +107,7 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
 
     return {
         props: {
-            url: process.env.NEXTAUTH_URL
+            url: process.env.BASE_URL
         },
     }
 }
