@@ -3,7 +3,7 @@ import {FileButton, Button, Group, Text, Divider} from '@mantine/core';
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
-import {unstable_getServerSession} from "next-auth";
+import {getServerSession} from "next-auth";
 import {authOptions} from "../pages/api/auth/[...nextauth]";
 import axios from "axios";
 import prisma from "../prisma/client";
@@ -27,7 +27,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
 
     const clearFile = async () => {
 
-        await fetch("/api/v1/uploadcv", {
+        await fetch("/hackathon/api/v1/uploadcv", {
             method: "delete",
         })
 
@@ -46,7 +46,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
         const formData = new FormData();
         formData.append('cv', file || '');
 
-        const res = await fetch("/api/v1/uploadcv", {
+        const res = await fetch("/hackathon/api/v1/uploadcv", {
             method: "post",
             body: formData
         })
