@@ -21,7 +21,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
     const lockTeam = async () => {
         setLockButtonLoading(true);
 
-        const res = await fetch('/api/v1/lock', {
+        const res = await fetch('/hackathon/api/v1/lock', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
@@ -30,7 +30,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
         });
 
         if (res.ok) {
-            await mutate('/api/v1/teams', (oldData: any) => {
+            await mutate('/hackathon/api/v1/teams', (oldData: any) => {
                 // Need to deep copy the data
                 let data: {
                     yourTeam?: string, yourRank?: number, teams: Team[]
@@ -50,7 +50,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
     const joinTeam = async () => {
         setJoinButtonLoading(true);
 
-        const res = await fetch('/api/v1/join', {
+        const res = await fetch('/hackathon/api/v1/join', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
@@ -59,7 +59,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
         });
 
         if (res.ok) {
-            await mutate('/api/v1/teams')
+            await mutate('/hackathon/api/v1/teams')
             setJoinButtonLoading(false);
         }
     };
@@ -67,7 +67,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
     const leaveTeam = async () => {
         setLeaveButtonLoading(true);
 
-        const res = await fetch('/api/v1/leave', {
+        const res = await fetch('/hackathon/api/v1/leave', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
@@ -76,7 +76,7 @@ export function TeamCard(team: Team & { userRank?: number, url: string, register
         });
 
         if (res.ok) {
-            await mutate('/api/v1/teams')
+            await mutate('/hackathon/api/v1/teams')
             setLeaveButtonLoading(false);
         }
     }
