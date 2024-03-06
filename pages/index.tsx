@@ -81,10 +81,10 @@ export default function Home({ session, user, url, team }: { session: Session, u
                             Join discord
                         </Button>
 
-                        <Button className='m-3' component="a" href={"/teams"}>View teams</Button>
+                        <Button className='m-3' component="a" href={"/hackathon/teams"}>View teams</Button>
 
                         {new Date() > new Date("16 march 2024 11:00:00") &&
-                            <Button variant="outline" className='m-3' component="a" href={"/submit"}>Submit your project</Button>
+                            <Button variant="outline" className='m-3' component="a" href={"/hackathon/submit"}>Submit your project</Button>
                         }
                     </div>
 

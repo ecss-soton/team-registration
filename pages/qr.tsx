@@ -16,7 +16,7 @@ export default function Qr() {
         <>
             <div className='flex flex-col content-center bg-white h-screen'>
                 <div className='flex justify-center m-10'>
-                    <Button variant='filled' component="a" href="/">
+                    <Button variant='filled' component="a" href="/hackathon/">
                         Back
                     </Button>
                 </div>

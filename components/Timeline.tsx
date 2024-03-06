@@ -13,7 +13,7 @@ const stages = [
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
                 {!registered &&
-                    <Button component="a" href={"/register"}>Register</Button>
+                    <Button component="a" href={"/hackathon/register"}>Register</Button>
                 }
                 {/*<div className='w-1/2'>*/}
                 {/*    <AddToCalendarButton // https://add-to-calendar-button.com/en/configuration#style-parameters*/}
@@ -47,7 +47,7 @@ const stages = [
         hidden: ({ teamId }: User) => (
             <>
                 {!teamId &&
-                    <Button className='mt-3' component="a" href={"/teams"}>Join a team</Button>
+                    <Button className='mt-3' component="a" href={"/hackathon/teams"}>Join a team</Button>
                 }
             </>
         )
@@ -59,7 +59,7 @@ const stages = [
             <div>
                 <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> and check in with the helpers</Text>
                 {registered &&
-                    <Button className='mt-3' component="a" href={"/qr"}>View sign in QR code</Button>
+                    <Button className='mt-3' component="a" href={"/hackathon/qr"}>View sign in QR code</Button>
                 }
             </div>
         )
@@ -142,7 +142,7 @@ const stages = [
         ),
         hidden: () => (
             <>
-                <Button className='mt-3' component="a" href={"/submit"}>Submit your project</Button>
+                <Button className='mt-3' component="a" href={"/hackathon/submit"}>Submit your project</Button>
             </>
         )
     },

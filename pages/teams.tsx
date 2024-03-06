@@ -90,10 +90,10 @@ export default function Teams({ url, user }: { url: string, user: User }) {
                         title="Join this team?"
                     >
                         <div>
-                            <Button color="green" variant='filled' className='' component="a" href="/teams" onClick={joinTeam}>
+                            <Button color="green" variant='filled' className='' component="a" href="/hackathon/teams" onClick={joinTeam}>
                                 Accept
                             </Button>
-                            <Button variant="outline" color="red" className='mx-5' component="a" href={"/teams"} onClick={() => setjoinedFromCode(false)}>
+                            <Button variant="outline" color="red" className='mx-5' component="a" href={"/hackathon/teams"} onClick={() => setjoinedFromCode(false)}>
                                 Reject
                             </Button>
                         </div>
@@ -102,7 +102,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
                         <Button className="mx-5" color={!createTeamError ? 'default' : 'red'} disabled={!data?.teams || !user.registered} loading={buttonLoading} onClick={createNewTeam}>
                             Create new team
                         </Button>
-                            <Button variant='outline' className='mx-5' component="a" href={"/"}>
+                            <Button variant='outline' className='mx-5' component="a" href={"/hackathon/"}>
                                 Back
                             </Button>
                     </div>

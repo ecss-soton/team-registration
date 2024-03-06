@@ -177,7 +177,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
                             <Text size="sm" className='m-3' color="red"><i>Make sure you are in a team before submission or try a different timeslot</i></Text>
                         }
                         <Button loading={formLoading} type="submit">Submit</Button>
-                        <Button variant="outline" component="a" href={"/"}>Back</Button>
+                        <Button variant="outline" component="a" href={"/hackathon"}>Back</Button>
                     </div>
                 </form>
             </div>

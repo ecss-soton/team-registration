@@ -23,14 +23,14 @@ export default function MyApp({
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
     return (
-        <SessionProvider session={session} basePath="/hackathon">
+        <SessionProvider session={session} basePath="/hackathon/api/auth">
             <Head>
                 <title>ECSS Hackathon registration</title>
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-                <link rel="icon" href="/favicon.ico"/>
-                <link rel="manifest" href="/site.webmanifest"/>
+                <link rel="apple-touch-icon" sizes="180x180" href="/hackathon/apple-touch-icon.png"/>
+                <link rel="icon" type="image/png" sizes="32x32" href="/hackathon/favicon-32x32.png"/>
+                <link rel="icon" type="image/png" sizes="16x16" href="/hackathon/favicon-16x16.png"/>
+                <link rel="icon" href="/hackathon/favicon.ico"/>
+                <link rel="manifest" href="/hackathon/site.webmanifest"/>
             </Head>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
                 <MantineProvider

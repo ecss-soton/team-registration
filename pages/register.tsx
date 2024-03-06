@@ -243,7 +243,7 @@ export default function Register({session}: RegisterProps) {
 
                     <div className='space-x-1.5'>
                         <Button loading={formLoading} type="submit">Submit</Button>
-                        <Button variant="outline" component="a" href={"/"}>Back</Button>
+                        <Button variant="outline" component="a" href={"/hackathon/"}>Back</Button>
                     </div>
                 </form>
             </div>

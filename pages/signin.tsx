@@ -66,7 +66,7 @@ export default function SignIn({ url }) {
 
                 {
                     (session && !session.discord?.tag) &&
-                        <Button className='m-5' component="a" href={"/"}>
+                        <Button className='m-5' component="a" href={"/hackathon"}>
                             Sign in without discord
                         </Button>
                 }

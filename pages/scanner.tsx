@@ -46,7 +46,7 @@ export default function Qr() {
         <>
             <div className='flex flex-col content-center h-screen'>
                 <div className='flex justify-center m-5 gap-4'>
-                    <Button variant='outline' component="a" href={"/"}>
+                    <Button variant='outline' component="a" href={"/hackathon/"}>
                         Back
                     </Button>
                     <Button variant='filled' component="a" onClick={() => setShowScanner(!showScanner)}>
