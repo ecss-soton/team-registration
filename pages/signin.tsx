@@ -107,7 +107,7 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
 
     return {
         props: {
-            url: process.env.NEXTAUTH_URL
+            url: process.env.BASE_URL
         },
     }
 }

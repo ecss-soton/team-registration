@@ -21,7 +21,7 @@ import {useRouter} from "next/router";
 import {useRef} from "react";
 import {Profile} from "@/components/Profile";
 
-export default function Home({ session, user, url, team }: { session: Session, user: User, url: string, team: Team }) {
+export default function Home({ session, user, team }: { session: Session, user: User, team: Team }) {
 
     const router = useRouter()
     let { tab } = router.query
@@ -196,7 +196,6 @@ export async function getServerSideProps(context: { req: (IncomingMessage & { co
         props: {
             session,
             user: JSON.parse(JSON.stringify(user)),
-            url: process.env.NEXTAUTH_URL,
             team: JSON.parse(JSON.stringify(user?.team)) || false,
         },
     }
