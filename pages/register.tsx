@@ -17,8 +17,8 @@ import {
     CplusplusOriginal, CsharpOriginal, FlutterOriginal, GoOriginal, HaskellOriginal,
     JavaOriginal,
     JavascriptOriginal,
-    KotlinPlain, PythonOriginal, RubyPlain,
-    RPlain, SqlitePlain, SwiftPlain,
+    KotlinPlain, PythonOriginal, RubyPlain, RustOriginal,
+    SqlitePlain, SwiftPlain,
     TypescriptOriginal
 } from 'devicons-react';
 import {IncomingMessage, ServerResponse} from "http";
@@ -51,7 +51,7 @@ const langData: (SelectItem & { value: Tag })[] = [
 ];
 
 export const icons: Record<Tag, FunctionComponent> = {
-    "rs": RPlain,
+    "rs": RustOriginal,
     "java": JavaOriginal,
     "cpp": CplusplusOriginal,
     "js": JavascriptOriginal,

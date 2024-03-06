@@ -45,11 +45,11 @@ export default function SignIn({ url }) {
                 <div className='flex flex-row justify-center'>
                     {dark ? <img
                         className='max-h-72'
-                        src="./fusion_dark.svg"
+                        src={`${process.env.BASE_URL}/fusion_dark.svg`}
                         alt="Fusion ECSS hackathon logo"
                     /> : <img
                         className='max-h-72'
-                        src="./fusion_light.svg"
+                        src={`${process.env.BASE_URL}/fusion_light.svg`}
                         alt="Fusion ECSS hackathon logo"
                     />}
 
