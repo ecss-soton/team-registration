@@ -2,6 +2,7 @@ import {Session, getServerSession} from "next-auth";
 import {User} from "@prisma/client";
 import Head from "next/head";
 import {MainTimeline} from "@/components/Timeline";
+import NextImage from "next/image";
 import {LoginButton} from "@/components/LoginButton";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
@@ -43,13 +44,13 @@ export default function SignIn({ url }) {
             <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
 
                 <div className='flex flex-row justify-center'>
-                    {dark ? <img
+                    {dark ? <NextImage
                         className='max-h-72'
-                        src={`${process.env.BASE_URL}/fusion_dark.svg`}
+                        src={`/fusion_dark.svg`}
                         alt="Fusion ECSS hackathon logo"
-                    /> : <img
+                    /> : <NextImage
                         className='max-h-72'
-                        src={`${process.env.BASE_URL}/fusion_light.svg`}
+                        src={`/fusion_light.svg`}
                         alt="Fusion ECSS hackathon logo"
                     />}
 

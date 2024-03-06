@@ -9,6 +9,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import {User,Team} from "@prisma/client";
 import prisma from "../prisma/client";
+import NextImage from "next/image";
 import {Button, Text, Image, Tabs, useMantineColorScheme, ActionIcon, Badge} from "@mantine/core";
 import Link from "next/link";
 import axios from "axios";
@@ -18,6 +19,7 @@ import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle, IconCer
 import {TeamCard} from "@/components/TeamCard";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
+
 import {useRef} from "react";
 import {Profile} from "@/components/Profile";
 
@@ -51,11 +53,11 @@ export default function Home({ session, user, team }: { session: Session, user: 
             <main className="flex flex-col items-center justify-center w-screen flex-1 px-2 text-center">
 
                 <div className='flex flex-row justify-center'>
-                    {dark ? <img
+                    {dark ? <NextImage
                         className='max-h-72'
-                        src={`${process.env.BASE_URL}/fusion_dark.svg`}
+                        src={`hackathon/fusion_dark.svg`}
                         alt="Fusion ECSS hackathon logo"
-                    /> : <img
+                    /> : <NextImage
                         className='max-h-72'
                         src={`${process.env.BASE_URL}/fusion_light.svg`}
                         alt="Fusion ECSS hackathon logo"
