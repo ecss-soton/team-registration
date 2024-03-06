@@ -75,7 +75,7 @@ export default function Home({ session, user, team }: { session: Session, user: 
                             styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
                             leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
                             target='_blank'
-                            href={'https://discord.gg/HkEPvEGs'}
+                            href={'https://discord.gg/cttEkkGZJC'}
                             component="a"
                             className='m-3'>
                             Join discord
