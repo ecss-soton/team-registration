@@ -23,7 +23,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
 
     const {data, mutate} = useSWR<{
         yourTeam?: string, yourRank?: number, teams: Team[]
-    }>('/api/v1/teams', fetcher, {refreshInterval: 3000});
+    }>('/hackathon/api/v1/teams', fetcher, {refreshInterval: 3000});
 
     const [buttonLoading, setButtonLoading] = useState(false);
     const [showJoinable, setShowJoinable] = useState(false);
@@ -32,7 +32,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
     const createNewTeam = async () => {
         setButtonLoading(true);
 
-        const res = await fetch('/api/v1/join', {
+        const res = await fetch('/hackathon/api/v1/join', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
@@ -57,7 +57,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
 
     const joinTeam = async () => {
 
-        const res = await fetch('/api/v1/join', {
+        const res = await fetch('/hackathon/api/v1/join', {
             method: 'post', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             },
