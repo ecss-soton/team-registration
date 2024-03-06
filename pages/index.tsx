@@ -19,6 +19,8 @@ import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle, IconCer
 import {TeamCard} from "@/components/TeamCard";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
+import darkIcon from '../public/fusion_dark.svg';
+import lightIcon from '../public/fusion_light.svg'
 
 import {useRef} from "react";
 import {Profile} from "@/components/Profile";
@@ -55,11 +57,11 @@ export default function Home({ session, user, team }: { session: Session, user: 
                 <div className='flex flex-row justify-center'>
                     {dark ? <NextImage
                         className='max-h-72'
-                        src={`hackathon/fusion_dark.svg`}
+                        src={darkIcon}
                         alt="Fusion ECSS hackathon logo"
                     /> : <NextImage
                         className='max-h-72'
-                        src={`${process.env.BASE_URL}/fusion_light.svg`}
+                        src={lightIcon}
                         alt="Fusion ECSS hackathon logo"
                     />}
 

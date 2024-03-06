@@ -14,7 +14,8 @@ import {signIn, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import {IconMoonStars, IconSun} from "@tabler/icons-react";
-
+import darkIcon from '../public/fusion_dark.svg';
+import lightIcon from '../public/fusion_light.svg'
 // @ts-ignore
 export default function SignIn({ url }) {
 
@@ -46,11 +47,11 @@ export default function SignIn({ url }) {
                 <div className='flex flex-row justify-center'>
                     {dark ? <NextImage
                         className='max-h-72'
-                        src={`/fusion_dark.svg`}
+                        src={darkIcon}
                         alt="Fusion ECSS hackathon logo"
                     /> : <NextImage
                         className='max-h-72'
-                        src={`/fusion_light.svg`}
+                        src={lightIcon}
                         alt="Fusion ECSS hackathon logo"
                     />}
 
