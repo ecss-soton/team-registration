@@ -177,7 +177,7 @@ export default function Register({session}: RegisterProps) {
             photoConsent: values.agreePhotos,
         }
 
-        const res = await fetch("/api/v1/register", {
+        const res = await fetch("/hackathon/api/v1/register", {
             method: "post",
             headers: {
                 'Accept': 'application/json',

@@ -115,7 +115,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
 
         setFormLoading(true)
 
-        const res = await fetch("/api/v1/submit", {
+        const res = await fetch("/hackathon/api/v1/submit", {
             method: "post",
             headers: {
                 'Accept': 'application/json',

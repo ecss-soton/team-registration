@@ -27,7 +27,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
 
     const clearFile = async () => {
 
-        await fetch("/api/v1/uploadcv", {
+        await fetch("/hackathon/api/v1/uploadcv", {
             method: "delete",
         })
 
@@ -46,7 +46,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
         const formData = new FormData();
         formData.append('cv', file || '');
 
-        const res = await fetch("/api/v1/uploadcv", {
+        const res = await fetch("/hackathon/api/v1/uploadcv", {
             method: "post",
             body: formData
         })
