@@ -11,7 +11,7 @@ import validator from "validator";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
-import {unstable_getServerSession} from "next-auth";
+import {getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
 import {User} from "@prisma/client";
@@ -131,7 +131,7 @@ export default function Teams({ url, user }: { url: string, user: User }) {
 }
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
-    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if (!session?.microsoft.email) {
         return {

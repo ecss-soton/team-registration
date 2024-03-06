@@ -2,7 +2,7 @@ import Head from "next/head";
 import {useSession} from "next-auth/react";
 import {LoginButton} from "@/components/LoginButton";
 import {MainTimeline} from "@/components/Timeline"
-import {Session, unstable_getServerSession} from "next-auth";
+import {Session, getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import { IncomingMessage, ServerResponse } from "http";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -136,7 +136,7 @@ export default function Home({ session, user, url, team }: { session: Session, u
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
 
-    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if (!session?.microsoft.email) {
         return {

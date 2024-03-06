@@ -3,7 +3,7 @@ import {FileButton, Button, Group, Text, Divider} from '@mantine/core';
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
-import {unstable_getServerSession} from "next-auth";
+import {getServerSession} from "next-auth";
 import {authOptions} from "../pages/api/auth/[...nextauth]";
 import axios from "axios";
 import prisma from "../prisma/client";

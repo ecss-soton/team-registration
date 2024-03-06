@@ -24,7 +24,7 @@ import {
     TypescriptOriginal
 } from 'devicons-react';
 import {IncomingMessage, ServerResponse} from "http";
-import {Session, unstable_getServerSession} from "next-auth";
+import {Session, getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
@@ -189,7 +189,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
 
 export async function getServerSideProps(context: { req: (IncomingMessage & { cookies: NextApiRequestCookies; }) | NextApiRequest; res: ServerResponse | NextApiResponse<any>; }) {
 
-    const session = await unstable_getServerSession(context.req, context.res, authOptions)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if (!session?.microsoft.email) {
         return {
