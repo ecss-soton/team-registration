@@ -14,7 +14,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
 
     const [file, setFile] = useState<File | null>(null);
     const [fileSizeError, setFileSizeError] = useState(false);
-    const [generalFileError, setGeneralFileError] = useState(false);
+    const [generalFileErrorMsg, setGeneralFileErrorMsg] = useState('');
     const [currentCvFileName, setCurrentCvFileName] = useState(fileName || 'None');
     const resetRef = useRef<() => void>(null);
 
@@ -27,6 +27,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
         setFile(null);
         setFileSizeError(false)
         setCurrentCvFileName('None')
+        setGeneralFileErrorMsg('')
         resetRef.current?.();
     };
 
@@ -45,7 +46,7 @@ export function CvUpload({ fileName }: { fileName: string}) {
         })
         const res2 = await res.json()
         if (!res2.success) {
-            setGeneralFileError(true);
+            setGeneralFileErrorMsg(res2.message || "Uh Oh! An error occurred");
             return;
         }
 
@@ -73,8 +74,8 @@ export function CvUpload({ fileName }: { fileName: string}) {
                 {(fileSizeError || (file && tooBig(file))) && <Text size="sm" color="red" align="center" mt="sm">
                     File is bigger than {printFileSize(MAX_FILE_SIZE)}
                 </Text>}
-                {generalFileError && <Text size="sm" color="red" align="center" mt="sm">
-                    Whoops! Something went wrong on the upload, please contact the web officer
+                {generalFileErrorMsg && <Text size="sm" color="red" align="center" mt="sm">
+                    Whoops! Something went wrong on the upload, please contact the web officer: {generalFileErrorMsg}
                 </Text>}
                 {file && (
                     <Text size="sm" align="center" mt="sm">

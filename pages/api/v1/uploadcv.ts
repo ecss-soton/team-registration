@@ -3,7 +3,8 @@ import prisma from '../../../prisma/client';
 import {getServerSession} from 'next-auth';
 import {authOptions} from '../auth/[...nextauth]';
 import formidable from 'formidable'
-import {promises as fs} from 'fs'
+import {readFileSync, existsSync, mkdirSync} from 'fs'
+import PersistentFile from "formidable/PersistentFile";
 
 export const config = {
     api: {
@@ -65,55 +66,65 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         });
     }
 
-
-    const data: Promise<{ fields: {}, files: { cv: { size: number, filepath: string, originalFilename: string }}}> = new Promise((resolve, reject) => {
-        const form = new IncomingForm()
-
-        form.parse(req, (err: any, fields: any, files: any) => {
-            if (err) return reject(err)
-            resolve({ fields, files })
-        })
-    })
-
-    let resolvedData;
-
-    try {
-        resolvedData = await data
-    } catch (e) {
-        return res.status(400).json({
-            error: true, message: 'Error parsing form data',
-        });
-    }
-
-    if (!resolvedData?.files?.cv?.filepath) {
-        return res.status(400).json({
-            error: true, message: 'You have not attached the file',
-        });
+    const CV_DIRECTORY = `${process.cwd()}/cvs`
+    if (!existsSync(CV_DIRECTORY)) {
+        mkdirSync(CV_DIRECTORY)
     }
 
     const MB_IN_BYTES = 1_048_576
     const MAX_FILE_SIZE = 10 * MB_IN_BYTES
 
-    if (resolvedData.files.cv.size > MAX_FILE_SIZE) {
+    const form = formidable({
+        uploadDir: CV_DIRECTORY,
+        maxFiles: 1,
+        maxFileSize: MAX_FILE_SIZE,
+    })
+
+
+    const [_, files] = await form.parse(req)
+
+    const userCvFile = files?.cv?.[0] as (PersistentFile | undefined)
+
+    if (!userCvFile) {
+        console.log("files", files)
+        return res.status(400).json({
+            error: true, message: 'You have not attached the file',
+        });
+    }
+
+    const userCv = userCvFile.toJSON()
+
+    const DOT_DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    const DOT_DOC = 'application/msword'
+
+    const allowedMimeTypes = ['application/pdf', DOT_DOC, DOT_DOCX]
+    if (!allowedMimeTypes.includes(userCv.mimetype || '')) {
+        console.log("mime", userCv.mimetype)
+        return res.status(415).json({
+            error: true, message: 'Unsupported file type. Only PDF, DOC, DOCX are allowed',
+        });
+    }
+
+    if (userCv.size > MAX_FILE_SIZE) {
         return res.status(400).json({
             error: true, message: 'File is too large',
         });
     }
 
-    const contents = await fs.readFile(resolvedData.files.cv.filepath)
+    const contents = readFileSync(`${CV_DIRECTORY}/${userCv.newFilename}`)
 
     await prisma.user.update({
         data: {
             cv: contents,
-            cvFileName: resolvedData.files.cv.originalFilename
+            cvFileName: userCv.originalFilename
         },
         where: {
             id: attemptedAuth.id,
         }
     });
 
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
-        fileName: resolvedData.files.cv.originalFilename
+        fileName: userCv.originalFilename || 'No file name'
     });
 }
