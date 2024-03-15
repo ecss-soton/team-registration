@@ -2,8 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
 import {getServerSession} from 'next-auth';
 import {authOptions} from '../auth/[...nextauth]';
-// @ts-ignore
-import {IncomingForm} from 'formidable'
+import formidable from 'formidable'
 import {promises as fs} from 'fs'
 
 export const config = {
