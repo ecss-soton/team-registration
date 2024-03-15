@@ -63,7 +63,7 @@ export default async function handler(
             dietaryReq: user.dietaryReq || '',
             extra: user.extra || '',
             displayName: user.displayName,
-            photoConsent: user.photoConsent
+            photoConsent: user.photoConsent || false
         });
     } catch (e) {
         res.status(404).json({
