@@ -51,7 +51,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-qr-code": "^2.0.12",
-    "react-qrcode-reader": "^2.3.12",
     "swr": "^2.2.5",
     "validator": "^13.11.0"
   },
