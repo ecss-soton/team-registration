@@ -1,10 +1,5 @@
-import {TeamCard} from '@/components/TeamCard';
-import {Button, Card, Checkbox} from '@mantine/core';
-import React, {useState} from 'react';
-import {Team} from '@/types/types';
-import useSWR from 'swr';
-import fetcher from '../middleware/fetch';
-import Link from "next/link";
+import {Button} from '@mantine/core';
+import React from 'react';
 import QRCode from "react-qr-code";
 import {useSession} from "next-auth/react";
 

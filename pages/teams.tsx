@@ -1,12 +1,9 @@
 import {TeamCard} from '@/components/TeamCard';
-import {Button, Card, Checkbox,TextInput, Notification, Modal} from '@mantine/core';
-import {EventHandler, KeyboardEvent, KeyboardEventHandler, useRef, useState} from 'react';
-import {SubmissionForm, Team} from '@/types/types';
+import {Button, Checkbox, Modal} from '@mantine/core';
+import {useState} from 'react';
+import {Team} from '@/types/types';
 import useSWR from 'swr';
 import fetcher from '../middleware/fetch';
-import Link from "next/link";
-import {useForm} from "@mantine/form";
-import validator from "validator";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
@@ -14,8 +11,7 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import prisma from "../prisma/client";
 import {User} from "@prisma/client";
-import axios from "axios";
-import { useSearchParams } from 'next/navigation'
+import {useSearchParams} from 'next/navigation'
 
 export default function Teams({ url, user }: { url: string, user: User }) {
 

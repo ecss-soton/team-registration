@@ -1,14 +1,6 @@
-import {IconLock, IconLockOpen, IconShare, IconEdit} from '@tabler/icons-react';
-import {
-    Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme, Checkbox
-} from '@mantine/core';
-import {Team} from '@/types/types';
+import {Checkbox, Text, useMantineColorScheme} from '@mantine/core';
 import {icons} from '../pages/register';
-import {useState} from 'react';
-import {useSWRConfig} from 'swr';
-import {log} from "util";
 import {User} from "@prisma/client";
-import Link from "next/link";
 import {EditableDataField} from "@/components/EditableDataField";
 
 export function Profile({user}: { user: User }) {

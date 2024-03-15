@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
 import {getServerSession} from 'next-auth';
 import {authOptions} from '../auth/[...nextauth]';
-import { nanoid } from 'nanoid'
+import {nanoid} from 'nanoid'
 
 // interface RequestData {
 //   team?: string

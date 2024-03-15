@@ -1,12 +1,9 @@
 import {IconLock, IconLockOpen, IconShare} from '@tabler/icons-react';
-import {
-    Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme
-} from '@mantine/core';
+import {ActionIcon, Button, Card, CopyButton, Group, Table, Text, Tooltip, useMantineColorScheme} from '@mantine/core';
 import {Team} from '@/types/types';
 import {icons} from '../pages/register';
 import {useState} from 'react';
 import {useSWRConfig} from 'swr';
-import {log} from "util";
 
 export function TeamCard(team: Team & { userRank?: number, url: string, registered: boolean }) {
 

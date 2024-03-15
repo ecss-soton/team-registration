@@ -1,5 +1,5 @@
 import prisma from "./client";
-import {writeFileSync,mkdirSync} from 'fs'
+import {mkdirSync, writeFileSync} from 'fs'
 
 (async () => {
 

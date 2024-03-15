@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
+import {getServerSession} from 'next-auth';
+import {authOptions} from '../auth/[...nextauth]';
 
 // interface RequestData {
 //   shouldLock: boolean

@@ -1,12 +1,5 @@
-import { useState, useRef } from 'react';
-import {FileButton, Button, Group, Text, Divider} from '@mantine/core';
-import {IncomingMessage, ServerResponse} from "http";
-import {NextApiRequestCookies} from "next/dist/server/api-utils";
-import {NextApiRequest, NextApiResponse} from "next";
-import {getServerSession} from "next-auth";
-import {authOptions} from "../pages/api/auth/[...nextauth]";
-import axios from "axios";
-import prisma from "../prisma/client";
+import {useRef, useState} from 'react';
+import {Button, FileButton, Group, Text} from '@mantine/core';
 
 export function CvUpload({ fileName }: { fileName: string}) {
 

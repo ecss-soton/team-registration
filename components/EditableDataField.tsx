@@ -1,14 +1,6 @@
-import {IconLock, IconLockOpen, IconShare, IconEdit} from '@tabler/icons-react';
-import {
-    Card, Text, Group, Button, ActionIcon, Tooltip, Table, CopyButton, useMantineColorScheme, Input
-} from '@mantine/core';
-import {Team} from '@/types/types';
-import {icons} from '../pages/register';
+import {IconEdit} from '@tabler/icons-react';
+import {ActionIcon, Button, Input, Text, useMantineColorScheme} from '@mantine/core';
 import {useState} from 'react';
-import {useSWRConfig} from 'swr';
-import {log} from "util";
-import {User} from "@prisma/client";
-import Link from "next/link";
 
 interface EditableDataFieldProps {
     title: string

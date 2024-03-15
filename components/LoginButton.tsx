@@ -1,8 +1,7 @@
-import {useSession, signIn, signOut} from "next-auth/react"
+import {signIn, signOut, useSession} from "next-auth/react"
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleCheck} from '@fortawesome/free-solid-svg-icons'
-import {faDiscord, faMicrosoft} from "@fortawesome/free-brands-svg-icons";
+import {faMicrosoft} from "@fortawesome/free-brands-svg-icons";
 
 export const LoginButton: React.FC = () => {
 

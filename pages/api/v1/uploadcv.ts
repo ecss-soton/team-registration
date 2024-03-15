@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
-import { Team } from '@/types/types';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
+import {getServerSession} from 'next-auth';
+import {authOptions} from '../auth/[...nextauth]';
 // @ts-ignore
-import { IncomingForm } from 'formidable'
-import { promises as fs } from 'fs'
+import {IncomingForm} from 'formidable'
+import {promises as fs} from 'fs'
 
 export const config = {
     api: {
