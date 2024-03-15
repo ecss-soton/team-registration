@@ -24,9 +24,6 @@ interface ResponseError {
 }
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse<ResponseData | ResponseError>) {
-
-
-
     if (req.method !== 'POST' && req.method !== 'DELETE') return res.status(405).json({
         error: true, message: 'Only HTTP verb POST and DELETE are permitted',
     });
@@ -70,7 +67,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     }
 
 
-    const data: { fields: {}, files: { cv: { size: number, filepath: string, originalFilename: string }}} = await new Promise((resolve, reject) => {
+    const data: Promise<{ fields: {}, files: { cv: { size: number, filepath: string, originalFilename: string }}}> = new Promise((resolve, reject) => {
         const form = new IncomingForm()
 
         form.parse(req, (err: any, fields: any, files: any) => {
@@ -79,9 +76,17 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         })
     })
 
-    console.log("cv data", data)
+    let resolvedData;
 
-    if (!data?.files?.cv) {
+    try {
+        resolvedData = await data
+    } catch (e) {
+        return res.status(400).json({
+            error: true, message: 'Error parsing form data',
+        });
+    }
+
+    if (!resolvedData?.files?.cv?.filepath) {
         return res.status(400).json({
             error: true, message: 'You have not attached the file',
         });
@@ -90,20 +95,18 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     const MB_IN_BYTES = 1_048_576
     const MAX_FILE_SIZE = 10 * MB_IN_BYTES
 
-    if (data.files.cv.size > MAX_FILE_SIZE) {
+    if (resolvedData.files.cv.size > MAX_FILE_SIZE) {
         return res.status(400).json({
             error: true, message: 'File is too large',
         });
     }
 
-    const contents = await fs.readFile(data?.files?.cv.filepath)
-
-    console.log("cv contents", contents)
+    const contents = await fs.readFile(resolvedData.files.cv.filepath)
 
     await prisma.user.update({
         data: {
             cv: contents,
-            cvFileName: data.files.cv.originalFilename
+            cvFileName: resolvedData.files.cv.originalFilename
         },
         where: {
             id: attemptedAuth.id,
@@ -112,6 +115,6 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
     res.status(200).json({
         success: true,
-        fileName: data.files.cv.originalFilename
+        fileName: resolvedData.files.cv.originalFilename
     });
 }
