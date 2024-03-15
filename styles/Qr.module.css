@@ -1,0 +1,32 @@
+.qrReader {
+  width: 430px;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+}
+
+.qrReader video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.qrReader .qrBox {
+  width: 100% !important;
+  left: 0 !important;
+}
+
+.qrReader .qrFrame {
+  position: absolute;
+  fill: none;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+/* Media Queries for mobile screens */
+@media (max-width: 426px) {
+  .qrReader {
+    width: 100%;
+  }
+}

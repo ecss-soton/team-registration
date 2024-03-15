@@ -8,6 +8,7 @@ interface ResponseData {
     dietaryReq: string
     extra: string
     displayName: string
+    photoConsent: boolean
 }
 
 interface ResponseError {
@@ -61,7 +62,8 @@ export default async function handler(
             success: true,
             dietaryReq: user.dietaryReq || '',
             extra: user.extra || '',
-            displayName: user.displayName
+            displayName: user.displayName,
+            photoConsent: user.photoConsent || false
         });
     } catch (e) {
         res.status(404).json({
