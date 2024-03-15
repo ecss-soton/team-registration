@@ -1,18 +1,13 @@
-import {Session, getServerSession} from "next-auth";
-import {User} from "@prisma/client";
-import Head from "next/head";
-import {MainTimeline} from "@/components/Timeline";
+import {getServerSession} from "next-auth";
 import NextImage from "next/image";
 import {LoginButton} from "@/components/LoginButton";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
 import {authOptions} from "./api/auth/[...nextauth]";
-import prisma from "../prisma/client";
 import {ActionIcon, Button, Text, useMantineColorScheme} from "@mantine/core";
-import {signIn, useSession} from "next-auth/react";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 import {IconMoonStars, IconSun} from "@tabler/icons-react";
 import darkIcon from '../public/fusion_dark.svg';
 import lightIcon from '../public/fusion_light.svg'

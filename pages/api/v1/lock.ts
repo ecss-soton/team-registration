@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
-import { unstable_getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
+import {getServerSession} from 'next-auth';
+import {authOptions} from '../auth/[...nextauth]';
 
 // interface RequestData {
 //   shouldLock: boolean
@@ -25,7 +25,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     error: true, message: 'Must contain the boolean parameter shouldLock.',
   });
 
-  const attemptedAuth = await unstable_getServerSession(req, res, authOptions);
+  const attemptedAuth = await getServerSession(req, res, authOptions);
 
   if (!attemptedAuth) {
     return res.status(400).json({

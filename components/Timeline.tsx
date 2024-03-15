@@ -1,10 +1,8 @@
-import {Timeline, Text, Button, Tooltip} from '@mantine/core';
-import { IconCheck } from '@tabler/icons-react';
-import Link from "next/link";
+import {Button, Text, Timeline} from '@mantine/core';
+import {IconCheck} from '@tabler/icons-react';
 import {useEffect, useState} from 'react';
 import moment from "moment";
-import type { User } from "@prisma/client"
-import { AddToCalendarButton } from 'add-to-calendar-button-react';
+import type {User} from "@prisma/client"
 
 const stages = [
     {

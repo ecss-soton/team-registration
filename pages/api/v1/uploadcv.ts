@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
-import { Team } from '@/types/types';
-import { unstable_getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
-// @ts-ignore
-import { IncomingForm } from 'formidable'
-import { promises as fs } from 'fs'
+import {getServerSession} from 'next-auth';
+import {authOptions} from '../auth/[...nextauth]';
+import formidable from 'formidable'
+import {readFileSync, existsSync, mkdirSync} from 'fs'
+import PersistentFile from "formidable/PersistentFile";
 
 export const config = {
     api: {
@@ -25,14 +24,11 @@ interface ResponseError {
 }
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse<ResponseData | ResponseError>) {
-
-
-
     if (req.method !== 'POST' && req.method !== 'DELETE') return res.status(405).json({
         error: true, message: 'Only HTTP verb POST and DELETE are permitted',
     });
 
-    const attemptedAuth = await unstable_getServerSession(req, res, authOptions);
+    const attemptedAuth = await getServerSession(req, res, authOptions);
 
     if (!attemptedAuth) {
         return res.status(400).json({
@@ -70,49 +66,65 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         });
     }
 
-
-    const data: { fields: {}, files: { cv: { size: number, filepath: string, originalFilename: string }}} = await new Promise((resolve, reject) => {
-        const form = new IncomingForm()
-
-        form.parse(req, (err: any, fields: any, files: any) => {
-            if (err) return reject(err)
-            resolve({ fields, files })
-        })
-    })
-
-    console.log("cv data", data)
-
-    if (!data?.files?.cv) {
-        return res.status(400).json({
-            error: true, message: 'You have not attached the file',
-        });
+    const CV_DIRECTORY = `${process.cwd()}/cvs`
+    if (!existsSync(CV_DIRECTORY)) {
+        mkdirSync(CV_DIRECTORY)
     }
 
     const MB_IN_BYTES = 1_048_576
     const MAX_FILE_SIZE = 10 * MB_IN_BYTES
 
-    if (data.files.cv.size > MAX_FILE_SIZE) {
+    const form = formidable({
+        uploadDir: CV_DIRECTORY,
+        maxFiles: 1,
+        maxFileSize: MAX_FILE_SIZE,
+    })
+
+
+    const [_, files] = await form.parse(req)
+
+    const userCvFile = files?.cv?.[0] as (PersistentFile | undefined)
+
+    if (!userCvFile) {
+        console.log("files", files)
+        return res.status(400).json({
+            error: true, message: 'You have not attached the file',
+        });
+    }
+
+    const userCv = userCvFile.toJSON()
+
+    const DOT_DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    const DOT_DOC = 'application/msword'
+
+    const allowedMimeTypes = ['application/pdf', DOT_DOC, DOT_DOCX]
+    if (!allowedMimeTypes.includes(userCv.mimetype || '')) {
+        console.log("mime", userCv.mimetype)
+        return res.status(415).json({
+            error: true, message: 'Unsupported file type. Only PDF, DOC, DOCX are allowed',
+        });
+    }
+
+    if (userCv.size > MAX_FILE_SIZE) {
         return res.status(400).json({
             error: true, message: 'File is too large',
         });
     }
 
-    const contents = await fs.readFile(data?.files?.cv.filepath)
-
-    console.log("cv contents", contents)
+    const contents = readFileSync(`${CV_DIRECTORY}/${userCv.newFilename}`)
 
     await prisma.user.update({
         data: {
             cv: contents,
-            cvFileName: data.files.cv.originalFilename
+            cvFileName: userCv.originalFilename
         },
         where: {
             id: attemptedAuth.id,
         }
     });
 
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
-        fileName: data.files.cv.originalFilename
+        fileName: userCv.originalFilename || 'No file name'
     });
 }

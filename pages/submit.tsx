@@ -1,41 +1,17 @@
-import {
-    MultiSelect,
-    NativeSelect,
-    Box,
-    CloseButton,
-    SelectItemProps,
-    MultiSelectValueProps,
-    TextInput, Checkbox, SelectItem,
-    Button,
-    Text,
-    Select
-} from '@mantine/core';
+import {Button, Select, Text, TextInput} from '@mantine/core';
 
-import {RegisterForm, SubmissionForm, Tag} from '@/types/types'
+import {SubmissionForm} from '@/types/types'
 
-import {forwardRef, FunctionComponent, useState} from 'react';
-import {
-    COriginal,
-    CplusplusOriginal, CsharpOriginal, FlutterOriginal, GoOriginal,
-    JavaOriginal,
-    JavascriptOriginal,
-    KotlinPlain, PythonOriginal, RubyPlain,
-    RPlain, SqlitePlain, SwiftPlain,
-    TypescriptOriginal
-} from 'devicons-react';
+import {useState} from 'react';
 import {IncomingMessage, ServerResponse} from "http";
-import {Session, getServerSession} from "next-auth";
+import {getServerSession, Session} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {NextApiRequest, NextApiResponse} from "next";
 import prisma from "../prisma/client";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
-import Link from "next/link";
 import validator from 'validator';
-
-
-
 
 
 interface SubmitProps {

@@ -1,28 +1,21 @@
-import Head from "next/head";
-import {useSession} from "next-auth/react";
-import {LoginButton} from "@/components/LoginButton";
 import {MainTimeline} from "@/components/Timeline"
-import {Session, getServerSession} from "next-auth";
+import {getServerSession, Session} from "next-auth";
 import {authOptions} from "./api/auth/[...nextauth]";
-import { IncomingMessage, ServerResponse } from "http";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextApiRequestCookies } from "next/dist/server/api-utils";
-import {User,Team} from "@prisma/client";
+import {IncomingMessage, ServerResponse} from "http";
+import {NextApiRequest, NextApiResponse} from "next";
+import {NextApiRequestCookies} from "next/dist/server/api-utils";
+import {Team, User} from "@prisma/client";
 import prisma from "../prisma/client";
 import NextImage from "next/image";
-import {Button, Text, Image, Tabs, useMantineColorScheme, ActionIcon, Badge} from "@mantine/core";
-import Link from "next/link";
+import {ActionIcon, Badge, Button, Tabs, Text, useMantineColorScheme} from "@mantine/core";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
-import {IconUsers, IconTimeline, IconSun, IconMoonStars, IconUserCircle, IconCertificate} from "@tabler/icons-react";
-import {TeamCard} from "@/components/TeamCard";
+import {IconCertificate, IconMoonStars, IconSun, IconTimeline, IconUserCircle, IconUsers} from "@tabler/icons-react";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
 import darkIcon from '../public/fusion_dark.svg';
 import lightIcon from '../public/fusion_light.svg'
-
-import {useRef} from "react";
 import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, team }: { session: Session, user: User, team: Team }) {

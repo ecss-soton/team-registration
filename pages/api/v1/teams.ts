@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {NextApiRequest, NextApiResponse} from 'next';
 import prisma from '../../../prisma/client';
-import { Team } from '@/types/types';
-import { unstable_getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]';
+import {Team} from '@/types/types';
+import {getServerSession} from 'next-auth';
+import {authOptions} from '../auth/[...nextauth]';
 
 interface ResponseData {
   yourTeam?: string,
@@ -20,7 +20,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     error: true, message: 'Only HTTP verb GET is permitted',
   });
 
-  const attemptedAuth = await unstable_getServerSession(req, res, authOptions);
+  const attemptedAuth = await getServerSession(req, res, authOptions);
 
   if (!attemptedAuth) {
     return res.status(400).json({

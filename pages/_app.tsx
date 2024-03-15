@@ -1,10 +1,9 @@
 import "@/styles/globals.css";
 import {AppProps} from "next/app";
 import {SessionProvider, useSession} from "next-auth/react";
-import {createEmotionCache, MantineProvider, ColorSchemeProvider, ColorScheme} from "@mantine/core";
+import {ColorScheme, ColorSchemeProvider, createEmotionCache, MantineProvider} from "@mantine/core";
 import {NextComponentType, NextPageContext} from "next";
 import Head from "next/head";
-import {useState} from "react";
 import {useLocalStorage} from "@mantine/hooks";
 
 const myCache = createEmotionCache({key: 'mantine', prepend: false});

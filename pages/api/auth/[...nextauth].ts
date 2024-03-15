@@ -1,10 +1,10 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
-import AzureADProvider, { AzureADProfile } from 'next-auth/providers/azure-ad';
+import NextAuth, {NextAuthOptions} from 'next-auth';
+import AzureADProvider, {AzureADProfile} from 'next-auth/providers/azure-ad';
 import {PrismaAdapter} from "@next-auth/prisma-adapter"
 import prisma from "../../../prisma/client";
 import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
-import { OAuthConfig } from 'next-auth/providers';
+import {OAuthConfig} from 'next-auth/providers';
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),

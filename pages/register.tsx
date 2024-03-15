@@ -1,12 +1,15 @@
 import {
-    MultiSelect,
-    NativeSelect,
     Box,
+    Button,
+    Checkbox,
     CloseButton,
-    SelectItemProps,
+    MultiSelect,
     MultiSelectValueProps,
-    TextInput, Checkbox, SelectItem,
-    Button, Text
+    NativeSelect,
+    SelectItem,
+    SelectItemProps,
+    Text,
+    TextInput
 } from '@mantine/core';
 
 import {RegisterForm, Tag} from '@/types/types'
@@ -14,22 +17,24 @@ import {RegisterForm, Tag} from '@/types/types'
 import {forwardRef, FunctionComponent, useState} from 'react';
 import {
     COriginal,
-    CplusplusOriginal, CsharpOriginal, FlutterOriginal, GoOriginal, HaskellOriginal,
+    CplusplusOriginal,
+    CsharpOriginal,
+    FlutterOriginal,
+    GoOriginal,
+    HaskellOriginal,
     JavaOriginal,
     JavascriptOriginal,
-    KotlinPlain, PythonOriginal, RubyPlain, RustOriginal,
-    SqlitePlain, SwiftPlain,
+    KotlinPlain,
+    PythonOriginal,
+    RubyPlain,
+    RustOriginal,
+    SqlitePlain,
+    SwiftPlain,
     TypescriptOriginal
 } from 'devicons-react';
-import {IncomingMessage, ServerResponse} from "http";
-import {Session, getServerSession} from "next-auth";
-import {authOptions} from "./api/auth/[...nextauth]";
-import {NextApiRequestCookies} from "next/dist/server/api-utils";
-import {NextApiRequest, NextApiResponse} from "next";
-import prisma from "../prisma/client";
+import {Session} from "next-auth";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
-import Link from "next/link";
 
 
 const langData: (SelectItem & { value: Tag })[] = [
