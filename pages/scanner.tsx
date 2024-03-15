@@ -1,38 +1,119 @@
 import {Button, TextInput} from '@mantine/core';
-import React, {useState} from 'react';
-import QrCodeReader from "react-qrcode-reader";
+import React, {useState, useEffect, useRef} from 'react';
+import classes from '../styles/Qr.module.css';
+import QrScanner from "qr-scanner";
+import QrFrame from '../public/qr-frame.svg';
+import Image from 'next/image';
 
 export default function Qr() {
     interface ICheckedIn {
         success: boolean
         dietaryReq: string
         extra: string
-        displayName: string
+        displayName: string,
+        errorMsg: string
     }
 
-    const [data, setData] = useState<ICheckedIn>({ success: false, dietaryReq: 'N/A', extra: 'N/A', displayName: 'N/A' });
-    const [showScanner, setShowScanner] = useState(true);
+    const [data, setData] = useState<ICheckedIn>({
+        success: false,
+        dietaryReq: 'N/A',
+        extra: 'N/A',
+        displayName: 'N/A',
+        errorMsg: ''
+    });
     const [manualID, setManualID] = useState('');
 
 
     const checkIn = async (id: string) => {
-        setShowScanner(false)
+        toggleScanner(false)
         const res = await fetch("/hackathon/api/v1/checkin", {
             method: "post",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id })
+            body: JSON.stringify({id})
         })
 
-        const res2 = await res.json()
-        console.log("scanner res2", res2)
-        if (res2.success) {
-            setData(res2);
+        const data = await res.json()
+
+        if (data.success) {
+            setData({
+                ...data,
+                errorMsg: '',
+            });
         } else {
-            setData({ success: false, dietaryReq: 'N/A', extra: 'N/A', displayName: res2.message || "Uh Oh! An error occurred" });
+            setData({
+                success: false,
+                dietaryReq: 'N/A',
+                extra: 'N/A',
+                displayName: 'N/A',
+                errorMsg: data.message || "Uh Oh! An error occurred"
+            });
         }
+    }
+
+    const scanner = useRef<QrScanner>();
+    const videoEl = useRef<HTMLVideoElement>(null);
+    const qrBoxEl = useRef<HTMLDivElement>(null);
+    const [qrOn, setQrOn] = useState<boolean>(false);
+
+    const onScanSuccess = (result: QrScanner.ScanResult) => {
+        if (result?.data && !qrOn) {
+            checkIn(result.data)
+        }
+    };
+
+    // Fail
+    const onScanFail = (err: string | Error) => {
+        console.log(err);
+    };
+
+    const toggleScanner = (state?: boolean) => {
+
+        if (!videoEl?.current) return;
+
+        if (!scanner?.current) {
+
+            scanner.current = new QrScanner(videoEl?.current, onScanSuccess, {
+                onDecodeError: onScanFail,
+                preferredCamera: "environment", // Front facing camera
+                highlightScanRegion: true,
+                highlightCodeOutline: true,
+                overlay: qrBoxEl?.current || undefined,
+            });
+
+            scanner.current?.start();
+        }
+
+        if (scanner?.current) {
+
+            if (state === true) {
+                scanner?.current?.start();
+                setQrOn(true);
+                return;
+            }
+
+            if (state === false) {
+                scanner?.current?.stop();
+                setQrOn(false);
+                return;
+            }
+
+            if (qrOn) {
+                scanner?.current?.stop();
+                setQrOn(false);
+                return;
+            } else {
+                scanner?.current?.start();
+                setQrOn(true);
+                return;
+            }
+
+
+        }
+
+
     }
 
     return (
@@ -42,11 +123,12 @@ export default function Qr() {
                     <Button variant='outline' component="a" href={"/hackathon/"}>
                         Back
                     </Button>
-                    <Button variant='filled' component="a" onClick={() => setShowScanner(!showScanner)}>
+                    <Button variant='filled' component="a" onClick={() => toggleScanner()}>
                         Toggle scanner
                     </Button>
-                    <TextInput hidden={showScanner} value={manualID} onChange={(event) => setManualID(event.currentTarget.value)}/>
-                    <Button hidden= {showScanner} variant='filled' component="a" onClick={() => checkIn(manualID)}>
+                    <TextInput hidden={qrOn} value={manualID}
+                               onChange={(event) => setManualID(event.currentTarget.value)}/>
+                    <Button hidden={qrOn} variant='filled' component="a" onClick={() => checkIn(manualID)}>
                         Submit Id
                     </Button>
                 </div>
@@ -57,17 +139,27 @@ export default function Qr() {
                                 <div>Name: {data.displayName}</div>
                                 <div>Dietary: {data.dietaryReq}</div>
                                 <div>Extra: {data.extra}</div>
+                                <Button hidden={qrOn} variant='filled' component="a" onClick={() => checkIn(manualID)}>
+                                    Next
+                                </Button>
                             </div> :
                             <div>Error: {data.displayName}</div>
                     }
                 </div>
-                {
-                    showScanner &&
-                    <div className='w-1/3 m-10'>
-                        <QrCodeReader delay={100} width={500} height={500} action={checkIn} />
+                <div hidden={!qrOn} className={classes.qrReader}>
+
+                    <video ref={videoEl}></video>
+                    <div ref={qrBoxEl} className={classes.qrBox}>
+                        <Image
+                            src={QrFrame}
+                            alt="Qr Frame"
+                            width={256}
+                            height={256}
+                            className={classes.qrFrame}/>
                     </div>
 
-                }
+
+                </div>
             </div>
 
 
