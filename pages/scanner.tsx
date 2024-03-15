@@ -11,6 +11,7 @@ export default function Qr() {
         dietaryReq: string
         extra: string
         displayName: string,
+        photoConsent: boolean,
         errorMsg: string
     }
 
@@ -19,6 +20,7 @@ export default function Qr() {
         dietaryReq: 'N/A',
         extra: 'N/A',
         displayName: 'N/A',
+        photoConsent: false,
         errorMsg: ''
     });
     const [manualID, setManualID] = useState('');
@@ -48,6 +50,7 @@ export default function Qr() {
                 dietaryReq: 'N/A',
                 extra: 'N/A',
                 displayName: 'N/A',
+                photoConsent: false,
                 errorMsg: data.message || "Uh Oh! An error occurred"
             });
         }
@@ -136,12 +139,11 @@ export default function Qr() {
                     {
                         data.success ?
                             <div>
+                                <p className='text-2xl font-bold'>Make sure to ask them if this is correct!</p>
                                 <div>Name: {data.displayName}</div>
                                 <div>Dietary: {data.dietaryReq}</div>
                                 <div>Extra: {data.extra}</div>
-                                <Button hidden={qrOn} variant='filled' component="a" onClick={() => checkIn(manualID)}>
-                                    Next
-                                </Button>
+                                <div>Photo consent: {data.photoConsent ? 'Yes photos allowed' : 'No - double check they want this'}</div>
                             </div> :
                             <div>Error: {data.displayName}</div>
                     }
