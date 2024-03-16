@@ -80,6 +80,8 @@ export default function Home({ session, user, team }: { session: Session, user: 
 
                         <Button className='m-3' component="a" href={"/hackathon/teams"}>View teams</Button>
 
+                        <Button className='m-3' component="a" href={"/hackathon/qr"}>Sign in QR code</Button>
+
                         {new Date() > new Date("16 march 2024 11:00:00") &&
                             <Button variant="outline" className='m-3' component="a" href={"/hackathon/submit"}>Submit your project</Button>
                         }
