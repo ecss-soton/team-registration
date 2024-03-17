@@ -33,17 +33,17 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
     const valueTooLongMessage = 'Please use less than 200 characters'
 
     const allTimeSlots = [
-        '12:45-12:53',
-        '12:53-13:01',
-        '13:01-13:09',
-        '13:09-13:17',
-        '13:17-13:25',
+        '12:30-12:38',
+        '12:39-12:47',
+        '12:48-12:56',
+        '12:57-13:05',
+        '13:06-13:14',
 
-        '13:45-13:53',
-        '13:53-14:01',
-        '14:01-14:09',
-        '14:09-14:17',
-        '14:17-14:25',
+        '13:30-13:38',
+        '13:39-13:47',
+        '14:48-13:56',
+        '13:57-14:05',
+        '14:06-14:14',
 
         'any'
     ].filter(i => !takenSlots.includes(i))
