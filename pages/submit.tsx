@@ -41,7 +41,7 @@ export default function Submit({ session, submission, takenSlots }: SubmitProps)
 
         '13:30-13:38',
         '13:39-13:47',
-        '14:48-13:56',
+        '13:48-13:56',
         '13:57-14:05',
         '14:06-14:14',
 
