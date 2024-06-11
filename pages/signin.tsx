@@ -9,8 +9,8 @@ import {ActionIcon, Button, Text, useMantineColorScheme} from "@mantine/core";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {IconMoonStars, IconSun} from "@tabler/icons-react";
-import darkIcon from '../public/fusion_dark.svg';
-import lightIcon from '../public/fusion_light.svg'
+import darkIcon from '../public/pride_dark.png';
+import lightIcon from '../public/pride_light.png'
 // @ts-ignore
 export default function SignIn({ url }) {
 
@@ -43,11 +43,13 @@ export default function SignIn({ url }) {
                     {dark ? <NextImage
                         className='max-h-72'
                         src={darkIcon}
-                        alt="Fusion ECSS hackathon logo"
+                        alt="Prde ECSS hackathon logo"
+                        style={{ objectFit: 'contain' }}
                     /> : <NextImage
                         className='max-h-72'
                         src={lightIcon}
-                        alt="Fusion ECSS hackathon logo"
+                        alt="Pride ECSS hackathon logo"
+                        style={{ objectFit: 'contain' }}
                     />}
 
                 </div>
