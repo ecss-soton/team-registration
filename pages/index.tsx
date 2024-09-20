@@ -14,8 +14,8 @@ import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 import {IconCertificate, IconMoonStars, IconSun, IconTimeline, IconUserCircle, IconUsers} from "@tabler/icons-react";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
-import darkIcon from '../public/fusion_dark.svg';
-import lightIcon from '../public/fusion_light.svg'
+import darkIcon from '../public/hackstart-hex.svg';
+import lightIcon from '../public/hackstart-hex.svg'
 import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, team }: { session: Session, user: User, team: Team }) {
@@ -64,7 +64,7 @@ export default function Home({ session, user, team }: { session: Session, user: 
                 <div>
                     <Text>
                         Welcome to the first ECSS hackathon of this academic year!
-                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> on Saturday 16th March at 10:30am.
+                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> on Saturday 28th September at 10:00am.
                     </Text>
 
                     <div className='flex flex-row flex-wrap justify-center'>
@@ -72,7 +72,7 @@ export default function Home({ session, user, team }: { session: Session, user: 
                             styles={{ root: { backgroundColor: '#5865F2', '&:hover': { backgroundColor: '#3c48d2' } } }}
                             leftIcon={<FontAwesomeIcon icon={faDiscord} className='text-white text-lg h-4 w-5'/>}
                             target='_blank'
-                            href={'https://discord.gg/cttEkkGZJC'}
+                            href={'https://discord.gg/T7chag3C'}
                             component="a"
                             className='m-3'>
                             Join discord
