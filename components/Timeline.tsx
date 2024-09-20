@@ -7,7 +7,7 @@ import type {User} from "@prisma/client"
 const stages = [
     {
         title: "Hackathon registration opens",
-        date: new Date("4 march 2024 20:00:00"), // TODO
+        date: new Date("20 september 2024 09:00:00"), // TODO
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
                 {!registered &&
@@ -52,7 +52,7 @@ const stages = [
     },
     {
         title: "Arrive",
-        date: new Date("16 march 2024 10:30:00"),
+        date: new Date("28 september 2024 10:00:00"),
         content: ({ registered }: User) => (
             <div>
                 <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> and check in with the helpers</Text>
@@ -64,18 +64,18 @@ const stages = [
     },
     {
         title: "Theme presentation and introduction talk",
-        date: new Date("16 march 2024 11:00:00"),
+        date: new Date("28 september 2024 10:30:00"),
         content: () => (
             <Text>Find out the theme for this hackathon</Text>
         )
     },
-    {
-        title: "Lunch",
-        date: new Date("16 march 2024 14:00:00"),
-        content: () => (
-            <Text>Midway refuel!</Text>
-        )
-    },
+    // {
+    //     title: "Lunch",
+    //     date: new Date("16 march 2024 14:00:00"),
+    //     content: () => (
+    //         <Text>Midway refuel!</Text>
+    //     )
+    // },
     // {
     //     title: "Team paper aeroplane competition",
     //     date: new Date("16 march 2024 12:00:00"),
@@ -90,74 +90,74 @@ const stages = [
     //         <Text>What links Southampton and digital watches? No clue? Follow the wikipedia links to find out!</Text>
     //     )
     // },
-    {
-        title: "S'hack Zone Opens",
-        date: new Date("16 march 2024 18:00:00"),
-        content: () => (
-            <Text>All that hacking gets tiring, so take a bean bag and chill out!</Text>
-        )
-    },
-    {
-        title: "Dinner",
-        date: new Date("16 march 2024 19:00:00"),
-        content: () => (
-            <Text>Enjoy some well-earned pizza!</Text>
-        )
-    },
-    {
-        title: "Challenges and Tournaments",
-        date: new Date("16 march 2024 20:00:00"),
-        content: () => (
-            <Text>Compete in some fun challenges to earn prizes!</Text>
-        )
-    },
-    {
-        title: "Breakfast",
-        date: new Date("17 march 2024 09:00:00"),
-        content: () => (
-            <Text>All that hacking gets tiring, refuel with some free cookies!</Text>
-        )
-    },
-    {
-        title: "Lunch 2",
-        date: new Date("17 march 2024 11:30:00"),
-        content: () => (
-            <Text>Your second lunch</Text>
-        )
-    },
     // {
-    //     title: "Mario Kart tournament",
-    //     date: new Date("1 october 2022 19:00:00"),
-    //     content: (
-    //         <Text>Join the Mario Kart tournament to see who can go round Rainbow road the fastest</Text>
+    //     title: "S'hack Zone Opens",
+    //     date: new Date("16 march 2024 18:00:00"),
+    //     content: () => (
+    //         <Text>All that hacking gets tiring, so take a bean bag and chill out!</Text>
     //     )
     // },
-    {
-        title: "Project submission deadlines",
-        date: new Date("17 march 2024 12:00:00"),
-        content: () => (
-            <Text>Add your finishing touches to your project before your final submission</Text>
-        ),
-        hidden: () => (
-            <>
-                <Button className='mt-3' component="a" href={"/hackathon/submit"}>Submit your project</Button>
-            </>
-        )
-    },
-    {
-        title: "Team presentations",
-        date: new Date("17 march 2024 12:45:00"),
-        content: () => (
-            <Text>Show us what you have created!</Text>
-        )
-    },
-    {
-        title: "Winners announced",
-        date: new Date("17 march 2024 15:00:00"),
-        content: () => (
-            <Text>Prizes will be given out the members of the top 4 teams</Text>
-        )
-    }
+    // {
+    //     title: "Dinner",
+    //     date: new Date("16 march 2024 19:00:00"),
+    //     content: () => (
+    //         <Text>Enjoy some well-earned pizza!</Text>
+    //     )
+    // },
+    // {
+    //     title: "Challenges and Tournaments",
+    //     date: new Date("16 march 2024 20:00:00"),
+    //     content: () => (
+    //         <Text>Compete in some fun challenges to earn prizes!</Text>
+    //     )
+    // },
+    // {
+    //     title: "Breakfast",
+    //     date: new Date("17 march 2024 09:00:00"),
+    //     content: () => (
+    //         <Text>All that hacking gets tiring, refuel with some free cookies!</Text>
+    //     )
+    // },
+    // {
+    //     title: "Lunch 2",
+    //     date: new Date("17 march 2024 11:30:00"),
+    //     content: () => (
+    //         <Text>Your second lunch</Text>
+    //     )
+    // },
+    // // {
+    // //     title: "Mario Kart tournament",
+    // //     date: new Date("1 october 2022 19:00:00"),
+    // //     content: (
+    // //         <Text>Join the Mario Kart tournament to see who can go round Rainbow road the fastest</Text>
+    // //     )
+    // // },
+    // {
+    //     title: "Project submission deadlines",
+    //     date: new Date("17 march 2024 12:00:00"),
+    //     content: () => (
+    //         <Text>Add your finishing touches to your project before your final submission</Text>
+    //     ),
+    //     hidden: () => (
+    //         <>
+    //             <Button className='mt-3' component="a" href={"/hackathon/submit"}>Submit your project</Button>
+    //         </>
+    //     )
+    // },
+    // {
+    //     title: "Team presentations",
+    //     date: new Date("17 march 2024 12:45:00"),
+    //     content: () => (
+    //         <Text>Show us what you have created!</Text>
+    //     )
+    // },
+    // {
+    //     title: "Winners announced",
+    //     date: new Date("17 march 2024 15:00:00"),
+    //     content: () => (
+    //         <Text>Prizes will be given out the members of the top 4 teams</Text>
+    //     )
+    // }
 ]
 
 export const MainTimeline = ({ user }: { user: User }) => {
