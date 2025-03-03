@@ -14,8 +14,8 @@ import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 import {IconCertificate, IconMoonStars, IconSun, IconTimeline, IconUserCircle, IconUsers} from "@tabler/icons-react";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
-import darkIcon from '../public/hackstart-hex.svg';
-import lightIcon from '../public/hackstart-hex.svg'
+import darkIcon from '../public/sotonhacksvg.svg';
+import lightIcon from '../public/sotonhacksvg.svg'
 import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, team }: { session: Session, user: User, team: Team }) {
@@ -77,6 +77,8 @@ export default function Home({ session, user, team }: { session: Session, user: 
                             className='m-3'>
                             Join discord
                         </Button>
+
+                        <Button className='m-3' component="a" href={"/hackathon/register"}>Register Here</Button>
 
                         <Button className='m-3' component="a" href={"/hackathon/teams"}>View teams</Button>
 
