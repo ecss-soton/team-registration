@@ -54,10 +54,9 @@ export default function SignIn({ url }) {
 
                 </div>
 
-                <h1 className="font-bold text-6xl mt-10">ECSS Hackathon registration</h1>
+                <h1 className="font-bold text-6xl mt-10">ECSS SotonHack registration</h1>
 
                 <Text className='my-5'>
-                    A freshers only hackathon to help Jumpstart your coding.
                     Login with your university account to register, join a team and see all the details!
                 </Text>
 
