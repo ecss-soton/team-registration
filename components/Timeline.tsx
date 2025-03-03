@@ -7,7 +7,7 @@ import type {User} from "@prisma/client"
 const stages = [
     {
         title: "Hackathon registration opens",
-        date: new Date("20 september 2024 09:00:00"), // TODO
+        date: new Date("4 march 2025 09:00:00"), // TODO
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
                 {!registered &&
