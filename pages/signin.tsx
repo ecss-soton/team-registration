@@ -9,8 +9,8 @@ import {ActionIcon, Button, Text, useMantineColorScheme} from "@mantine/core";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {IconMoonStars, IconSun} from "@tabler/icons-react";
-import darkIcon from '../public/sotonhacktrans.png';
-import lightIcon from '../public/sotonhacktrans.png'
+import darkIcon from '../public/hackstart-hex.svg';
+import lightIcon from '../public/hackstart-hex.svg'
 // @ts-ignore
 export default function SignIn({ url }) {
 
