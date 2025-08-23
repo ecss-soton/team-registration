@@ -14,8 +14,8 @@ import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 import {IconCertificate, IconMoonStars, IconSun, IconTimeline, IconUserCircle, IconUsers} from "@tabler/icons-react";
 import {CvUpload} from "@/components/CvUpload";
 import {useRouter} from "next/router";
-import darkIcon from '../public/sotonhacktrans.png';
-import lightIcon from '../public/sotonhacktrans.png'
+import darkIcon from '../public/hackstart-hex.svg';
+import lightIcon from '../public/hackstart-hex.svg'
 import {Profile} from "@/components/Profile";
 
 export default function Home({ session, user, team }: { session: Session, user: User, team: Team }) {
@@ -65,8 +65,8 @@ export default function Home({ session, user, team }: { session: Session, user: 
 
                 <div>
                     <Text>
-                        Welcome to SotonHack!
-                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> on Saturday 15th March at 10:00am.
+                        Welcome to HackStart!
+                        Meet us in <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> on Saturday 27th September at 10:00am.
                     </Text>
 
                     <div className='flex flex-row flex-wrap justify-center'>

@@ -7,7 +7,7 @@ import type {User} from "@prisma/client"
 const stages = [
     {
         title: "Hackathon registration opens",
-        date: new Date("3 march 2025 09:00:00"), // TODO
+        date: new Date("20 september 2025 09:00:00"), // TODO
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
                 {!registered &&
@@ -52,7 +52,7 @@ const stages = [
     },
     {
         title: "Arrive",
-        date: new Date("15 march 2025 10:00:00"),
+        date: new Date("28 september 2025 10:00:00"),
         content: ({ registered }: User) => (
             <div>
                 <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> and check in with the helpers</Text>
@@ -64,7 +64,7 @@ const stages = [
     },
     {
         title: "Theme presentation and introduction talk",
-        date: new Date("15 march 2025 10:30:00"),
+        date: new Date("28 september 2025 10:30:00"),
         content: () => (
             <Text>Find out the theme for this hackathon</Text>
         )
