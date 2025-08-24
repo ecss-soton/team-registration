@@ -2,7 +2,6 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {getServerSession} from "next-auth";
 import {authOptions} from "../auth/[...nextauth]";
 import prisma from "../../../prisma/client";
-import {RegisterForm} from "@/types/types";
 
 interface ResponseData {
     success: boolean
@@ -30,28 +29,33 @@ export default async function handler(
         });
     }
 
-    const formData: RegisterForm = req.body;
-
-    if (!formData.yearOfStudy || !formData.knownLanguages) {
-        return res.status(400).json({
-            error: true, message: 'Missing properties',
-        });
-    }
-
     try {
+        const user = await prisma.user.findUnique({
+            where: { id: attemptedAuth.id },
+            select: { checkedIn: true }
+        });
+        if (!user) {
+            return res.status(404).json({
+                error: true,
+                message: "This user does not exist"
+            });
+        }
+        let flippedCheckedIn = false
+        if (user.checkedIn == null) {
+            flippedCheckedIn = true
+        } else {
+            flippedCheckedIn = !user.checkedIn;
+        }
+
+
         await prisma.user.update({
             data: {
-                tags: formData.knownLanguages,
-                yearOfStudy: formData.yearOfStudy,
-                dietaryReq: formData.dietaryReq || undefined,
-                extra: formData.extra || undefined,
-                photoConsent: formData.photoConsent,
-                registered: true,
+                checkedIn: flippedCheckedIn,
             },
             where: {
                 id: attemptedAuth.id
             }
-        })
+        });
 
         res.status(200).json({
             success: true,

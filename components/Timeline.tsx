@@ -4,15 +4,60 @@ import {useEffect, useState} from 'react';
 import moment from "moment";
 import type {User} from "@prisma/client"
 
-const stages = [
+
+export const MainTimeline = ({ user }: { user: User }) => {
+
+    const [isIntrested, setIsIntrested] = useState(user.intrested);
+    const [isCheckedIn, setIsCheckedIn] = useState(user.checkedIn);
+
+    const registerIntrest = async () => {
+    const res = await fetch("/hackathon/api/v1/intrest", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        const res2 = await res.json()
+        console.log("register res2", res2)
+        if (res2.success) {
+            const newIsIntrested = !isIntrested
+            setIsIntrested(newIsIntrested)
+        }
+    }
+
+    const onSignIn = async () => {
+    const res = await fetch("/hackathon/api/v1/signin", {
+        method: "post",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        })
+        const res2 = await res.json()
+        console.log("register res2", res2)
+        if (res2.success) {
+            const newIsCheckedIn = !isCheckedIn
+            setIsIntrested(newIsCheckedIn)
+        }
+    }
+
+    const stages = [
+    {
+        title: "Welcome to Hackstart",
+        // date: new Date(("20 august 2025 09:00:00")),
+        content: ({ registered }: User) => (
+        <div className='flex flex-row'>
+            <Button className='m-3' color={isIntrested ? "green" : ""} onClick={registerIntrest}>{"I'm Intrested"}</Button>
+        </div>
+        )  
+    },    
     {
         title: "Hackathon registration opens",
         date: new Date("20 september 2025 09:00:00"), // TODO
         content: ({ registered }: User) => (
             <div className='flex flex-row'>
-                {!registered &&
-                    <Button component="a" href={"/hackathon/register"}>Register</Button>
-                }
+                <Button component='a' href='/hackathon/register'>Register</Button>
                 {/*<div className='w-1/2'>*/}
                 {/*    <AddToCalendarButton // https://add-to-calendar-button.com/en/configuration#style-parameters*/}
                 {/*        trigger="click"*/}
@@ -57,7 +102,7 @@ const stages = [
             <div>
                 <Text>Turn up to <Text variant="link" component="a" href="https://data.southampton.ac.uk/building/60.html">Building 60</Text> and check in with the helpers</Text>
                 {registered &&
-                    <Button className='mt-3' component="a" href={"/hackathon/qr"}>View sign in QR code</Button>
+                    <Button className='m-3' color={isCheckedIn ? "green" : ""} onClick={onSignIn}>{isCheckedIn ? "Checked In" : "Check In"}</Button>
                 }
             </div>
         )
@@ -69,6 +114,7 @@ const stages = [
             <Text>Find out the theme for this hackathon</Text>
         )
     },
+
     // {
     //     title: "Lunch",
     //     date: new Date("16 march 2024 14:00:00"),
@@ -158,9 +204,7 @@ const stages = [
     //         <Text>Prizes will be given out the members of the top 4 teams</Text>
     //     )
     // }
-]
-
-export const MainTimeline = ({ user }: { user: User }) => {
+    ]    
 
     let stage = -1;
     if (user.registered) stage++;
@@ -168,11 +212,15 @@ export const MainTimeline = ({ user }: { user: User }) => {
 
     const now = Date.now();
 
-    for (const event of stages) {
+    for (const event of stages) { //current stage logic, will break if it reaches an event past current time
         if (event.date) {
             if (now > event.date.getTime()) {
                 stage++;
+            } else {
+                break;
             }
+        } else {
+            stage++;
         }
     }
 
@@ -215,9 +263,9 @@ export const MainTimeline = ({ user }: { user: User }) => {
                                 !v.date ? null :
                                     <Text size="xs" color="dimmed" mt={4}>{moment(v.date).format("dddd, MMMM Do, h:mm a")}</Text>
                             }
-                            <Text size="sm">
+                            {/* <Text size="sm">
                                 {v.content(user)}
-                            </Text>
+                            </Text> */}
                         </Timeline.Item>
                     )
                 }

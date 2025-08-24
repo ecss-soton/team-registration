@@ -80,11 +80,11 @@ export default function Home({ session, user, team }: { session: Session, user: 
                             Join discord
                         </Button>
 
-                        <Button className='m-3' component="a" href={"/hackathon/register"}>Register Here</Button>
+                        {/* <Button className='m-3' component="a" href={"/hackathon/register"}>Update Profile Info</Button> */}
 
                         <Button className='m-3' component="a" href={"/hackathon/teams"}>View teams</Button>
 
-                        <Button className='m-3' component="a" href={"/hackathon/qr"}>Sign in QR code</Button>
+                        {/* <Button className='m-3' component="a" href={"/hackathon/qr"}>Sign in QR code</Button> */}
 
                         {new Date() > new Date("16 march 2024 11:00:00") &&
                             <Button variant="outline" className='m-3' component="a" href={"/hackathon/submit"}>Submit your project</Button>
@@ -100,11 +100,11 @@ export default function Home({ session, user, team }: { session: Session, user: 
                         <Tabs.Tab value="timeline" icon={<IconTimeline size={14} />}>Timeline</Tabs.Tab>
                         <Tabs.Tab value="team" icon={<IconUsers size={14} />}>Your Team</Tabs.Tab>
                         <Tabs.Tab value="profile" icon={<IconUserCircle size={14} />}>Profile</Tabs.Tab>
-                        <Tabs.Tab
+                        {/* <Tabs.Tab
                             value="cv"
                             icon={<IconCertificate size={14} />}
                             rightSection={!user.cvFileName && <Badge>NEW</Badge>}
-                        >CV Upload</Tabs.Tab>
+                        >CV Upload</Tabs.Tab> */}
                     </Tabs.List>
 
                     <Tabs.Panel value="timeline" pt="xs">
