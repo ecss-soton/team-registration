@@ -47,12 +47,13 @@ model User {
   discordId   String? @unique @db.VarChar(20)
   discordTag  String? @unique @db.VarChar(37) // 32 chars + 5
 
+  intrested    Boolean @default(false)
   registered   Boolean @default(false)
   tags         Tag[]
   yearOfStudy  Int?
   dietaryReq   String?
   extra        String?
-  photoConsent Boolean?
+  photoConsent Boolean? 
 
   checkedIn   Boolean @default(false)
 
