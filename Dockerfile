@@ -19,7 +19,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+
+COPY prisma ./prisma
+
 COPY .env.production .env
+
+RUN npm run prisma:dbpush
 
 RUN npm run build
 
