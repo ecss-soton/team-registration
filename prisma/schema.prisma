@@ -42,10 +42,19 @@ model User {
 
   firstName   String  @db.VarChar(255)
   lastName    String  @db.VarChar(255)
+  fullName    String?  @db.VarChar(255)
   displayName String  @db.VarChar(255)
   sotonId     String  @unique @db.VarChar(50) // ec3g21
   discordId   String? @unique @db.VarChar(20)
   discordTag  String? @unique @db.VarChar(37) // 32 chars + 5
+  intro       String? @db.VarChar(255)
+  participation String? @db.VarChar(255)
+  teamMember1 String? @db.VarChar(255)
+  teamMember2 String? @db.VarChar(255)
+  teamMember3 String? @db.VarChar(255)
+  teamMember4 String? @db.VarChar(255)
+  howDidHear  String? @db.VarChar(255)
+
 
   intrested    Boolean @default(false)
   registered   Boolean @default(false)
