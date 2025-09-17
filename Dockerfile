@@ -22,10 +22,6 @@ COPY . .
 
 COPY prisma ./prisma
 
-COPY .env.production .env
-
-RUN npm run prisma:dbpush
-
 RUN npm run build
 
 FROM base AS runner
@@ -35,6 +31,8 @@ ENV NODE_ENV=production
 
 
 COPY --from=builder /app/public ./public
+
+COPY --from=builder /app/prisma ./prisma
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
