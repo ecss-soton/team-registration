@@ -321,19 +321,19 @@ export default function Home({ session, user, team }: { session: Session, user: 
                         {...form.getInputProps('participation')}
                     />
                     <TextInput
-                        label="Name of Team Memeber 1"
+                        label="Name of Team Member 1"
                         {...form.getInputProps('teamMember1')}
                     />
                     <TextInput
-                        label="Name of Team Memeber 2"
+                        label="Name of Team Member 2"
                         {...form.getInputProps('teamMember2')}
                     />
                     <TextInput
-                        label="Name of Team Memeber 3"
+                        label="Name of Team Member 3"
                         {...form.getInputProps('teamMember3')}
                     />
                     <TextInput
-                        label="Name of Team Memeber 4"
+                        label="Name of Team Member 4"
                         {...form.getInputProps('teamMember4')}
                     />
 
