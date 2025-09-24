@@ -169,7 +169,7 @@ export default function Home({ session, user, team }: { session: Session, user: 
             fullName: '',
             discordUsername: '',
             intro: '',
-            participation: '',
+            participation: 'Place me in a team',
             teamMember1: '',
             teamMember2: '',
             teamMember3: '',
