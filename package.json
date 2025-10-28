@@ -52,7 +52,7 @@
     "react-dom": "18.2.0",
     "react-qr-code": "^2.0.12",
     "swr": "^2.2.5",
-    "validator": "^13.11.0"
+    "validator": "^13.15.20"
   },
   "devDependencies": {
     "@types/formidable": "^3.4.5",
